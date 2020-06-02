@@ -1,0 +1,23 @@
+.post{
+    margin: 20px 0;
+display: grid;
+    grid-template-rows: repeat(2,auto);
+    grid-template-columns: 20% 1fr;
+    row-gap: 5px;
+}
+.post__user{
+    grid-column: 1/2;
+    align-self: start;
+    justify-self: center;
+}
+
+.post__content{
+   grid-column: 2/3;
+}
+
+.post__like{
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+
+

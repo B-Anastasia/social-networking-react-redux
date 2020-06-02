@@ -1,0 +1,38 @@
+.user_sm{
+    /*display: grid;*/
+    /*grid-template-columns: 60% 1fr ;*/
+    /*align-items: end;*/
+    /*justify-content: center;*/
+    /*grid-column-gap: 10px;*/
+    position: relative;
+    justify-self: center;
+}
+.user{
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    position: absolute;
+    top: 32vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.user__img{
+    grid-column: 1/2;
+    height: 100px;
+    width: 100px;
+    justify-self: end;
+
+}.user__img img{
+     width: 100%;
+     height: 100%;
+     border-radius: 50%;
+     /*border: 2px solid rgb(241,241,241);*/
+     border: 2px solid #FFFFFF;
+ }
+
+.user__name{
+    position: absolute;
+    top: 55px;
+    right: -75px;
+}

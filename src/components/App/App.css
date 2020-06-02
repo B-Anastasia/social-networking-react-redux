@@ -1,0 +1,68 @@
+.app-wrapper {
+  background-color: rgb(241, 241, 241);
+  height: 100%;
+}
+
+.gradient {
+  background: linear-gradient(
+    90deg,
+    rgba(49, 49, 49, 1) 10%,
+    rgba(0, 0, 0, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+
+.app-wrapper__cover {
+  display: grid;
+  grid-template-rows: 60px minmax(20vh, 30vh);
+  grid-template-columns: 1fr minmax(600px, 1200px) 1fr;
+}
+
+.userSection {
+  display: grid;
+  grid-template-columns: 30% 1fr;
+  position: absolute;
+  top: 42vh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.block {
+  background-color: #ffffff;
+  padding: 30px;
+  box-shadow: 0 0 10px -10px rgba(0, 0, 0, 1);
+}
+
+.app-wrapper__content {
+  width: 100%;
+  padding: 100px 20px 0 20px;
+  display: grid;
+  grid-template-columns: 20% 1fr;
+  grid-template-rows: auto;
+  column-gap: 30px;
+  grid-column: 2/3;
+}
+
+.userProfile {
+  width: 100%;
+  grid-column: 1/2;
+  grid-row: 1/2;
+  align-self: center;
+  justify-self: left;
+}
+.content {
+}
+
+/*.userPosts{*/
+/*    display: grid;*/
+/*    grid-template-columns: 30% 1fr;*/
+/*    grid-template-rows: repeat(3,auto);*/
+/*    row-gap: 30px;*/
+/*}*/
+
+.header {
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
