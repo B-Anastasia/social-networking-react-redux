@@ -1,15 +1,26 @@
 import React from "react";
-import './Navbar.css';
+import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 function Navbar() {
-    return (
-        <nav className='nav block'>
-            <div><a href="#">Profile</a></div>
-            <div><a href="#">Messages</a></div>
-            <div><a href="#">News</a></div>
-            <div><a href="#">Music</a></div>
-            <div><a href="#">Settings</a></div>
-        </nav>
-    )
+  return (
+    <nav className="nav block">
+      <div>
+        <Link to="/profile">Profile</Link>
+      </div>
+      <div>
+        <Link to="/dialogs">Messages</Link>
+      </div>
+      <div>
+        <Link to="/news">News</Link>
+      </div>
+      <div>
+        <Link to="/music">Music</Link>
+      </div>
+      <div>
+        <Link to="/settings">Settings</Link>
+      </div>
+    </nav>
+  );
 }
 export default Navbar;
