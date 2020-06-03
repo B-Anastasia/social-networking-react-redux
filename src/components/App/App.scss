@@ -1,6 +1,9 @@
 .app-wrapper {
   background-color: rgb(241, 241, 241);
   height: 100%;
+  display: grid;
+  grid-template-rows: 60px minmax(20vh, 30vh);
+  grid-template-columns: 1fr minmax(500px, 1200px) 1fr;
 }
 
 .gradient {
@@ -10,12 +13,6 @@
     rgba(0, 0, 0, 1) 35%,
     rgba(0, 212, 255, 1) 100%
   );
-}
-
-.app-wrapper__cover {
-  display: grid;
-  grid-template-rows: 60px minmax(20vh, 30vh);
-  grid-template-columns: 1fr minmax(600px, 1200px) 1fr;
 }
 
 .userSection {
@@ -35,7 +32,7 @@
 }
 
 .app-wrapper__content {
-  width: 100%;
+  /*width: 100%;*/
   padding: 100px 20px 0 20px;
   display: grid;
   grid-template-columns: 20% 1fr;

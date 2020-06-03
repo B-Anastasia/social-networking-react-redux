@@ -1,24 +1,34 @@
 import React from "react";
-import "./Navbar.css";
-import { Link } from "react-router-dom";
+import scss from "./Navbar.module.scss";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav className="nav block">
-      <div>
-        <Link to="/profile">Profile</Link>
+    <nav className={`block {scss.nav}`}>
+      <div className={scss.nav__item}>
+        <NavLink to="/profile" activeClassName={scss.active}>
+          Profile
+        </NavLink>
       </div>
-      <div>
-        <Link to="/dialogs">Messages</Link>
+      <div className={scss.nav__item}>
+        <NavLink activeClassName={scss.active} to="/dialogs">
+          Messages
+        </NavLink>
       </div>
-      <div>
-        <Link to="/news">News</Link>
+      <div className={scss.nav__item}>
+        <NavLink activeClassName={scss.active} to="/news">
+          News
+        </NavLink>
       </div>
-      <div>
-        <Link to="/music">Music</Link>
+      <div className={scss.nav__item}>
+        <NavLink activeClassName={scss.active} to="/music">
+          Music
+        </NavLink>
       </div>
-      <div>
-        <Link to="/settings">Settings</Link>
+      <div className={scss.nav__item}>
+        <NavLink activeClassName={scss.active} to="/settings">
+          Settings
+        </NavLink>
       </div>
     </nav>
   );

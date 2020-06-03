@@ -1,0 +1,18 @@
+.nav {
+  height: 500px;
+}
+
+.nav__item {
+  a {
+    font-family: "o", sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    transition: 300ms;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: gray;
+  }
+  & .active {
+    color: red;
+  }
+}
