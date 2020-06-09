@@ -1,23 +1,31 @@
 import React from "react";
-import styles from './Header.module.css';
-import BettercodesLogo from "../../Icons/BettercodesLogo";
+import styles from "./Header.module.scss";
+import { ChatBubblesWithEllipsis } from "../../Icons";
 
- function Header() {
-    return (
-        <header className={styles.header}>
-           <Logo/>
-        </header>
-    )
+function Header() {
+  return (
+    <header className={styles.header}>
+      <div className={"container"}>
+        <Logo />
+      </div>
+    </header>
+  );
 }
 
 function Logo() {
-    return(
-        <div className={styles.header__logo}>
-            <BettercodesLogo  width="55" height="55" viewBox="0 0 97.69 97.691" fill='#FF7556'/>
-            <span>Social network</span>
-        </div>
-    )
+  return (
+    <div className={styles.header__logo}>
+      <ChatBubblesWithEllipsis
+        width="65"
+        height="65"
+        viewBox="0 0 30.743 30.744"
+        // viewBox="0 0 97.69 97.691"
+        // fill="#FF7556"
+        fill="#0af"
+      />
+      <span>Social network</span>
+    </div>
+  );
 }
-
 
 export default Header;

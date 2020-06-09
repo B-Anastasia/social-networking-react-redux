@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav className={`block {scss.nav}`}>
+    <nav className={` ${scss.nav} block`}>
       <div className={scss.nav__item}>
         <NavLink to="/profile" activeClassName={scss.active}>
           Profile

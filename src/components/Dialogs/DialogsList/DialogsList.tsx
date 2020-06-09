@@ -1,30 +1,32 @@
 import React from "react";
 import scss from "./DialogsList.module.scss";
 import { NavLink } from "react-router-dom";
+import { v1 } from "uuid";
+
+type IDialogType = {
+  id: string;
+  name: string;
+};
 
 function DialogsList() {
-  return (
-    <div className={scss.dialogsList}>
-      <div className={`${scss.dialogsList__item} ${scss.active}`}>
-        <NavLink to={"/dialogs/1"}>Dima</NavLink>
-      </div>
-      <div className={scss.dialogsList__item}>
-        <NavLink to={"/dialogs/2"}>Andr</NavLink>
-      </div>
-      <div className={scss.dialogsList__item}>
-        <NavLink to={"/dialogs/3"}>Aleks</NavLink>
-      </div>
-      <div className={scss.dialogsList__item}>
-        <NavLink to={"/dialogs/4"}>Kira</NavLink>
-      </div>
-      <div className={scss.dialogsList__item}>
-        <NavLink to={"/dialogs/5"}>Sem</NavLink>
-      </div>
-      <div className={scss.dialogsList__item}>
-        <NavLink to={"/dialogs/6"}>Felix</NavLink>
-      </div>
+  let dialogs: IDialogType[] = [
+    { id: v1(), name: "Dima" },
+    { id: v1(), name: "Andr" },
+    { id: v1(), name: "Aleks" },
+    { id: v1(), name: "Kira" },
+    { id: v1(), name: "Sem" },
+    { id: v1(), name: "Felix" },
+    { id: v1(), name: "Artur" },
+    { id: v1(), name: "Den" },
+  ];
+
+  const dialogsList = dialogs.map((d: IDialogType) => (
+    <div key={d.id} className={`${scss.dialogsList__item} ${scss.active}`}>
+      <NavLink to={`/dialogs/${d.id}`}>{d.name}</NavLink>
     </div>
-  );
+  ));
+
+  return <div className={scss.dialogsList}>{dialogsList}</div>;
 }
 
 export default DialogsList;
