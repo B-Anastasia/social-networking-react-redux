@@ -1,0 +1,15 @@
+.dialogs {
+  display: flex;
+
+  div {
+    flex: 0 1 30%;
+  }
+}
+
+.profile__image {
+  grid-column: 2/3;
+}
+.profile__posts {
+  //grid-row: 2/3;
+  grid-column: 2/3;
+}

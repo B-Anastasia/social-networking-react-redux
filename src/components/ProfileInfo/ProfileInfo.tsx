@@ -1,8 +1,8 @@
 import React from "react";
-import CoverImage from "../CoverImage";
-import User from "../User";
+import CoverImage from "./CoverImage";
+import User from "./User";
 
-function Profile() {
+function ProfileInfo() {
   return (
     <div className={"block"}>
       <CoverImage />
@@ -12,4 +12,4 @@ function Profile() {
     </div>
   );
 }
-export default Profile;
+export default ProfileInfo;

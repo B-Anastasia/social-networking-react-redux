@@ -1,0 +1,9 @@
+.item {
+  &.active {
+    color: red;
+    font-size: 2rem;
+  }
+}
+.active {
+  color: red;
+}
