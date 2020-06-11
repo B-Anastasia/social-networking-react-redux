@@ -3,6 +3,11 @@
     color: red;
     font-size: 2rem;
   }
+
+  &__info:nth-child(n) {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
 }
 .active {
   color: red;

@@ -1,11 +1,9 @@
+@import "../../styles/styles_base";
+
 .app-wrapper {
-  //background-color: rgb(241, 241, 241);
   background-color: #f1f1f1;
   font-size: 1.4rem;
   height: 100%;
-  //display: grid;
-  //grid-template-rows: 60rem minmax(20vh, 30vh);
-  //grid-template-columns: 1fr 120rem 1fr;
 }
 
 .gradient {
@@ -27,21 +25,13 @@
   justify-content: center;
 }
 
-.block {
-  background-color: #ffffff;
-  //padding: 30px;
-  box-shadow: 0 0 10px -10px rgba(0, 0, 0, 1);
-}
-
 .app-wrapper__content {
-  /*width: 100%;*/
   padding: 3rem 2rem 0 2rem;
   display: grid;
   grid-template-columns: 20% 1fr;
   grid-template-rows: 42rem auto;
   gap: 30px;
   grid-column: 2/3;
-  //display: flex;
 }
 
 .userProfile {
@@ -51,15 +41,6 @@
   align-self: center;
   justify-self: left;
 }
-.content {
-}
-
-/*.userPosts{*/
-/*    display: grid;*/
-/*    grid-template-columns: 30% 1fr;*/
-/*    grid-template-rows: repeat(3,auto);*/
-/*    row-gap: 30px;*/
-/*}*/
 
 .header {
   font-size: 20px;

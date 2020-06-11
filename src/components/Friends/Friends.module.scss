@@ -1,0 +1,11 @@
+.friends {
+  grid-row: 2/3;
+  grid-column: 1/2;
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  a {
+    min-width: 7rem;
+  }
+}

@@ -8,27 +8,29 @@ import Music from "../Music";
 import Settings from "../Settings";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import { DialogsPage, ProfilePage } from "../Pages";
-import { IStateType } from "../../index";
+import { IStateType } from "../../redux/state";
+import Friends from "../Friends";
 
-type PropsType = {
+type IAppPropsType = {
   state: IStateType;
 };
 
-function App({ state }: PropsType) {
-  const { profilePage, dialogsPage } = state;
+function App({ state }: IAppPropsType) {
+  const { profilePage, dialogsPage, sidebar } = state;
   return (
     <div className="app-wrapper">
       <Header />
       <Route path="/profile" component={ProfileInfo} />
       <div className="app-wrapper__content container">
         <Navbar />
+        <Friends friends={sidebar.friends} />
         <Route
           path="/profile"
-          component={() => <ProfilePage profilePage={profilePage} />}
+          render={() => <ProfilePage profilePage={profilePage} />}
         />
         <Route
           path="/dialogs"
-          component={() => <DialogsPage dialogsPage={dialogsPage} />}
+          render={() => <DialogsPage dialogsPage={dialogsPage} />}
         />
         <Route path="/news" component={News} />
         <Route path="/music" component={Music} />

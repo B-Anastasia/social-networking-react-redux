@@ -1,0 +1,116 @@
+@import "../../../styles/styles_base";
+@mixin triangle($color, $size, $direction) {
+  width: 0;
+  height: 0;
+  @if $direction == "up" {
+    border-right: ($size + px) solid transparent;
+    border-left: ($size + px) solid transparent;
+    border-bottom: ($size + px) solid $color;
+  }
+  @if $direction == "down" {
+    border-right: ($size + px) solid transparent;
+    border-left: ($size + px) solid transparent;
+    border-top: ($size + px) solid $color;
+  }
+  @if $direction == "right" {
+    border-top: ($size + px) solid transparent;
+    border-bottom: ($size + px) solid transparent;
+    border-left: ($size + px) solid $color;
+  }
+  @if $direction == "left" {
+    border-top: ($size + px) solid transparent;
+    border-bottom: ($size + px) solid transparent;
+    border-right: ($size + px) solid $color;
+  }
+}
+
+$primary: rgba(23, 190, 187, 1);
+$secondary: rgba(240, 166, 202, 1);
+$text-color: rgba(255, 255, 255, 1);
+
+.chatbox__message {
+  .chatbox__message__ind_message {
+    background-color: $grey-block;
+    color: black;
+  }
+  &:nth-of-type(odd) {
+    align-self: flex-start;
+
+    .chatbox__message__ind_message {
+      position: relative;
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: 11rem;
+        left: -1rem;
+        @include triangle(rgba(255, 255, 255, 0.2), 10, left);
+        @include triangle($grey-block, 10, left);
+      }
+    }
+  }
+  &:nth-of-type(even) {
+    grid-template-columns: minmax(20em, 25em) 1fr;
+    align-self: flex-end;
+    .chatbox__message__ind_message {
+      grid-column: 1/2;
+      grid-row: 1/2;
+      position: relative;
+    }
+    .avatar {
+      grid-column: 2/3;
+      grid-row: 1/2;
+    }
+    .chatbox__message__ind_message {
+      &:after {
+        content: "";
+        position: absolute;
+        right: -1rem;
+        top: 11rem;
+        @include triangle($grey-block, 10, right);
+      }
+    }
+  }
+}
+
+.chatbox__message {
+  width: 75%;
+  margin: 3em 0;
+  display: grid;
+  grid-template-columns: 1fr minmax(20em, 25em);
+  grid-template-rows: auto;
+  grid-gap: 2em;
+
+  & span:not(:last-child) {
+    margin: 0.5em 0;
+  }
+}
+
+.avatar {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  align-self: end;
+}
+
+.chatbox__message__ind_message {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1em;
+  border-radius: 5px;
+  color: $text-color;
+  display: flex;
+  flex-direction: column;
+  grid-row: 1/2;
+
+  .text {
+    word-wrap: break-word;
+  }
+
+  span:first-child {
+    font-size: 1.1em;
+  }
+
+  span:last-child {
+    text-align: end;
+    font-size: 0.9em;
+  }
+}

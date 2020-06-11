@@ -1,5 +1,18 @@
 @import "fonts";
 
+$font-regular: "Libre Franklin", sans-serif;
+$font-logo: "Ubuntu-Title";
+$header-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.2);
+$block-shadow: 0px 1px 15px 0px rgba(51, 51, 51, 0.2);
+$shadow: 0px 1px 5px 0px rgba(51, 51, 51, 0.2);
+$primary-blue: #0af;
+$dark-grey: #535c61;
+$dark-grey-1: #363636;
+$dark-blue-grey: #20303c;
+$grey-block: #f1f1f1;
+$dark-blue: #00334d;
+$dark-blue-2: rgba(0, 51, 77, 1);
+
 @mixin respond($breakpoint) {
   @if $breakpoint == phone-xs {
     @media only screen and (max-width: 24.375em) {
@@ -34,17 +47,21 @@
   padding: 0 5% 0 5%;
 }
 
-$font-regular: "Libre Franklin", sans-serif;
-$font-logo: "Ubuntu-Title";
-$header-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.2);
-$block-shadow: 0px 1px 15px 0px rgba(51, 51, 51, 0.2);
-$shadow: 0px 1px 5px 0px rgba(51, 51, 51, 0.2);
-$primary-blue: #0af;
-$dark-grey: #535c61;
-$dark-grey-1: #363636;
-$dark-blue-grey: #20303c;
-$dark-blue: #00334d;
-$dark-blue-2: rgba(0, 51, 77, 1);
+a {
+  font-family: "o", sans-serif;
+  font-weight: 300;
+  transition: 300ms;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: gray;
+}
+
+.block {
+  background-color: #ffffff;
+  padding: 30px;
+  box-shadow: $shadow;
+  //box-shadow: 0 0 10px -10px rgba(0, 0, 0, 1);
+}
 
 html {
   // This defines 1 rem
