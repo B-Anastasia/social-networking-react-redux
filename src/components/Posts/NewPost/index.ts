@@ -1,2 +1,2 @@
-import NewPost from "./NewPost";
-export default NewPost;
+import NewText from "./NewText";
+export default NewText;

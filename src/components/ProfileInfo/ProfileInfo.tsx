@@ -1,13 +1,16 @@
 import React from "react";
+import scss from "./ProfileInfo.module.scss";
 import CoverImage from "./CoverImage";
 import User from "./User";
 
 function ProfileInfo() {
   return (
-    <div className={"block"}>
+    <div className={`${scss.profileInfo} block`}>
       <CoverImage />
-      <div className={"container"}>
-        <User />
+      <div className={""}>
+        <div className={"container"}>
+          <User />
+        </div>
       </div>
     </div>
   );
