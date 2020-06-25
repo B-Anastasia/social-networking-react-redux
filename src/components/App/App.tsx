@@ -8,7 +8,12 @@ import Music from "../Music";
 import Settings from "../Settings";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import { DialogsPage, ProfilePage } from "../Pages";
-import { IStateType } from "../../redux/state";
+import {
+  addNewPost,
+  addNewMessage,
+  IStateType,
+  updateInputValue,
+} from "../../redux/state";
 import Friends from "../Friends";
 
 type IAppPropsType = {
@@ -26,11 +31,23 @@ function App({ state }: IAppPropsType) {
         <Friends friends={sidebar.friends} />
         <Route
           path="/profile"
-          render={() => <ProfilePage profilePage={profilePage} />}
+          render={() => (
+            <ProfilePage
+              updateInputValue={updateInputValue}
+              profilePage={profilePage}
+              addNewPost={addNewPost}
+              newPostText={state.profilePage.newPostText}
+            />
+          )}
         />
         <Route
           path="/dialogs"
-          render={() => <DialogsPage dialogsPage={dialogsPage} />}
+          render={() => (
+            <DialogsPage
+              addNewMessage={addNewMessage}
+              dialogsPage={dialogsPage}
+            />
+          )}
         />
         <Route path="/news" component={News} />
         <Route path="/music" component={Music} />

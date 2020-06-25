@@ -2,10 +2,16 @@ import React from "react";
 import "./Chatbox.scss";
 import { IMessageType } from "../../redux/state";
 import Message from "./Message";
-import NewText from "../Posts/NewPost";
+import NewMessage from "./NewMessage/NewMessage";
 
 type ChatboxPropsType = {
   messages: Array<IMessageType>;
+  addNewMessage: (
+    text: string,
+    name: string,
+    imgUrl?: string,
+    img_name?: string
+  ) => void;
 };
 
 const Chatbox: React.FC<ChatboxPropsType> = (props) => {
@@ -16,7 +22,7 @@ const Chatbox: React.FC<ChatboxPropsType> = (props) => {
   return (
     <div className="chatbox">
       {messageList}
-      <NewText />
+      <NewMessage addNewMessage={props.addNewMessage} />
     </div>
   );
 };

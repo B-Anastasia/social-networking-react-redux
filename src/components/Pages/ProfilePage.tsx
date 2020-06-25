@@ -5,17 +5,29 @@ import { IProfilePageType } from "../../redux/state";
 
 type IProfilePagePropsType = {
   profilePage: IProfilePageType;
+  addNewPost: () => void;
+  newPostText: string;
+  updateInputValue: (value: string) => void;
 };
 
-function ProfilePage({ profilePage }: IProfilePagePropsType) {
-  const { posts, profile } = profilePage;
+function ProfilePage({
+  profilePage,
+  addNewPost,
+  newPostText,
+  updateInputValue,
+}: IProfilePagePropsType) {
   return (
     <>
       {/*<div className={scss.profile__image}>*/}
       {/*  <Profile />*/}
       {/*</div>*/}
       <div className={scss.profile__posts}>
-        <MyPosts posts={posts} profile={profile} />
+        <MyPosts
+          profilePage={profilePage}
+          addNewPost={addNewPost}
+          newPostText={newPostText}
+          updateInputValue={updateInputValue}
+        />
       </div>
     </>
   );

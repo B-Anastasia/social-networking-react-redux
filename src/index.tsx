@@ -1,19 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import state, { subscribe } from "./redux/state";
+// import state, { IStateType, subscribe } from "./redux/state";
 import "./index.scss";
-import * as serviceWorker from "./serviceWorker";
-import App from "./components/App";
+// import { IStateType } from "./redux/state";
 import { BrowserRouter, Switch } from "react-router-dom";
-import state from "./redux/state";
+import App from "./components/App";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Switch>
-        <App state={state} />
-      </Switch>
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
-serviceWorker.unregister();
+let rerenderEntierTree = () => {
+  ReactDOM.render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <Switch>
+          <App state={state} />
+        </Switch>
+      </BrowserRouter>
+    </React.StrictMode>,
+    document.getElementById("root")
+  );
+};
+
+rerenderEntierTree();
+subscribe(rerenderEntierTree);

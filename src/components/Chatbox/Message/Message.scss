@@ -42,7 +42,7 @@ $text-color: rgba(255, 255, 255, 1);
       &:after {
         content: "";
         position: absolute;
-        top: 11rem;
+        bottom: 1rem;
         left: -1rem;
         @include triangle(rgba(255, 255, 255, 0.2), 10, left);
         @include triangle($grey-block, 10, left);
@@ -66,7 +66,7 @@ $text-color: rgba(255, 255, 255, 1);
         content: "";
         position: absolute;
         right: -1rem;
-        top: 11rem;
+        bottom: 1rem;
         @include triangle($grey-block, 10, right);
       }
     }

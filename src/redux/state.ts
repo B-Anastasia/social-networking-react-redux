@@ -1,5 +1,9 @@
 import { v1 } from "uuid";
 
+let rerenderEntierTree: Function = () => {
+  console.log("State was changed");
+};
+
 export type IPostType = {
   id: string;
   text: string;
@@ -11,6 +15,7 @@ export type IDialogType = {
   name: string;
   src: string;
 };
+
 export type IMessageType = {
   id: string;
   text: string;
@@ -23,6 +28,7 @@ export type IMessageType = {
 export type IProfilePageType = {
   posts: Array<IPostType>;
   profile: IDialogType;
+  newPostText: string;
 };
 
 export type IDialogsPageType = {
@@ -149,6 +155,7 @@ let state: IStateType = {
         count: 20,
       },
     ],
+    newPostText: "value1",
   },
   dialogsPage: {
     dialogs: users,
@@ -209,5 +216,44 @@ let state: IStateType = {
     friends: users,
   },
 };
+
+export const addNewPost = () => {
+  const newPost: IPostType = {
+    id: v1(),
+    text: state.profilePage.newPostText,
+    count: 0,
+  };
+  state.profilePage.posts.unshift(newPost);
+  state.profilePage.newPostText = "";
+  rerenderEntierTree();
+};
+
+export const updateInputValue = (value: string) => {
+  state.profilePage.newPostText = value;
+  rerenderEntierTree();
+};
+
+export const addNewMessage = (
+  text: string,
+  name: string,
+  imgUrl = "https://image.freepik.com/free-vector/woman-girl-female-cartoon-avatar-icon_25030-13349.jpg",
+  img_name = "Avatar"
+) => {
+  const newMessage = {
+    id: v1(),
+    text: text,
+    name: name,
+    img: imgUrl,
+    img_name: img_name,
+    time: `${new Date().getHours()}:${new Date().getMinutes()}`,
+  };
+  state.dialogsPage.messages.push(newMessage);
+  rerenderEntierTree();
+};
+
+export const subscribe = (observer: Function) => {
+  rerenderEntierTree = observer; //pattern=observer
+};
+console.log(rerenderEntierTree);
 
 export default state;

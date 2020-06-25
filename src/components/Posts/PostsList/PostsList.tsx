@@ -1,9 +1,14 @@
 import React from "react";
 import styles from "./PostsList.module.css";
 import Post from "../Post";
-import { IPostType, IProfilePageType } from "../../../redux/state";
+import { IDialogType, IPostType } from "../../../redux/state";
 
-function PostsList(props: IProfilePageType) {
+type PostsListPropsType = {
+  posts: Array<IPostType>;
+  profile: IDialogType;
+};
+
+function PostsList(props: PostsListPropsType) {
   const postsList = props.posts.map((p: IPostType) => (
     <Post key={p.id} message={p.text} count={p.count} profile={props.profile} />
   ));
