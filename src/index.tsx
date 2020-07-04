@@ -1,18 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import state, { subscribe } from "./redux/state";
-// import state, { IStateType, subscribe } from "./redux/state";
+import store from "./redux/store";
 import "./index.scss";
-// import { IStateType } from "./redux/state";
 import { BrowserRouter, Switch } from "react-router-dom";
 import App from "./components/App";
 
-let rerenderEntierTree = () => {
+let rerenderEntireTree = () => {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
         <Switch>
-          <App state={state} />
+          <App
+            state={store.getState()}
+            dispatch={store.dispatch.bind(store)}
+            /*     updateInputValue={store.updateInputValue.bind(store)}
+            addNewPost={store.addNewPost.bind(store)}
+            addNewMessage={store.addNewMessage.bind(store)}*/
+          />
         </Switch>
       </BrowserRouter>
     </React.StrictMode>,
@@ -20,5 +24,5 @@ let rerenderEntierTree = () => {
   );
 };
 
-rerenderEntierTree();
-subscribe(rerenderEntierTree);
+rerenderEntireTree();
+store.subscribe(rerenderEntireTree);
