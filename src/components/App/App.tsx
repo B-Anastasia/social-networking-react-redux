@@ -8,20 +8,25 @@ import Music from "../Music";
 import Settings from "../Settings";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import { DialogsPage, ProfilePage } from "../Pages";
-import {
-  addNewPost,
-  addNewMessage,
-  IStateType,
-  updateInputValue,
-} from "../../redux/state";
+import { IActionType, IStateType, IStoreType } from "../../redux/store";
 import Friends from "../Friends";
 
 type IAppPropsType = {
   state: IStateType;
+  dispatch: (action: IActionType) => void;
+  store: IStoreType;
+  /*  addNewPost: () => void;
+  updateInputValue: (value: string) => void;
+  addNewMessage: (
+    text: string,
+    name: string,
+    imgUrl?: string,
+    img_name?: string
+  ) => void;*/
 };
 
-function App({ state }: IAppPropsType) {
-  const { profilePage, dialogsPage, sidebar } = state;
+function App({ store, state, dispatch }: IAppPropsType) {
+  const { profilePage, sidebar } = state;
   return (
     <div className="app-wrapper">
       <Header />
@@ -33,22 +38,13 @@ function App({ state }: IAppPropsType) {
           path="/profile"
           render={() => (
             <ProfilePage
-              updateInputValue={updateInputValue}
+              dispatch={dispatch}
               profilePage={profilePage}
-              addNewPost={addNewPost}
-              newPostText={state.profilePage.newPostText}
+              newPostText={profilePage.newPostText}
             />
           )}
         />
-        <Route
-          path="/dialogs"
-          render={() => (
-            <DialogsPage
-              addNewMessage={addNewMessage}
-              dialogsPage={dialogsPage}
-            />
-          )}
-        />
+        <Route path="/dialogs" render={() => <DialogsPage store={store} />} />
         <Route path="/news" component={News} />
         <Route path="/music" component={Music} />
         <Route path="/settings" component={Settings} />

@@ -1,30 +1,20 @@
 import React from "react";
 import NewPost from "./NewPost";
 import PostsList from "./PostsList";
-import { IProfilePageType } from "../../redux/state";
+import { IActionType, IProfilePageType } from "../../redux/store";
 
 type PropsTypes = {
   profilePage: IProfilePageType;
-  addNewPost: () => void;
   newPostText: string;
-  updateInputValue: (value: string) => void;
+  dispatch: (action: IActionType) => void;
 };
 
-function MyPosts({
-  profilePage,
-  addNewPost,
-  newPostText,
-  updateInputValue,
-}: PropsTypes) {
+function MyPosts({ profilePage, newPostText, dispatch }: PropsTypes) {
   const { posts, profile } = profilePage;
   return (
     <div>
       <div className={"header"}>My posts</div>
-      <NewPost
-        addNewPost={addNewPost}
-        newPostText={newPostText}
-        updateInputValue={updateInputValue}
-      />
+      <NewPost newPostText={newPostText} dispatch={dispatch} />
       <PostsList posts={posts} profile={profile} />
     </div>
   );

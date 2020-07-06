@@ -1,13 +1,17 @@
 import React from "react";
 import styles from "./NewPost.module.css";
+import {
+  addNewPost,
+  IActionType,
+  updateInputValue,
+} from "../../../redux/store";
 
 type PropsType = {
-  addNewPost: () => void;
   newPostText: string;
-  updateInputValue: (value: string) => void;
+  dispatch: (action: IActionType) => void;
 };
 
-function NewPost({ addNewPost, newPostText, updateInputValue }: PropsType) {
+function NewPost({ newPostText, dispatch }: PropsType) {
   let newPost = React.createRef<HTMLTextAreaElement>();
 
   const onButtonAddPost = () => {
@@ -20,14 +24,16 @@ function NewPost({ addNewPost, newPostText, updateInputValue }: PropsType) {
       addNewPost();
       updateInputValue(""); //after adding post
     }*/
-    addNewPost();
-    updateInputValue(""); //after adding post
+    dispatch(addNewPost());
+    dispatch(updateInputValue(""));
+    // updateInputValue(""); //after adding post
   };
 
   const onInputValue = () => {
     if (newPost.current) {
       let text = newPost.current.value;
-      updateInputValue(text);
+      dispatch(updateInputValue(text));
+      // updateInputValue(text);
     }
   };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./UserPost.module.css";
-import { IDialogType } from "../../redux/state";
+import { IDialogType } from "../../redux/store";
 
 type IUserPostPropsType = {
   profile: IDialogType;

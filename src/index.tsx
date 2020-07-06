@@ -11,6 +11,7 @@ let rerenderEntireTree = () => {
       <BrowserRouter>
         <Switch>
           <App
+            store={store}
             state={store.getState()}
             dispatch={store.dispatch.bind(store)}
             /*     updateInputValue={store.updateInputValue.bind(store)}

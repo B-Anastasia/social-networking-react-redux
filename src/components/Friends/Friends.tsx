@@ -1,6 +1,6 @@
 import React from "react";
 import scss from "./Friends.module.scss";
-import { IFriendType } from "../../redux/state";
+import { IFriendType } from "../../redux/store";
 import UserPost from "../UserPost";
 import { NavLink } from "react-router-dom";
 

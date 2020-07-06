@@ -1,16 +1,15 @@
 import React from "react";
 import scss from "./DialogItem.module.scss";
 import { NavLink } from "react-router-dom";
-import { IDialogType } from "../../../redux/state";
+import { IDialogType } from "../../../redux/store";
 import UserPost from "../../UserPost";
 
 type IDialogItemPropsTypes = {
   id: string;
-  name: string;
   profile: IDialogType;
 };
 
-function DialogItem({ id, name, profile }: IDialogItemPropsTypes) {
+function DialogItem({ id, profile }: IDialogItemPropsTypes) {
   return (
     <div id={id} className={`${scss.item} ${scss.active}`}>
       <NavLink

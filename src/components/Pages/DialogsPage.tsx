@@ -1,27 +1,20 @@
 import React from "react";
 import scss from "./Pages.module.scss";
 import DialogsList from "../DialogsList";
-import { IDialogsPageType } from "../../redux/state";
+import { IStoreType } from "../../redux/store";
 import Chatbox from "../Chatbox";
 
 type IDialogsPagePropsTypes = {
-  dialogsPage: IDialogsPageType;
-  addNewMessage: (
-    text: string,
-    name: string,
-    imgUrl?: string,
-    img_name?: string
-  ) => void;
+  store: IStoreType;
 };
 
-function DialogsPage({ dialogsPage, addNewMessage }: IDialogsPagePropsTypes) {
-  const { dialogs, messages } = dialogsPage;
+function DialogsPage({ store }: IDialogsPagePropsTypes) {
   return (
     <div className={`block ${scss.dialogs}`}>
       <div className={scss.dialogs__list}>
-        <DialogsList dialogs={dialogs} />
+        <DialogsList dialogs={store.getState().dialogsPage.dialogs} />
       </div>
-      <Chatbox addNewMessage={addNewMessage} messages={messages} />
+      <Chatbox store={store} />
     </div>
   );
 }

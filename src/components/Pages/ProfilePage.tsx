@@ -1,32 +1,26 @@
 import React from "react";
 import scss from "./Pages.module.scss";
 import MyPosts from "../Posts";
-import { IProfilePageType } from "../../redux/state";
+import { IActionType, IProfilePageType } from "../../redux/store";
 
 type IProfilePagePropsType = {
   profilePage: IProfilePageType;
-  addNewPost: () => void;
   newPostText: string;
-  updateInputValue: (value: string) => void;
+  dispatch: (action: IActionType) => void;
 };
 
 function ProfilePage({
   profilePage,
-  addNewPost,
   newPostText,
-  updateInputValue,
+  dispatch,
 }: IProfilePagePropsType) {
   return (
     <>
-      {/*<div className={scss.profile__image}>*/}
-      {/*  <Profile />*/}
-      {/*</div>*/}
       <div className={scss.profile__posts}>
         <MyPosts
           profilePage={profilePage}
-          addNewPost={addNewPost}
           newPostText={newPostText}
-          updateInputValue={updateInputValue}
+          dispatch={dispatch}
         />
       </div>
     </>

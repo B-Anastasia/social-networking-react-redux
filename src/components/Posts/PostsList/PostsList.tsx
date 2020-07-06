@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./PostsList.module.css";
 import Post from "../Post";
-import { IDialogType, IPostType } from "../../../redux/state";
+import { IDialogType, IPostType } from "../../../redux/store";
 
 type PostsListPropsType = {
   posts: Array<IPostType>;
