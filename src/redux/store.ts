@@ -1,117 +1,7 @@
 import { v1 } from "uuid";
-
-//Actions
-const ADD_NEW_POST = "ADD_NEW_POST";
-const UPDATE_INPUT_VALUE = "UPDATE_INPUT_VALUE";
-const UPDATE_INPUT_NEW_MESSAGE = "UPDATE_INPUT_NEW_MESSAGE";
-const ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE";
-//---------------------------
-
-//Actions Types
-type IAddNewPostType = {
-  type: typeof ADD_NEW_POST;
-};
-type IUpdInputValueType = {
-  type: typeof UPDATE_INPUT_VALUE;
-  payload: string;
-};
-type IAddNewMessageType = {
-  type: typeof ADD_NEW_MESSAGE;
-  payload: INewMessageType;
-};
-type IUpdInputMessage = {
-  type: typeof UPDATE_INPUT_NEW_MESSAGE;
-  payload: string;
-};
-//-----------------------------
-
-//Action creators
-export const addNewPost = (): IAddNewPostType => ({ type: ADD_NEW_POST });
-export const updateInputValue = (text: string): IUpdInputValueType => ({
-  type: UPDATE_INPUT_VALUE,
-  payload: text,
-});
-export const addNewMessage = (
-  newMessage: INewMessageType
-): IAddNewMessageType => ({ type: ADD_NEW_MESSAGE, payload: newMessage });
-export const updateInputNewMessage = (text: string): IUpdInputMessage => ({
-  type: UPDATE_INPUT_NEW_MESSAGE,
-  payload: text,
-});
-//-------------------------
-
-//All ACreators union type
-export type Actions = IAddNewPostType | IUpdInputValueType | IAddNewMessageType;
-//---------------------------
-
-export type IMessageType = {
-  id: string;
-  text: string;
-  name: string;
-  img: string;
-  img_name: string;
-  time: string;
-};
-
-export type INewMessageType = {
-  text: string;
-  name: string;
-  imgUrl?: string;
-  img_name?: string;
-};
-
-export type IProfilePageType = {
-  posts: Array<IPostType>;
-  profile: IDialogType;
-  newPostText: string;
-};
-
-export type IDialogsPageType = {
-  dialogs: Array<IDialogType>;
-  messages: Array<IMessageType>;
-  newMessageText: string;
-};
-
-export type IStateType = {
-  profilePage: IProfilePageType;
-  dialogsPage: IDialogsPageType;
-  sidebar: ISidebarType;
-};
-
-export type IFriendType = {
-  id: string;
-  name: string;
-  src: string;
-};
-
-export type ISidebarType = {
-  friends: Array<IFriendType>;
-};
-
-export type IPostType = {
-  id: string;
-  text: string;
-  count: number;
-};
-
-export type IDialogType = {
-  id: string;
-  name: string;
-  src: string;
-};
-
-export type IActionType = {
-  type: string;
-  payload?: any;
-};
-
-export type IStoreType = {
-  _state: IStateType;
-  _callSubscriber: () => void;
-  getState: () => IStateType;
-  subscribe: (observer: () => void) => void;
-  dispatch: (action: IActionType) => void;
-};
+import profileReducer, { IProfileActions } from "./profile-reducer";
+import dialogsReducer, { IDialogsActions } from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 export const users = [
   {
@@ -290,59 +180,85 @@ let store = {
     this._callSubscriber = observer; //pattern=observer
   },
 
-  dispatch(action) {
-    // debugger;
-    if (action.type === "ADD_NEW_POST") {
-      const newPost: IPostType = {
-        id: v1(),
-        text: this._state.profilePage.newPostText,
-        count: 0,
-      };
-      this._state.profilePage.posts.unshift(newPost);
-      this._state.profilePage.newPostText = "";
-      this._callSubscriber();
-    } else if (action.type === "UPDATE_INPUT_VALUE") {
-      this._state.profilePage.newPostText = action.payload;
-      this._callSubscriber();
-    } else if (action.type === "UPDATE_INPUT_NEW_MESSAGE") {
-      this._state.dialogsPage.newMessageText = action.payload;
-      this._callSubscriber();
-    } else if (action.type === "ADD_NEW_MESSAGE") {
-      const {
-        text,
-        name,
-        imgUrl = "https://image.freepik.com/free-vector/woman-girl-female-cartoon-avatar-icon_25030-13349.jpg",
-        img_name = "Avatar",
-      } = action.payload;
-      const newMessage = {
-        id: v1(),
-        text: text,
-        name: name,
-        img: imgUrl,
-        img_name: img_name,
-        time: `${new Date().getHours()}:${new Date().getMinutes()}`,
-      };
-      this._state.dialogsPage.messages.push(newMessage);
-      this._callSubscriber();
-    }
-  },
-  /* addNewMessage(
-    text: string,
-    name: string,
-    imgUrl = "https://image.freepik.com/free-vector/woman-girl-female-cartoon-avatar-icon_25030-13349.jpg",
-    img_name = "Avatar"
-  ) {
-    const newMessage = {
-      id: v1(),
-      text: text,
-      name: name,
-      img: imgUrl,
-      img_name: img_name,
-      time: `${new Date().getHours()}:${new Date().getMinutes()}`,
-    };
-    this._state.dialogsPage.messages.push(newMessage);
+  dispatch(action: Actions) {
+    profileReducer(this._state.profilePage, action);
+    dialogsReducer(this._state.dialogsPage, action);
+    sidebarReducer(this._state.sidebar, action);
     this._callSubscriber();
-  },*/
+  },
 } as IStoreType;
 
 export default store;
+
+//All ACreators union type
+export type Actions = IProfileActions | IDialogsActions;
+//---------------------------
+
+export type IMessageType = {
+  id: string;
+  text: string;
+  name: string;
+  img: string;
+  img_name: string;
+  time: string;
+};
+
+export type INewMessageType = {
+  text: string;
+  name: string;
+  imgUrl?: string;
+  img_name?: string;
+};
+
+export type IProfilePageType = {
+  posts: Array<IPostType>;
+  profile: IDialogType;
+  newPostText: string;
+};
+
+export type IDialogsPageType = {
+  dialogs: Array<IDialogType>;
+  messages: Array<IMessageType>;
+  newMessageText: string;
+};
+
+export type IStateType = {
+  profilePage: IProfilePageType;
+  dialogsPage: IDialogsPageType;
+  sidebar: ISidebarType;
+};
+
+export type IFriendType = {
+  id: string;
+  name: string;
+  src: string;
+};
+
+export type ISidebarType = {
+  friends: Array<IFriendType>;
+};
+
+export type IPostType = {
+  id: string;
+  text: string;
+  count: number;
+};
+
+export type IDialogType = {
+  id: string;
+  name: string;
+  src: string;
+};
+
+export type IActionType = {
+  type: string;
+  payload?: any;
+};
+
+export type IStoreType = {
+  _state: IStateType;
+  _callSubscriber: () => void;
+  getState: () => IStateType;
+  subscribe: (observer: () => void) => void;
+  dispatch: (action: IActionType) => void;
+};

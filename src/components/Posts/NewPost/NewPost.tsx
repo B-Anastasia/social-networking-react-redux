@@ -1,10 +1,7 @@
 import React from "react";
 import styles from "./NewPost.module.css";
-import {
-  addNewPost,
-  IActionType,
-  updateInputValue,
-} from "../../../redux/store";
+import { IActionType } from "../../../redux/store";
+import { addNewPost, updateInputValue } from "../../../redux/profile-reducer";
 
 type PropsType = {
   newPostText: string;

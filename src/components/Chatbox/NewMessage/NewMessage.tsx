@@ -1,19 +1,12 @@
 import React, { ChangeEvent } from "react";
+import { INewMessageType, IStoreType } from "../../../redux/store";
 import {
   addNewMessage,
-  INewMessageType,
-  IStoreType,
   updateInputNewMessage,
-} from "../../../redux/store";
+} from "../../../redux/dialogs-reducer";
 
 type PropsType = {
   store: IStoreType;
-  /*  addNewMessage: (
-    text: string,
-    name: string,
-    imgUrl?: string,
-    img_name?: string
-  ) => void;*/
 };
 
 function NewMessage({ store }: PropsType) {
