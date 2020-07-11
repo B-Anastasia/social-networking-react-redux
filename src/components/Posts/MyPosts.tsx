@@ -1,12 +1,12 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import NewPost from "./NewPost";
 import PostsList from "./PostsList";
-import { IActionType, IProfilePageType } from "../../redux/store";
+import { Actions, IProfilePageType } from "../../redux/store";
 
 type PropsTypes = {
   profilePage: IProfilePageType;
   newPostText: string;
-  dispatch: (action: IActionType) => void;
+  dispatch: Dispatch<Actions>;
 };
 
 function MyPosts({ profilePage, newPostText, dispatch }: PropsTypes) {

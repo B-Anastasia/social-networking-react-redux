@@ -1,11 +1,11 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import styles from "./NewPost.module.css";
-import { IActionType } from "../../../redux/store";
+import { Actions } from "../../../redux/store";
 import { addNewPost, updateInputValue } from "../../../redux/profile-reducer";
 
 type PropsType = {
   newPostText: string;
-  dispatch: (action: IActionType) => void;
+  dispatch: Dispatch<Actions>;
 };
 
 function NewPost({ newPostText, dispatch }: PropsType) {

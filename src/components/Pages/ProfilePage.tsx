@@ -1,12 +1,12 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import scss from "./Pages.module.scss";
 import MyPosts from "../Posts";
-import { IActionType, IProfilePageType } from "../../redux/store";
+import { Actions, IProfilePageType } from "../../redux/store";
 
 type IProfilePagePropsType = {
   profilePage: IProfilePageType;
   newPostText: string;
-  dispatch: (action: IActionType) => void;
+  dispatch: Dispatch<Actions>;
 };
 
 function ProfilePage({

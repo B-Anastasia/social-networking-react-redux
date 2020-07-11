@@ -1,6 +1,67 @@
-import { Actions, ISidebarType } from "./store";
+import { Actions, IFriendType } from "./store";
+import { v1 } from "uuid";
 
-const sidebarReducer = (state: ISidebarType, action: Actions): ISidebarType => {
+export type ISidebarType = {
+  friends: Array<IFriendType>;
+};
+
+let initialState: ISidebarType = {
+  friends: [
+    {
+      id: v1(),
+      name: "Dima",
+      src:
+        "https://image.freepik.com/free-vector/woman-girl-female-cartoon-avatar-icon_25030-13349.jpg",
+    },
+    {
+      id: v1(),
+      name: "Andr",
+      src:
+        "https://image.freepik.com/free-vector/woman-girl-female-cartoon-avatar-icon_25030-13349.jpg",
+    },
+    {
+      id: v1(),
+      name: "Aleks",
+      src:
+        "https://image.freepik.com/free-vector/woman-girl-female-cartoon-avatar-icon_25030-13349.jpg",
+    },
+    {
+      id: v1(),
+      name: "Kira",
+      src:
+        "https://image.freepik.com/free-vector/woman-girl-female-cartoon-avatar-icon_25030-13349.jpg",
+    },
+    {
+      id: v1(),
+      name: "Sem",
+      src:
+        "https://image.freepik.com/free-vector/woman-girl-female-cartoon-avatar-icon_25030-13349.jpg",
+    },
+    {
+      id: v1(),
+      name: "Felix",
+      src:
+        "https://image.freepik.com/free-vector/woman-girl-female-cartoon-avatar-icon_25030-13349.jpg",
+    },
+    {
+      id: v1(),
+      name: "Artur",
+      src:
+        "https://image.freepik.com/free-vector/woman-girl-female-cartoon-avatar-icon_25030-13349.jpg",
+    },
+    {
+      id: v1(),
+      name: "Den",
+      src:
+        "https://image.freepik.com/free-vector/woman-girl-female-cartoon-avatar-icon_25030-13349.jpg",
+    },
+  ],
+};
+
+const sidebarReducer = (
+  state: ISidebarType = initialState,
+  action: Actions
+): ISidebarType => {
   switch (action.type) {
     default:
       return state;
