@@ -1,52 +1,50 @@
-import React, { ChangeEvent, Dispatch } from "react";
+import React, {ChangeEvent} from "react";
 import {
-  Actions,
-  IDialogsPageType,
-  INewMessageType,
+    INewMessageType,
 } from "../../../redux/store";
-import {
-  addNewMessage,
-  updateInputNewMessage,
-} from "../../../redux/dialogs-reducer";
 
-type PropsType = {
-  // store: IStoreType;
-  dialogsPage: IDialogsPageType;
-  dispatch: Dispatch<Actions>;
+type INewMessagePropsType = {
+    newMessageText: string
+    onClickAddNewMessage: (newMessage: INewMessageType) => void
+    onChangeInputValue: (newValue: string) => void
+    // store: IStoreType;
+    // dialogsPage: IDialogsPageType;
+    // dispatch: Dispatch<Actions>;
 };
 
-function NewMessage({ dispatch, dialogsPage }: PropsType) {
-  const message = React.createRef<HTMLTextAreaElement>();
-  const newMessage = dialogsPage.newMessageText;
-  const addButtonNewMessage = () => {
-    if (message.current) {
-      let text = message.current?.value;
-      // text.trim() && addNewMessage(text, "Aleks", undefined, undefined);
-      let newMessage: INewMessageType = {
-        text: text,
-        name: "Alex",
-      };
-      text.trim() && dispatch(addNewMessage(newMessage));
-      dispatch(updateInputNewMessage(""));
-    }
-  };
+function NewMessage({newMessageText, onClickAddNewMessage, onChangeInputValue}: INewMessagePropsType) {
 
-  const onChangeInputValueHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch(updateInputNewMessage(e.currentTarget.value));
-  };
+    const message = React.createRef<HTMLTextAreaElement>();
 
-  return (
-    <div>
+    const onClickAddNewMessageHandler = () => {
+        if (message.current) {
+            let text = message.current?.value;
+            // text.trim() && addNewMessage(text, "Aleks", undefined, undefined);
+            let newMessage: INewMessageType = {
+                text: text,
+                name: "Alex",
+            };
+            text.trim() && onClickAddNewMessage(newMessage);
+            onChangeInputValue("");
+        }
+    };
+
+    const onChangeInputValueHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        onChangeInputValue(e.currentTarget.value);
+    };
+
+    return (
+        <div>
       <textarea
-        value={newMessage}
-        ref={message}
-        name="message"
-        placeholder={"New"}
-        onChange={onChangeInputValueHandler}
+          value={newMessageText}
+          ref={message}
+          name="message"
+          placeholder={"New"}
+          onChange={onChangeInputValueHandler}
       />
-      <button onClick={addButtonNewMessage}>Add</button>
-    </div>
-  );
+            <button onClick={onClickAddNewMessageHandler}>Add</button>
+        </div>
+    );
 }
 
 export default NewMessage;

@@ -1,27 +1,30 @@
-import React, { Dispatch } from "react";
+import React from "react";
 import "./Chatbox.scss";
-import { Actions, IDialogsPageType } from "../../redux/store";
+import {Actions, IStateType} from "../../redux/store";
 import Message from "./Message";
-import NewMessage from "./NewMessage/NewMessage";
+import {CombinedState, Store} from "redux";
+import NewMessageContainer from "./NewMessage/NewMessageContainer";
 
 type ChatboxPropsType = {
-  // store: IStoreType;
-  dialogsPage: IDialogsPageType;
-  dispatch: Dispatch<Actions>;
-  /*  messages: Array<IMessageType>;
-  dispatch: (action: IActionType) => void;*/
+    store: Store<CombinedState<IStateType>, Actions>;
+    /* store: IStoreType;
+       dialogsPage: IDialogsPageType;
+       dispatch: Dispatch<Actions>;
+       messages: Array<IMessageType>;
+       dispatch: (action: IActionType) => void;*/
 };
 
-const Chatbox: React.FC<ChatboxPropsType> = ({ dispatch, dialogsPage }) => {
-  const messageList = dialogsPage.messages.map((m) => (
-    <Message key={m.id} message={m} />
-  ));
+const Chatbox: React.FC<ChatboxPropsType> = ({store}) => {
+    const messageList = store.getState().dialogsPage.messages.map((m) => (
+        <Message key={m.id} message={m}/>
+    ));
 
-  return (
-    <div className="chatbox">
-      {messageList}
-      <NewMessage dispatch={dispatch} dialogsPage={dialogsPage} />
-    </div>
-  );
+    return (
+        <div className="chatbox">
+            {messageList}
+            <NewMessageContainer store={store}/>
+            {/*<NewMessage dispatch={dispatch} dialogsPage={dialogsPage} />*/}
+        </div>
+    );
 };
 export default Chatbox;
