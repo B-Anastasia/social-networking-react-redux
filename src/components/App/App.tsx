@@ -10,11 +10,13 @@ import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import { DialogsPage, ProfilePage } from "../Pages";
 import { Actions, IStateType } from "../../redux/store";
 import Friends from "../Friends";
+import { CombinedState, Store } from "redux";
 
 type IAppPropsType = {
+  store: Store<CombinedState<IStateType>, Actions>;
+  dispatch: Dispatch<Actions>;
   state: IStateType;
   // dispatch: (action: IActionType) => void;
-  dispatch: Dispatch<Actions>;
   // store: IStoreType;
   // store: Store<CombinedState<IStoreType>, Actions>;
   /*  addNewPost: () => void;
@@ -27,8 +29,8 @@ type IAppPropsType = {
   ) => void;*/
 };
 
-function App({ state, dispatch }: IAppPropsType) {
-  const { profilePage, sidebar, dialogsPage } = state;
+function App({ store, state, dispatch }: IAppPropsType) {
+  const { sidebar, dialogsPage } = state;
   return (
     <div className="app-wrapper">
       <Header />
@@ -40,9 +42,10 @@ function App({ state, dispatch }: IAppPropsType) {
           path="/profile"
           render={() => (
             <ProfilePage
-              dispatch={dispatch}
+              store={store}
+              /*dispatch={dispatch}
               profilePage={profilePage}
-              newPostText={profilePage.newPostText}
+              newPostText={profilePage.newPostText}*/
             />
           )}
         />

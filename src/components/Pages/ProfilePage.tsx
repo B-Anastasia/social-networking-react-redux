@@ -1,29 +1,24 @@
-import React, { Dispatch } from "react";
+import React from "react";
 import scss from "./Pages.module.scss";
-import MyPosts from "../Posts";
-import { Actions, IProfilePageType } from "../../redux/store";
+import { Actions, IStateType } from "../../redux/store";
+import { CombinedState, Store } from "redux";
+import MyPostsContainer from "../Posts/MyPostsContainer";
 
 type IProfilePagePropsType = {
-  profilePage: IProfilePageType;
-  newPostText: string;
-  dispatch: Dispatch<Actions>;
+  store: Store<CombinedState<IStateType>, Actions>;
+  /*profilePage: IProfilePageType;
+    newPostText: string;
+    dispatch: Dispatch<Actions>;*/
 };
 
-function ProfilePage({
-  profilePage,
-  newPostText,
-  dispatch,
-}: IProfilePagePropsType) {
+function ProfilePage({ store }: IProfilePagePropsType) {
   return (
     <>
       <div className={scss.profile__posts}>
-        <MyPosts
-          profilePage={profilePage}
-          newPostText={newPostText}
-          dispatch={dispatch}
-        />
+        <MyPostsContainer store={store} />
       </div>
     </>
   );
 }
+
 export default ProfilePage;
