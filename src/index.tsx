@@ -4,16 +4,14 @@ import store from "./redux/redux-store";
 import "./index.scss";
 import { BrowserRouter, Switch } from "react-router-dom";
 import App from "./components/App";
-import {Provider} from "./StoreContext";
+import {Provider} from "react-redux";
 
 let rerenderEntireTree = () => {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
         <Switch>
-            < Provider value={store}>
-
-
+            < Provider store={store}>
           <App
            /* store={store}
             state={store.getState()}
