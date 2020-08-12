@@ -1,25 +1,30 @@
 import React from "react";
 import scss from "./Pages.module.scss";
 import DialogsList from "../DialogsList";
-import {Actions, IStateType} from "../../redux/store";
 import Chatbox from "../Chatbox";
-import {CombinedState, Store} from "redux";
+import StoreContext from "../../StoreContext";
 
-type IDialogsPagePropsTypes = {
-    store: Store<CombinedState<IStateType>, Actions>;
-    /* dialogsPage: IDialogsPageType;
-     dispatch: Dispatch<Actions>;*/
-};
+/*type IDialogsPagePropsTypes = {
+    // store: Store<CombinedState<IStateType>, Actions>;
+    /!* dialogsPage: IDialogsPageType;
+     dispatch: Dispatch<Actions>;*!/
+};*/
 
-function DialogsPage({store}: IDialogsPagePropsTypes) {
+function DialogsPage() {
     return (
-        <div className={`block ${scss.dialogs}`}>
-            <div className={scss.dialogs__list}>
-                <DialogsList dialogs={store.getState().dialogsPage.dialogs}/>
-            </div>
-            <Chatbox store={store}/>
-        </div>
-    );
+        <StoreContext.Consumer>
+            {(store) => {
+                return (
+                    <div className={`block ${scss.dialogs}`}>
+                        <div className={scss.dialogs__list}>
+                            <DialogsList dialogs={store.getState().dialogsPage.dialogs}/>
+                        </div>
+                        <Chatbox/>
+                    </div>
+                );
+            }}
+        </StoreContext.Consumer>
+    )
 }
 
 export default DialogsPage;
