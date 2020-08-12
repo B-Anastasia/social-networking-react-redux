@@ -1,13 +1,13 @@
-import React from "react";
+import {Dispatch} from "react";
 import {
-    INewMessageType,
+    INewMessageType, IStateType,
 } from "../../../redux/store";
 import {
-    addNewMessage,
-    updateInputNewMessage,
+    addNewMessageAC, IDialogsActions,
+     updateInputNewMessageAC,
 } from "../../../redux/dialogs-reducer";
 import NewMessage from "./NewMessage";
-import StoreContext from "../../../StoreContext";
+import {connect} from "react-redux";
 
 /*type PropsType = {
     // store: Store<CombinedState<IStateType>, Actions>;
@@ -15,7 +15,7 @@ import StoreContext from "../../../StoreContext";
      dispatch: Dispatch<Actions>;*!/
 };*/
 
-function NewMessageContainer() {
+/*function OLDNewMessageContainer() {
     return (
         <StoreContext.Consumer>
             {(store) => {
@@ -24,11 +24,11 @@ function NewMessageContainer() {
                 const newMessageText = state.dialogsPage.newMessageText;
 
                 const onClickAddNewMessage = (newMessage: INewMessageType) => {
-                    store.dispatch(addNewMessage(newMessage));
+                    store.dispatch(addNewMessageAC(newMessage));
                 };
 
                 const onChangeInputValue = (newValue: string) => {
-                    store.dispatch(updateInputNewMessage(newValue));
+                    store.dispatch(updateInputNewMessageAC(newValue));
                 };
 
                 return (
@@ -39,6 +39,23 @@ function NewMessageContainer() {
         </StoreContext.Consumer>
     )
 
+}*/
+
+let mapStateToProps=(state:IStateType)=>{
+    return{
+    newMessageText: state.dialogsPage.newMessageText
+    }
 }
+
+let mapDispatchToProps=(dispatch:Dispatch<IDialogsActions>)=>{
+    return{
+        onClickAddNewMessage: (newMessage: INewMessageType)=> {dispatch(addNewMessageAC(newMessage))},
+        onChangeInputValue:(newValue: string) => {
+            dispatch(updateInputNewMessageAC(newValue));
+        }
+    }
+}
+
+const NewMessageContainer=connect(mapStateToProps,mapDispatchToProps)(NewMessage);
 
 export default NewMessageContainer;
