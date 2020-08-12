@@ -5,8 +5,8 @@ import store from "./redux/redux-store";
 
 const StoreContext = React.createContext<Store>(store);
 
-/*export type IProviderType={
-    value:IStoreType;
+export type IProviderType={
+    value:Store;
     children:any;
 }
 
@@ -16,5 +16,5 @@ export const Provider =(props:IProviderType)=>{
             {props.children}
         </StoreContext.Provider>
     )
-}*/
+}
 export default StoreContext;

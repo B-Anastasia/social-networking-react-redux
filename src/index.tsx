@@ -4,14 +4,14 @@ import store from "./redux/redux-store";
 import "./index.scss";
 import { BrowserRouter, Switch } from "react-router-dom";
 import App from "./components/App";
-import StoreContext from "./StoreContext";
+import {Provider} from "./StoreContext";
 
 let rerenderEntireTree = () => {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
         <Switch>
-            <StoreContext.Provider value={store}>
+            < Provider value={store}>
 
 
           <App
@@ -22,7 +22,7 @@ let rerenderEntireTree = () => {
             addNewPost={store.addNewPost.bind(store)}
             addNewMessage={store.addNewMessage.bind(store)}*/
           />
-            </StoreContext.Provider>
+            </Provider>
         </Switch>
       </BrowserRouter>
     </React.StrictMode>,
