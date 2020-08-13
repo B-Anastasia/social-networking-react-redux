@@ -29,6 +29,7 @@ function MyPosts(props: PropsTypes) {
 
   const onClickAddPostHandler = () => {
     onClickAddPost();
+    onChangeInputValue('');
   };
 
   const onChangeInputValueHandler = () => {

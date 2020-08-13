@@ -1,7 +1,7 @@
 import React, { Dispatch } from "react";
 import styles from "./NewPost.module.css";
 import { Actions } from "../../../redux/store";
-import { addNewPost, updateInputValue } from "../../../redux/profile-reducer";
+import { addNewPostAC, updateInputValueAC} from "../../../redux/profile-reducer";
 
 type PropsType = {
   newPostText: string;
@@ -21,15 +21,15 @@ function NewPost({ newPostText, dispatch }: PropsType) {
       addNewPost();
       updateInputValue(""); //after adding post
     }*/
-    dispatch(addNewPost());
-    dispatch(updateInputValue(""));
+    dispatch(addNewPostAC());
+    dispatch(updateInputValueAC(""));
     // updateInputValue(""); //after adding post
   };
 
   const onInputValue = () => {
     if (newPost.current) {
       let text = newPost.current.value;
-      dispatch(updateInputValue(text));
+      dispatch(updateInputValueAC(text));
       // updateInputValue(text);
     }
   };

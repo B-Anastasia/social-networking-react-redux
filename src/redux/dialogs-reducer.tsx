@@ -160,10 +160,13 @@ export const addNewMessageAC = (
     newMessage: INewMessageType
 ): IAddNewMessageType => ({type: ADD_NEW_MESSAGE, payload: newMessage});
 
-export const updateInputNewMessageAC = (text: string): IUpdInputMessage => ({
-    type: UPDATE_INPUT_NEW_MESSAGE,
-    payload: text,
-});
+export const updateInputNewMessageAC = (text: string): IUpdInputMessage =>{
+    debugger
+    return {
+        type: UPDATE_INPUT_NEW_MESSAGE,
+        payload: text,
+    }
+};
 
 //All ACreators union type
 export type IDialogsActions = IAddNewMessageType | IUpdInputMessage;

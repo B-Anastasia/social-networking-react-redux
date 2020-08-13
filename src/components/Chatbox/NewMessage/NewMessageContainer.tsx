@@ -48,6 +48,7 @@ let mapStateToProps=(state:IStateType)=>{
 }
 
 let mapDispatchToProps=(dispatch:Dispatch<IDialogsActions>)=>{
+    debugger
     return{
         onClickAddNewMessage: (newMessage: INewMessageType)=> {dispatch(addNewMessageAC(newMessage))},
         onChangeInputValue:(newValue: string) => {

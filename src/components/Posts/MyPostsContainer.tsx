@@ -1,7 +1,12 @@
-import React from "react";
-import {addNewPost, updateInputValue} from "../../redux/profile-reducer";
+import {Dispatch} from "react";
+import {
+    addNewPostAC,
+    IProfileActions,
+    updateInputValueAC
+} from "../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
-import StoreContext from "../../StoreContext";
+import {connect} from "react-redux";
+import {IStateType} from "../../redux/store";
 
 /*type PropsTypes = {
     // store: Store<CombinedState<IStateType>, Actions>;
@@ -9,7 +14,7 @@ import StoreContext from "../../StoreContext";
       newPostText: string;
     dispatch: Dispatch<Actions>;*!/
 };*/
-
+/*
 function MyPostsContainer() {
     return (
         <StoreContext.Consumer>
@@ -17,12 +22,12 @@ function MyPostsContainer() {
                 let state = store.getState();
 
                 const onClickAddPost = () => {
-                    store.dispatch(addNewPost());
-                    store.dispatch(updateInputValue(""));
+                    store.dispatch(addNewPostAC());
+                    store.dispatch(updateInputValueAC(""));
                 };
 
                 const onChangeInputValue = (newValue: string) => {
-                    store.dispatch(updateInputValue(newValue));
+                    store.dispatch(updateInputValueAC(newValue));
                 };
                 return (
                     <MyPosts
@@ -36,6 +41,13 @@ function MyPostsContainer() {
             }
         </StoreContext.Consumer>
     )
+}*/
+const mapStateToProps=(state:IStateType)=>({profilePage:state.profilePage, newPostText:state.profilePage.newPostText});
+const mapDispatchToProps=(dispatch:Dispatch<IProfileActions>)=>{
+    return {
+        onChangeInputValue:(newValue:string)=>dispatch(updateInputValueAC(newValue)),
+        onClickAddPost: ()=>dispatch(addNewPostAC())}
 }
+const MyPostsContainer = connect(mapStateToProps,mapDispatchToProps)(MyPosts);
 
 export default MyPostsContainer;

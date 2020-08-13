@@ -95,8 +95,8 @@ type IUpdInputValueType = {
   payload: string;
 };
 //Action creators
-export const addNewPost = (): IAddNewPostType => ({ type: ADD_NEW_POST });
-export const updateInputValue = (text: string): IUpdInputValueType => ({
+export const addNewPostAC = (): IAddNewPostType => ({ type: ADD_NEW_POST });
+export const updateInputValueAC = (text: string): IUpdInputValueType => ({
   type: UPDATE_INPUT_VALUE,
   payload: text,
 });
