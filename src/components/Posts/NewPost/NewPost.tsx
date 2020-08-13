@@ -1,14 +1,13 @@
-import React, { Dispatch } from "react";
+import React  from "react";
 import styles from "./NewPost.module.css";
-import { Actions } from "../../../redux/store";
-import { addNewPostAC, updateInputValueAC} from "../../../redux/profile-reducer";
 
 type PropsType = {
   newPostText: string;
-  dispatch: Dispatch<Actions>;
+  onClickAddMessage: () => void;
+  onChangeInputValue: (newValue: string) => void;
 };
 
-function NewPost({ newPostText, dispatch }: PropsType) {
+function NewPost({ newPostText, onClickAddMessage,onChangeInputValue }: PropsType) {
   let newPost = React.createRef<HTMLTextAreaElement>();
 
   const onButtonAddPost = () => {
@@ -21,15 +20,15 @@ function NewPost({ newPostText, dispatch }: PropsType) {
       addNewPost();
       updateInputValue(""); //after adding post
     }*/
-    dispatch(addNewPostAC());
-    dispatch(updateInputValueAC(""));
+    onClickAddMessage();
+    onChangeInputValue("");
     // updateInputValue(""); //after adding post
   };
 
   const onInputValue = () => {
     if (newPost.current) {
       let text = newPost.current.value;
-      dispatch(updateInputValueAC(text));
+      onChangeInputValue(text);
       // updateInputValue(text);
     }
   };
