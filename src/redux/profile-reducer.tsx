@@ -67,17 +67,18 @@ const profileReducer = (
 ): IProfilePageType => {
   switch (action.type) {
     case "UPDATE_INPUT_VALUE":
-      state.newPostText = action.payload;
-      return state;
+      return {...state,newPostText:action.payload};
     case "ADD_NEW_POST":
       const newPost: IPostType = {
         id: v1(),
         text: state.newPostText,
         count: 0,
       };
-      state.posts.unshift(newPost);
-      state.newPostText = "";
-      return state;
+      return {
+          ...state,
+        posts: [newPost,...state.posts],
+        newPostText: ''
+      }
     default:
       return state;
   }
