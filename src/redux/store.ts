@@ -2,6 +2,7 @@ import { v1 } from "uuid";
 import profileReducer, { IProfileActions } from "./profile-reducer";
 import dialogsReducer, { IDialogsActions } from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
+import {IUsersType} from "./users-reducer";
 
 export const users = [
   {
@@ -226,6 +227,7 @@ export type IStateType = {
   profilePage: IProfilePageType;
   dialogsPage: IDialogsPageType;
   sidebar: ISidebarType;
+  usersPage: IUsersType
 };
 
 export type IFriendType = {

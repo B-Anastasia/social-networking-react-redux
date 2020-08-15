@@ -7,7 +7,7 @@ type ILocationType = {
     country: string
 }
 
-type IUserType = {
+export type IUserType = {
     id: string,
     fullName: string,
     photoUrl: string,
@@ -16,7 +16,7 @@ type IUserType = {
     location: ILocationType
 }
 
-type IUsersType = {
+export type IUsersType = {
     users: Array<IUserType>
 }
 
@@ -45,15 +45,13 @@ const usersReducer = (state: IUsersType = initialState, action: IUsersACsType) =
             return {
                 ...state,
                 users: state.users.map(u => u.id === action.userId ?
-                    {...u, followed: false}
+                    {...u, followed: true}
                     : u)
             }
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map(u => u.id === action.userId ?
-                    {...u, followed: true}
-                    : u)
+                users: state.users.map(u => (u.id === action.userId )?{...u, followed: false} : u)
             }
         case SET_USERS:
             return {
@@ -65,7 +63,7 @@ const usersReducer = (state: IUsersType = initialState, action: IUsersACsType) =
     }
 }
 
-type IUsersACsType = IFollowActionType | IUnfollowActionType | ISetUsersActionType;
+export type IUsersACsType = IFollowActionType | IUnfollowActionType | ISetUsersActionType;
 
 export const followAC = (userId: string): IFollowActionType => ({type: FOLLOW, userId});
 export const unfollowAC = (userId: string): IUnfollowActionType => ({type: UNFOLLOW, userId});
