@@ -119,8 +119,7 @@ const dialogsReducer = (
 ): IDialogsPageType => {
     switch (action.type) {
         case "UPDATE_INPUT_NEW_MESSAGE":
-            state.newMessageText = action.payload;
-            return state;
+            return {...state,newMessageText:action.payload};
         case "ADD_NEW_MESSAGE":
             const {
                 text,
@@ -130,14 +129,13 @@ const dialogsReducer = (
             } = action.payload;
             const newMessage = {
                 id: v1(),
-                text: text,
-                name: name,
+                text,
+                name,
                 img: imgUrl,
-                img_name: img_name,
+                img_name,
                 time: `${new Date().getHours()}:${new Date().getMinutes()}`,
             };
-            state.messages.push(newMessage);
-            return state;
+            return {...state, messages:[...state.messages,newMessage]};
         default:
             return state;
     }
@@ -161,7 +159,6 @@ export const addNewMessageAC = (
 ): IAddNewMessageType => ({type: ADD_NEW_MESSAGE, payload: newMessage});
 
 export const updateInputNewMessageAC = (text: string): IUpdInputMessage =>{
-    debugger
     return {
         type: UPDATE_INPUT_NEW_MESSAGE,
         payload: text,
