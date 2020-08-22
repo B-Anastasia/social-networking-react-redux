@@ -7,10 +7,15 @@ type ILocationType = {
     country: string
 }
 
+export type IPhotosUserType={
+    small:string
+    large:string
+}
+
 export type IUserType = {
     id: string,
-    fullName: string,
-    photoUrl: string,
+    name: string,
+    photos: IPhotosUserType,
     followed: boolean,
     status: string
     location: ILocationType

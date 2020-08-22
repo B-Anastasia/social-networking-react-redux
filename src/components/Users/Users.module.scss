@@ -1,8 +1,16 @@
-.user{
+.user {
   display: flex;
   margin: 2rem;
+
+  .avatar {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+
+    img {
+      width: 80%;
+      object-fit: cover;
+    }
+  }
 }
-img{
-  width: 100px;
-  height: 100px;
-}
+

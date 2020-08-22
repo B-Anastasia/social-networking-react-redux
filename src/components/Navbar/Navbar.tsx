@@ -11,6 +11,11 @@ function Navbar() {
         </NavLink>
       </div>
       <div className={scss.nav__item}>
+        <NavLink activeClassName={scss.active} to="/users">
+          Users
+        </NavLink>
+      </div>
+      <div className={scss.nav__item}>
         <NavLink activeClassName={scss.active} to="/dialogs">
           Messages
         </NavLink>
