@@ -12,8 +12,9 @@ type IUsersPropsType = {
 }
 
 class UsersClass extends React.Component<IUsersPropsType> {
-    constructor(props: IUsersPropsType) {
-        super(props);
+
+    componentDidMount(): void {
+        console.log('componentDidMount')
         axios
             .get('https://social-network.samuraijs.com/api/1.0/users')
             .then(response => this.props.setUsersHandler(response.data.items))
@@ -21,6 +22,7 @@ class UsersClass extends React.Component<IUsersPropsType> {
     }
 
     render() {
+        console.log('UsersClass');
         return (
             <div>
                 {

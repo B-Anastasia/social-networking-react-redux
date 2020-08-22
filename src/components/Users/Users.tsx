@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {IUserType} from "../../redux/users-reducer";
 import scss from './Users.module.scss';
 import axios from 'axios'
@@ -13,13 +13,19 @@ type IUsersPropsType = {
 }
 
 function Users(props: IUsersPropsType) {
-    const setUsers = () => {
+    /*const setUsers = () => {
         if (props.users.length === 0) {
             axios.get('https://social-network.samuraijs.com/api/1.0/users')
                 .then(response => props.setUsersHandler(response.data.items))
             ;
         }
-    }
+    }*/
+    useEffect(() => {
+        console.log('useEffect')
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => props.setUsersHandler(response.data.items))
+        ;
+    }, []);
 
     /* if(props.users.length===0){
          props.setUsersHandler([
@@ -34,7 +40,7 @@ function Users(props: IUsersPropsType) {
 
     return (
         <div>
-            <button onClick={setUsers}>Add users</button>
+            {/*<button onClick={setUsers}>Add users</button>*/}
             {
                 props.users.map(u => {
                     return (
