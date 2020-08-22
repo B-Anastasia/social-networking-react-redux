@@ -13,10 +13,12 @@ type IUsersPropsType = {
 }
 
 function Users(props: IUsersPropsType) {
-    if (props.users.length === 0) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(response =>props.setUsersHandler(response.data.items))
-        ;
+    const setUsers = () => {
+        if (props.users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+                .then(response => props.setUsersHandler(response.data.items))
+            ;
+        }
     }
 
     /* if(props.users.length===0){
@@ -31,27 +33,30 @@ function Users(props: IUsersPropsType) {
      }*/
 
     return (
-        <div>{
-            props.users.map(u => {
-                console.log(u.photos!==null? u.photos.small:userPhoto)
-                return (
-                    <div key={u.id} className={scss.user}>
-                        <div>
-                            <div className={scss.avatar}><img src={u.photos.small!=null? u.photos.small:userPhoto} alt={u.id}/></div>
-                            {u.followed ?
-                                <button onClick={() => props.unfollowHandler(u.id)}>Unfollow</button> :
-                                <button onClick={() => props.followHandler(u.id)}>Follow</button>}
+        <div>
+            <button onClick={setUsers}>Add users</button>
+            {
+                props.users.map(u => {
+                    return (
+                        <div key={u.id} className={scss.user}>
+                            <div>
+                                <div className={scss.avatar}><img
+                                    src={u.photos.small != null ? u.photos.small : userPhoto}
+                                    alt={u.id}/></div>
+                                {u.followed ?
+                                    <button onClick={() => props.unfollowHandler(u.id)}>Unfollow</button> :
+                                    <button onClick={() => props.followHandler(u.id)}>Follow</button>}
+                            </div>
+                            <div>
+                                <div>{u.name}</div>
+                                <div>{u.status}</div>
+                                <div>Minsk</div>
+                                <div>Belarus</div>
+                            </div>
                         </div>
-                        <div>
-                            <div>{u.name}</div>
-                            <div>{u.status}</div>
-                            <div>Minsk</div>
-                            <div>Belarus</div>
-                        </div>
-                    </div>
-                )
-            })
-        }
+                    )
+                })
+            }
         </div>
     )
 }
