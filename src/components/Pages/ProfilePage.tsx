@@ -10,13 +10,13 @@ import MyPostsContainer from "../Posts/MyPostsContainer";
 };*/
 
 function ProfilePage() {
-  return (
-    <>
-      <div className={scss.profile__posts}>
-        <MyPostsContainer />
-      </div>
-    </>
-  );
+    return (
+        <>
+            <div className={scss.profile__posts}>
+                <MyPostsContainer/>
+            </div>
+        </>
+    );
 }
 
 export default ProfilePage;

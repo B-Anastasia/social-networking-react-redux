@@ -33,34 +33,35 @@ function App() {
     return (
         <div className="app-wrapper">
             <Header/>
-            <Route path="/profile" component={ProfileInfo}/>
-            <div className="app-wrapper__content container">
-                <Navbar/>
-                <Friends/>
-                <Route
-                    path="/profile"
-                    render={() => (
-                        <ProfilePage
-                            // store={store}
-                            /*dispatch={dispatch}
-                            profilePage={profilePage}
-                            newPostText={profilePage.newPostText}*/
-                        />
-                    )}
-                />
-                <Route
-                    path="/dialogs"
-                    render={() => (
-                        <DialogsPage
-                            // store={store}
-                        />
-                    )}
-                />
-                <Route path='/users' component={UsersContainer}/>
-                <Route path="/news" component={News}/>
-                <Route path="/music" component={Music}/>
-                <Route path="/settings" component={Settings}/>
-            </div>
+                <Route path="/profile" component={ProfileInfo}/>
+                <div className="app-wrapper__content container">
+                    <Navbar/>
+                    <Friends/>
+
+                    <Route
+                        path="/profile"
+                        render={() => (
+                            <ProfilePage
+                                // store={store}
+                                /*dispatch={dispatch}
+                                profilePage={profilePage}
+                                newPostText={profilePage.newPostText}*/
+                            />
+                        )}
+                    />
+                    <Route
+                        path="/dialogs"
+                        render={() => (
+                            <DialogsPage
+                                // store={store}
+                            />
+                        )}
+                    />
+                    <Route path='/users' component={UsersContainer}/>
+                    <Route path="/news" component={News}/>
+                    <Route path="/music" component={Music}/>
+                    <Route path="/settings" component={Settings}/>
+                </div>
         </div>
     );
 }

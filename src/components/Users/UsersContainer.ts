@@ -1,8 +1,9 @@
 import {connect} from "react-redux";
-import Users from "./Users";
+// import Users from "./Users";
 import {IStateType} from "../../redux/store";
 import {followAC, IUsersACsType, IUserType, setUsersAC, unfollowAC} from "../../redux/users-reducer";
 import {Dispatch} from "react";
+import UsersClass from "./UsersClass";
 
 const mapStateToProps=(state:IStateType)=>{
     return {
@@ -17,4 +18,4 @@ const mapDispatchToProps=(dispatch:Dispatch<IUsersACsType>)=>{
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Users)
+export default connect(mapStateToProps,mapDispatchToProps)(UsersClass)
