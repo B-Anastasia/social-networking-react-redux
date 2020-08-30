@@ -14,3 +14,15 @@
   }
 }
 
+.pages {
+  span {
+    padding-right: 5px;
+    padding-left: 5px;
+    cursor: pointer;
+  }
+
+  .activePage {
+    font-weight: bold;
+  }
+}
+

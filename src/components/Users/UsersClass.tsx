@@ -6,9 +6,14 @@ import userPhoto from '../../assets/images/userPhoto.png'
 
 type IUsersPropsType = {
     users: Array<IUserType>
+    pageSize: number,
+    totalCount: number,
+    currentPage: number
     followHandler: (userId: string) => void,
     unfollowHandler: (userId: string) => void,
     setUsersHandler: (users: Array<IUserType>) => void
+    changeCurrentPage:(currentPage:number)=>void
+    setTotalCount:(totalCount:number)=>void
 }
 
 class UsersClass extends React.Component<IUsersPropsType> {
@@ -16,15 +21,42 @@ class UsersClass extends React.Component<IUsersPropsType> {
     componentDidMount(): void {
         console.log('componentDidMount')
         axios
-            .get('https://social-network.samuraijs.com/api/1.0/users')
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsersHandler(response.data.items);
+                this.props.setTotalCount(response.data.totalCount);
+            })
+        ;
+    }
+
+    downloadUsersPage=(currentPage:number)=>{
+        this.props.changeCurrentPage(currentPage);
+        axios
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`)
             .then(response => this.props.setUsersHandler(response.data.items))
         ;
     }
 
+
+
     render() {
+    //counting numbering of pages
+        const pages = Math.ceil(this.props.totalCount / this.props.pageSize);
+        let pagesCount: Array<number> = [];
+        for (let i = 1; i <= pages; i++) {
+            pagesCount.push(i);
+        }
         console.log('UsersClass');
         return (
             <div>
+                <div className={scss.pages}>
+                    {pagesCount.map(p => {
+                        return <span key={p + Math.random()}
+                                     className={this.props.currentPage === p ? scss.activePage : ""}
+                                     onClick={()=>this.downloadUsersPage(p)}
+                        >{p}</span>
+                    })}
+                </div>
                 {
                     this.props.users.map(u => {
                         return (

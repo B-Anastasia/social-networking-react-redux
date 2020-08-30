@@ -3,6 +3,8 @@ import {IUserType} from "../../redux/users-reducer";
 import scss from './Users.module.scss';
 import axios from 'axios'
 import userPhoto from '../../assets/images/userPhoto.png'
+import {useSelector} from "react-redux";
+import {IStateType} from "../../redux/store";
 // import {v1} from "uuid";
 
 type IUsersPropsType = {
@@ -26,6 +28,7 @@ function Users(props: IUsersPropsType) {
             .then(response => props.setUsersHandler(response.data.items))
         ;
     }, []);
+    let users=useSelector<IStateType,Array<IUserType>>(state=>state.usersPage.users);
 
     /* if(props.users.length===0){
          props.setUsersHandler([
@@ -42,7 +45,7 @@ function Users(props: IUsersPropsType) {
         <div>
             {/*<button onClick={setUsers}>Add users</button>*/}
             {
-                props.users.map(u => {
+                users.map(u => {
                     return (
                         <div key={u.id} className={scss.user}>
                             <div>
