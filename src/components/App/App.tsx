@@ -10,7 +10,7 @@ import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import {DialogsPage, ProfilePage} from "../Pages";
 import Friends from "../Friends";
 // import UsersContainer from "../Users/UsersContainer";
-import UsersContainer from "../Users/UsersContainer";
+import UsersHooks from "../Users/UsersHooks";
 
 /*type IAppPropsType = {
   /!*  store: Store<CombinedState<IStateType>, Actions>|null;
@@ -58,7 +58,7 @@ function App() {
                             />
                         )}
                     />
-                    <Route path='/users' component={UsersContainer}/>
+                    <Route path='/users' component={UsersHooks}/>
                     <Route path="/news" component={News}/>
                     <Route path="/music" component={Music}/>
                     <Route path="/settings" component={Settings}/>

@@ -1,17 +1,18 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
-const SET_CURRENT_PAGE='SET_CURRENT_PAGE';
-const SET_TOTAL_COUNT ='SET_TOTAL_COUNT';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
+const TOGGLE_IS_FETCHING='TOGGLE_IS_FETCHING';
 
 type ILocationType = {
     city: string,
     country: string
 }
 
-export type IPhotosUserType={
-    small:string
-    large:string
+export type IPhotosUserType = {
+    small: string
+    large: string
 }
 
 export type IUserType = {
@@ -25,9 +26,10 @@ export type IUserType = {
 
 export type IUsersType = {
     users: Array<IUserType>,
-    pageSize:number,
-    totalCount:number,
-    currentPage:number
+    pageSize: number,
+    totalCount: number,
+    currentPage: number
+    isFetching: boolean
 }
 
 type IFollowActionType = {
@@ -45,18 +47,24 @@ type ISetUsersActionType = {
 }
 type ISetCurrentPageActionType = {
     type: typeof SET_CURRENT_PAGE,
-    payload: { currentPage:number }
+    payload: { currentPage: number }
 }
 type ISetTotalCountActionType = {
     type: typeof SET_TOTAL_COUNT,
-    payload: { totalCount:number }
+    payload: { totalCount: number }
+}
+
+type IToggleIsFetchingActionType = {
+    type : typeof TOGGLE_IS_FETCHING
+    payload:{ isFetching: boolean}
 }
 
 let initialState: IUsersType = {
     users: [],
-    pageSize:5,
+    pageSize: 5,
     totalCount: 0,
-currentPage:1
+    currentPage: 1,
+    isFetching: false
 }
 
 
@@ -72,31 +80,49 @@ const usersReducer = (state: IUsersType = initialState, action: IUsersACsType) =
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map(u => (u.id === action.userId )?{...u, followed: false} : u)
+                users: state.users.map(u => (u.id === action.userId) ? {...u, followed: false} : u)
             }
         case SET_USERS:
             return {
                 ...state,
-                users: [ ...action.users]
+                users: [...action.users]
             }
         case SET_CURRENT_PAGE: {
-            return {...state,...action.payload}
+            return {...state, ...action.payload}
         }
-        case SET_TOTAL_COUNT:{
-            return {...state,...action.payload}
+        case SET_TOTAL_COUNT: {
+            return {...state, ...action.payload}
+        }
+        case TOGGLE_IS_FETCHING: {
+            return {...state, ...action.payload}
         }
         default:
             return state;
     }
 }
 
-export type IUsersACsType = IFollowActionType | IUnfollowActionType | ISetUsersActionType |ISetCurrentPageActionType |ISetTotalCountActionType;
+export type IUsersACsType =
+    IFollowActionType
+    | IUnfollowActionType
+    | ISetUsersActionType
+    | ISetCurrentPageActionType
+    | ISetTotalCountActionType|IToggleIsFetchingActionType;
 
 export const followAC = (userId: string): IFollowActionType => ({type: FOLLOW, userId});
 export const unfollowAC = (userId: string): IUnfollowActionType => ({type: UNFOLLOW, userId});
 export const setUsersAC = (users: Array<IUserType>): ISetUsersActionType => ({type: SET_USERS, users})
-export const changeCurrentPageAC = (currentPage: number): ISetCurrentPageActionType => ({type: SET_CURRENT_PAGE, payload:{currentPage}})
-export const setTotalCountAC=(totalCount:number):ISetTotalCountActionType=>({type:SET_TOTAL_COUNT,payload:{totalCount}})
+export const changeCurrentPageAC = (currentPage: number): ISetCurrentPageActionType => ({
+    type: SET_CURRENT_PAGE,
+    payload: {currentPage}
+})
+export const setTotalCountAC = (totalCount: number): ISetTotalCountActionType => ({
+    type: SET_TOTAL_COUNT,
+    payload: {totalCount}
+})
+export const toggleIsFetchingAC = (isFetching: boolean): IToggleIsFetchingActionType => ({
+    type: TOGGLE_IS_FETCHING,
+    payload: {isFetching}
+})
 
 
 export default usersReducer;

@@ -1,10 +1,17 @@
 import React, {useEffect} from "react";
-import {changeCurrentPageAC, IUserType, setTotalCountAC, setUsersAC} from "../../redux/users-reducer";
+import {
+    changeCurrentPageAC,
+    IUserType,
+    setTotalCountAC,
+    setUsersAC,
+    toggleIsFetchingAC
+} from "../../redux/users-reducer";
 import scss from './Users.module.scss';
 import axios from 'axios'
 import userPhoto from '../../assets/images/userPhoto.png'
 import {useDispatch, useSelector} from "react-redux";
 import {IStateType} from "../../redux/store";
+import Preloader from "../Preloader/Preloader";
 // import {v1} from "uuid";
 
 type IUsersPropsType = {
@@ -26,14 +33,17 @@ function UsersHooks(props: IUsersPropsType) {
     let currentPage = useSelector<IStateType, number>(state => state.usersPage.currentPage)
     let pageSize = useSelector<IStateType, number>(state => state.usersPage.pageSize);
     let totalCount = useSelector<IStateType, number>(state => state.usersPage.totalCount);
+    let isFetching=useSelector<IStateType,boolean>(state => state.usersPage.isFetching);
     const dispatch = useDispatch();
 
     useEffect(() => {
         console.log('useEffect ith sideEffect')
+        dispatch(toggleIsFetchingAC(true));
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
                 dispatch(setUsersAC(response.data.items));
                 dispatch(setTotalCountAC(response.data.totalCount))
+                dispatch(toggleIsFetchingAC(false));
             });
     }, [currentPage,dispatch,pageSize]);
 
@@ -55,9 +65,13 @@ function UsersHooks(props: IUsersPropsType) {
      }*/
     const downloadUsersPage=(currentPage:number)=>{
         dispatch(changeCurrentPageAC(currentPage));
+        dispatch(toggleIsFetchingAC(true));
         axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
-            .then(response => dispatch(setUsersAC(response.data.items)))
+            .then(response => {
+                dispatch(setUsersAC(response.data.items));
+                dispatch(toggleIsFetchingAC(false));
+            })
         ;
     }
 
@@ -72,8 +86,7 @@ function UsersHooks(props: IUsersPropsType) {
                     >{p}</span>
                 })}
             </div>
-            {
-                users.map(u => {
+            {isFetching?<Preloader/> : users.map(u => {
                     return (
                         <div key={u.id} className={scss.user}>
                             <div>
@@ -92,8 +105,7 @@ function UsersHooks(props: IUsersPropsType) {
                             </div>
                         </div>
                     )
-                })
-            }
+                })}
         </div>
     )
 }
