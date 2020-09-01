@@ -8,8 +8,8 @@ type IUsersPropsType = {
     pageSize: number
     totalCount: number
     currentPage: number
-    followHandler: (userId: string) => void
-    unfollowHandler: (userId: string) => void
+    follow: (userId: string) => void
+    unfollow: (userId: string) => void
     downloadUsersPage: (p:number)=>void
 }
 
@@ -40,8 +40,8 @@ const Users = (props: IUsersPropsType) => {
                                     src={u.photos.small != null ? u.photos.small : userPhoto}
                                     alt={u.id}/></div>
                                 {u.followed ?
-                                    <button onClick={() => props.unfollowHandler(u.id)}>Unfollow</button> :
-                                    <button onClick={() => props.followHandler(u.id)}>Follow</button>}
+                                    <button onClick={() => props.unfollow(u.id)}>Unfollow</button> :
+                                    <button onClick={() => props.follow(u.id)}>Follow</button>}
                             </div>
                             <div>
                                 <div>{u.name}</div>

@@ -8,9 +8,9 @@ type IUsersClassPropsType = {
     pageSize: number,
     totalCount: number,
     currentPage: number
-    followHandler: (userId: string) => void,
-    unfollowHandler: (userId: string) => void,
-    setUsersHandler: (users: Array<IUserType>) => void
+    follow: (userId: string) => void,
+    unfollow: (userId: string) => void,
+    setUsers: (users: Array<IUserType>) => void
     changeCurrentPage:(currentPage:number)=>void
     setTotalCount:(totalCount:number)=>void
 }
@@ -22,7 +22,7 @@ class UsersClass extends React.Component<IUsersClassPropsType> {
         axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
-                this.props.setUsersHandler(response.data.items);
+                this.props.setUsers(response.data.items);
                 this.props.setTotalCount(response.data.totalCount);
             })
         ;
@@ -32,7 +32,7 @@ class UsersClass extends React.Component<IUsersClassPropsType> {
         this.props.changeCurrentPage(currentPage);
         axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`)
-            .then(response => this.props.setUsersHandler(response.data.items))
+            .then(response => this.props.setUsers(response.data.items))
         ;
     }
 
@@ -43,8 +43,8 @@ class UsersClass extends React.Component<IUsersClassPropsType> {
                       pageSize={this.props.pageSize}
                       currentPage={this.props.currentPage}
                       users={this.props.users}
-                      followHandler={this.props.followHandler}
-                      unfollowHandler={this.props.unfollowHandler}
+                      follow={this.props.follow}
+                      unfollow={this.props.unfollow}
                       downloadUsersPage={this.downloadUsersPage}
         />
     }

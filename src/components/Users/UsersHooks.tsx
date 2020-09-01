@@ -1,10 +1,10 @@
 import React, {useEffect} from "react";
 import {
-    changeCurrentPageAC,
+    changeCurrentPage, follow,
     IUserType,
-    setTotalCountAC,
-    setUsersAC,
-    toggleIsFetchingAC
+    setTotalCount,
+    setUsers,
+    toggleIsFetching, unfollow
 } from "../../redux/users-reducer";
 import scss from './Users.module.scss';
 import axios from 'axios'
@@ -14,18 +14,18 @@ import {IStateType} from "../../redux/store";
 import Preloader from "../Preloader/Preloader";
 // import {v1} from "uuid";
 
-type IUsersPropsType = {
+/*type IUsersPropsType = {
     users: Array<IUserType>
-    followHandler: (userId: string) => void,
-    unfollowHandler: (userId: string) => void,
-    setUsersHandler: (users: Array<IUserType>) => void
-}
+    follow: (userId: string) => void,
+    unfollow: (userId: string) => void,
+    setUsers: (users: Array<IUserType>) => void
+}*/
 
-function UsersHooks(props: IUsersPropsType) {
+function UsersHooks() {
     /*const setUsers = () => {
         if (props.users.length === 0) {
             axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => props.setUsersHandler(response.data.items))
+                .then(response => props.setUsers(response.data.items))
             ;
         }
     }*/
@@ -38,12 +38,12 @@ function UsersHooks(props: IUsersPropsType) {
 
     useEffect(() => {
         console.log('useEffect ith sideEffect')
-        dispatch(toggleIsFetchingAC(true));
+        dispatch(toggleIsFetching(true));
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
-                dispatch(setUsersAC(response.data.items));
-                dispatch(setTotalCountAC(response.data.totalCount))
-                dispatch(toggleIsFetchingAC(false));
+                dispatch(setUsers(response.data.items));
+                dispatch(setTotalCount(response.data.totalCount))
+                dispatch(toggleIsFetching(false));
             });
     }, [currentPage,dispatch,pageSize]);
 
@@ -54,7 +54,7 @@ function UsersHooks(props: IUsersPropsType) {
     }
 
     /* if(props.users.length===0){
-         props.setUsersHandler([
+         props.setUsers([
              {id:v1(),followed:true,fullName:'Dima',location:{city:'Minsk',country:'Belarus'},
                  photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTR59Go4mH0kxlpZiHwCxeFKH1NAipRbHWOAQ&usqp=CAU',status:'I am good'},
              {id:v1(),followed:false,fullName:'Dima',location:{city:'Minsk',country:'Belarus'},
@@ -64,13 +64,13 @@ function UsersHooks(props: IUsersPropsType) {
          ])
      }*/
     const downloadUsersPage=(currentPage:number)=>{
-        dispatch(changeCurrentPageAC(currentPage));
-        dispatch(toggleIsFetchingAC(true));
+        dispatch(changeCurrentPage(currentPage));
+        dispatch(toggleIsFetching(true));
         axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
-                dispatch(setUsersAC(response.data.items));
-                dispatch(toggleIsFetchingAC(false));
+                dispatch(setUsers(response.data.items));
+                dispatch(toggleIsFetching(false));
             })
         ;
     }
@@ -87,24 +87,24 @@ function UsersHooks(props: IUsersPropsType) {
                 })}
             </div>
             {isFetching?<Preloader/> : users.map(u => {
-                    return (
-                        <div key={u.id} className={scss.user}>
-                            <div>
-                                <div className={scss.avatar}><img
-                                    src={u.photos.small != null ? u.photos.small : userPhoto}
-                                    alt={u.id}/></div>
-                                {u.followed ?
-                                    <button onClick={() => props.unfollowHandler(u.id)}>Unfollow</button> :
-                                    <button onClick={() => props.followHandler(u.id)}>Follow</button>}
-                            </div>
-                            <div>
-                                <div>{u.name}</div>
-                                <div>{u.status}</div>
-                                <div>Minsk</div>
-                                <div>Belarus</div>
-                            </div>
+                return (
+                    <div key={u.id} className={scss.user}>
+                        <div>
+                            <div className={scss.avatar}><img
+                                src={u.photos.small != null ? u.photos.small : userPhoto}
+                                alt={u.id}/></div>
+                            {u.followed ?
+                                <button onClick={() => dispatch(unfollow(u.id))}>Unfollow</button> :
+                                <button onClick={() => dispatch(follow(u.id))}>Follow</button>}
                         </div>
-                    )
+                        <div>
+                            <div>{u.name}</div>
+                            <div>{u.status}</div>
+                            <div>Minsk</div>
+                            <div>Belarus</div>
+                        </div>
+                    </div>
+                );
                 })}
         </div>
     )

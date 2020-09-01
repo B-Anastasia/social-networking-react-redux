@@ -107,19 +107,19 @@ export type IUsersACsType =
     | ISetUsersActionType
     | ISetCurrentPageActionType
     | ISetTotalCountActionType|IToggleIsFetchingActionType;
-
-export const followAC = (userId: string): IFollowActionType => ({type: FOLLOW, userId});
-export const unfollowAC = (userId: string): IUnfollowActionType => ({type: UNFOLLOW, userId});
-export const setUsersAC = (users: Array<IUserType>): ISetUsersActionType => ({type: SET_USERS, users})
-export const changeCurrentPageAC = (currentPage: number): ISetCurrentPageActionType => ({
+//Action Creators
+export const follow = (userId: string): IFollowActionType => ({type: FOLLOW, userId});
+export const unfollow = (userId: string): IUnfollowActionType => ({type: UNFOLLOW, userId});
+export const setUsers = (users: Array<IUserType>): ISetUsersActionType => ({type: SET_USERS, users})
+export const changeCurrentPage = (currentPage: number): ISetCurrentPageActionType => ({
     type: SET_CURRENT_PAGE,
     payload: {currentPage}
 })
-export const setTotalCountAC = (totalCount: number): ISetTotalCountActionType => ({
+export const setTotalCount = (totalCount: number): ISetTotalCountActionType => ({
     type: SET_TOTAL_COUNT,
     payload: {totalCount}
 })
-export const toggleIsFetchingAC = (isFetching: boolean): IToggleIsFetchingActionType => ({
+export const toggleIsFetching = (isFetching: boolean): IToggleIsFetchingActionType => ({
     type: TOGGLE_IS_FETCHING,
     payload: {isFetching}
 })
