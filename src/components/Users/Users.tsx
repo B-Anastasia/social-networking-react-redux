@@ -2,6 +2,7 @@ import React from "react";
 import scss from "./Users.module.scss";
 import userPhoto from "../../assets/images/userPhoto.png";
 import {IUserType} from "../../redux/users-reducer";
+import {NavLink} from "react-router-dom";
 
 type IUsersPropsType = {
     users: Array<IUserType>
@@ -10,7 +11,7 @@ type IUsersPropsType = {
     currentPage: number
     follow: (userId: string) => void
     unfollow: (userId: string) => void
-    downloadUsersPage: (p:number)=>void
+    downloadUsersPage: (p: number) => void
 }
 
 const Users = (props: IUsersPropsType) => {
@@ -36,9 +37,13 @@ const Users = (props: IUsersPropsType) => {
                     return (
                         <div key={u.id} className={scss.user}>
                             <div>
-                                <div className={scss.avatar}><img
-                                    src={u.photos.small != null ? u.photos.small : userPhoto}
-                                    alt={u.id}/></div>
+                                <div className={scss.avatar}>
+                                    <NavLink to={'/profile/'+u.id}>
+                                        <img
+                                            src={u.photos.small != null ? u.photos.small : userPhoto}
+                                            alt={u.id}/>
+                                    </NavLink>
+                                </div>
                                 {u.followed ?
                                     <button onClick={() => props.unfollow(u.id)}>Unfollow</button> :
                                     <button onClick={() => props.follow(u.id)}>Follow</button>}
