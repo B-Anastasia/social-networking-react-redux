@@ -1,8 +1,8 @@
 import React from "react";
 import scss from "./DialogItem.module.scss";
-import { NavLink } from "react-router-dom";
-import { IDialogType } from "../../../redux/store";
+import {NavLink} from "react-router-dom";
 import UserPost from "../../UserPost";
+import {IDialogType} from "../../../redux/store";
 
 type IDialogItemPropsTypes = {
   id: string;

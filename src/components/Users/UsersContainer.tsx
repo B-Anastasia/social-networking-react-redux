@@ -1,5 +1,4 @@
 import {connect} from "react-redux";
-import {IStateType} from "../../redux/store";
 import {
     changeCurrentPage,
     follow,
@@ -13,6 +12,7 @@ import React from "react";
 import axios from "axios";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
+import {IRootStateType} from "../../redux/redux-store";
 
 type IUsersContainerPropsType = {
     users: Array<IUserType>
@@ -32,7 +32,7 @@ class UsersContainer extends React.Component<IUsersContainerPropsType> {
 
     componentDidMount(): void {
         this.props.toggleIsFetching(true)
-        console.log('componentDidMount')
+        console.log('componentDidMount UsersContainer')
         axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
@@ -70,7 +70,7 @@ class UsersContainer extends React.Component<IUsersContainerPropsType> {
     }
 }
 
-const mapStateToProps = (state: IStateType) => {
+const mapStateToProps = (state: IRootStateType) => {
     return {
         users: state.usersPage.users,
         totalCount: state.usersPage.totalCount,

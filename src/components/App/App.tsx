@@ -6,12 +6,11 @@ import {Route} from "react-router-dom";
 import News from "../News";
 import Music from "../Music";
 import Settings from "../Settings";
-import ProfileInfo from "../ProfileInfo/ProfileInfo";
-import {DialogsPage, ProfilePage} from "../Pages";
 import Friends from "../Friends";
 // import UsersContainer from "../Users/UsersContainer";
 // import UsersHooks from "../Users/UsersHooks";
-import UsersContainer from "../Users/UsersContainer";
+import ProfileContainer from "../Profile/ProfileContainer";
+import UsersHooks from "../Users/UsersHooks";
 
 /*type IAppPropsType = {
   /!*  store: Store<CombinedState<IStateType>, Actions>|null;
@@ -35,36 +34,36 @@ function App() {
     return (
         <div className="app-wrapper">
             <Header/>
-                <Route path="/profile" component={ProfileInfo}/>
-                <div className="app-wrapper__content container">
-                    <Navbar/>
-                    <Friends/>
+            {/*<Route path="/profile" component={ProfileInfo}/>*/}
+            <div className="app-wrapper__content container">
+                <Navbar/>
+                <Friends/>
 
-                    <Route
-                        path="/profile"
-                        render={() => (
-                            <ProfilePage
-                                // store={store}
-                                /*dispatch={dispatch}
-                                profilePage={profilePage}
-                                newPostText={profilePage.newPostText}*/
-                            />
-                        )}
-                    />
-                    <Route
+                <Route
+                    path="/profile"
+                    render={() => (
+                        <ProfileContainer
+                            // store={store}
+                            /*dispatch={dispatch}
+                            profilePage={profilePage}
+                            newPostText={profilePage.newPostText}*/
+                        />
+                    )}
+                />
+                {/*<Route
                         path="/dialogs"
                         render={() => (
                             <DialogsPage
                                 // store={store}
                             />
                         )}
-                    />
-                    <Route path='/users' component={UsersContainer}/>
-                    {/*<Route path='/users' component={UsersHooks}/>*/}
-                    <Route path="/news" component={News}/>
-                    <Route path="/music" component={Music}/>
-                    <Route path="/settings" component={Settings}/>
-                </div>
+                    />*/}
+                {/*<Route path='/users' component={UsersContainer}/>*/}
+                <Route path='/users' component={UsersHooks}/>
+                <Route path="/news" component={News}/>
+                <Route path="/music" component={Music}/>
+                <Route path="/settings" component={Settings}/>
+            </div>
         </div>
     );
 }

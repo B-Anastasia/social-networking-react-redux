@@ -21,7 +21,7 @@ function MyPosts(props: PropsTypes) {
 
   const { posts, profile } = profilePage;
 
-  const postsList = posts.map((p: IPostType) => (
+  const postsList = posts!==null && posts.map((p: IPostType) => (
     <Post key={p.id} message={p.text} count={p.count} profile={profile} />
   ));
 

@@ -1,3 +1,3 @@
-import ProfilePage from "./ProfilePage";
+import Profile from "../Profile/Profile";
 import DialogsPage from "./DialogsPage";
-export { ProfilePage, DialogsPage };
+export { Profile, DialogsPage };

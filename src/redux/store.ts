@@ -1,6 +1,6 @@
-import { v1 } from "uuid";
-import profileReducer, { IProfileActions } from "./profile-reducer";
-import dialogsReducer, { IDialogsActions } from "./dialogs-reducer";
+import {v1} from "uuid";
+import {IProfileActions} from "./profile-reducer";
+import dialogsReducer, {IDialogsActions} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import {IUsersType} from "./users-reducer";
 
@@ -182,7 +182,7 @@ let store = {
   },
 
   dispatch(action: Actions) {
-    profileReducer(this._state.profilePage, action);
+    // profileReducer(this._state.profilePage, action);
     dialogsReducer(this._state.dialogsPage, action);
     sidebarReducer(this._state.sidebar, action);
     this._callSubscriber();
