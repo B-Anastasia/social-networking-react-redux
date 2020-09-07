@@ -12,7 +12,7 @@ function User(props:IUserPropsType) {
         return null
     }
   return (
-    <div className={`${styles.user}`}>
+    <div className={styles.user}>
       <div className={styles.user__img}>
           <NavLink to={'/profile/'+props.profile.userId}>
         <img
@@ -22,7 +22,7 @@ function User(props:IUserPropsType) {
           </NavLink>
       </div>
       <span className={styles.user__name}>{props.profile.fullName}</span>
-      <span className={styles.user__name}>{props.profile.aboutMe}</span>
+      <span className={styles.user__about}>{props.profile.aboutMe}</span>
       <span className={styles.user__name}>{props.profile.lookingForAJob? 'Ищу работу':'Не ищу работу'}</span>
     </div>
   );

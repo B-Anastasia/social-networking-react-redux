@@ -21,7 +21,7 @@ type IMapDispatchPropsType={
 }
 
 //type for properties that we receive from withRouter
-type IPathParamsType={
+export type IPathParamsType={
     userId:string
 }
 

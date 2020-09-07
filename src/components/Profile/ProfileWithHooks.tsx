@@ -7,16 +7,21 @@ import {IRootStateType} from "../../redux/redux-store";
 import {IProfileInfoType} from "../../types/types";
 import {setProfile} from "../../redux/profile-reducer";
 import axios from 'axios';
+import { withRouter } from "react-router-dom";
+import {RouteComponentProps} from "react-router";
+import {IPathParamsType} from "./ProfileContainer";
 
- const ProfileWithHooks = () => {
+ const ProfileWithHooks = (props:RouteComponentProps<IPathParamsType>) => {
+     console.log(props)
 
     const profile = useSelector<IRootStateType, IProfileInfoType | null>((state: IRootStateType) => (state.profilePage.profile))
     const dispatch = useDispatch();
 
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+        let userId = props.match.params.userId;
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/`+userId)
             .then(response => dispatch(setProfile(response.data)))
-    }, [dispatch])
+    }, [dispatch,props.match.params.userId])
 
     return (
         <div className={scss.profile}>
@@ -26,4 +31,4 @@ import axios from 'axios';
     )
 }
 
-export default ProfileWithHooks;
+export default withRouter(ProfileWithHooks);

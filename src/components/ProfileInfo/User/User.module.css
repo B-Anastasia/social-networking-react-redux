@@ -1,25 +1,36 @@
 .user {
-  height: 12rem;
-  display: flex;
+    min-height: 12rem;
+    display: flex;
+    position: relative;
+    padding-left: 15rem;
+    /*flex-wrap: wrap;*/
 }
 
 .user__img {
-  grid-column: 1/2;
-  height: 20rem;
-  width: 20rem;
-  justify-self: end;
-  transform: translate(0px, -50%);
+    grid-column: 1/2;
+    height: 15rem;
+    width: 15rem;
+    justify-self: end;
+    transform: translate(-90%, -50%);
+    position: absolute;
 }
+
 .user__img img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  /*border: 2px solid rgb(241,241,241);*/
-  border: 5px solid #ffffff;
+    /*width: 100%;*/
+    height: 100%;
+    border-radius: 50%;
+    /*border: 2px solid rgb(241,241,241);*/
+    border: 3px solid #ffffff;
 }
 
 
 .user__name {
- box-sizing: border-box;
-  padding: 2em;
+    box-sizing: border-box;
+    padding: 2em;
+}
+
+.user__about {
+    word-break: break-all;
+    box-sizing: border-box;
+    padding: 2em;
 }
