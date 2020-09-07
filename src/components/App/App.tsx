@@ -11,7 +11,8 @@ import Friends from "../Friends";
 // import UsersHooks from "../Users/UsersHooks";
 // import ProfileContainer from "../Profile/ProfileContainer";
 import UsersContainer from "../Users/UsersContainer";
-import ProfileWithHooks from "../Profile/ProfileWithHooks";
+// import ProfileWithHooks from "../Profile/ProfileWithHooks";
+import ProfileContainer from "../Profile/ProfileContainer";
 
 /*type IAppPropsType = {
   /!*  store: Store<CombinedState<IStateType>, Actions>|null;
@@ -55,8 +56,8 @@ function App() {
                             />
                         )}
                     />*/}
-                {/*<Route path='/profile' component={ProfileContainer}/>*/}
-                <Route path='/profile' component={ProfileWithHooks}/>
+                <Route path='/profile/:userId?' component={ProfileContainer}/>
+                {/*<Route path='/profile' component={ProfileWithHooks}/>*/}
                 <Route path='/users' component={UsersContainer}/>
                 {/*<Route path='/users' component={UsersHooks}/>*/}
                 <Route path="/news" component={News}/>
