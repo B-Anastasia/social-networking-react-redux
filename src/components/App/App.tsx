@@ -9,8 +9,9 @@ import Settings from "../Settings";
 import Friends from "../Friends";
 // import UsersContainer from "../Users/UsersContainer";
 // import UsersHooks from "../Users/UsersHooks";
-import ProfileContainer from "../Profile/ProfileContainer";
-import UsersHooks from "../Users/UsersHooks";
+// import ProfileContainer from "../Profile/ProfileContainer";
+import UsersContainer from "../Users/UsersContainer";
+import ProfileWithHooks from "../Profile/ProfileWithHooks";
 
 /*type IAppPropsType = {
   /!*  store: Store<CombinedState<IStateType>, Actions>|null;
@@ -39,17 +40,13 @@ function App() {
                 <Navbar/>
                 <Friends/>
 
-                <Route
-                    path="/profile"
-                    render={() => (
-                        <ProfileContainer
-                            // store={store}
-                            /*dispatch={dispatch}
-                            profilePage={profilePage}
-                            newPostText={profilePage.newPostText}*/
-                        />
-                    )}
-                />
+                {/*<Route path="/profile" render={() => (*/}
+                {/*    <ProfileContainer*/}
+                {/*        // store={store}*/}
+                {/*        /*dispatch={dispatch}*/}
+                {/*        profilePage={profilePage}*/}
+                {/*        newPostText={profilePage.newPostText}*/}
+                {/*    />)}/>*/}
                 {/*<Route
                         path="/dialogs"
                         render={() => (
@@ -58,8 +55,10 @@ function App() {
                             />
                         )}
                     />*/}
-                {/*<Route path='/users' component={UsersContainer}/>*/}
-                <Route path='/users' component={UsersHooks}/>
+                {/*<Route path='/profile' component={ProfileContainer}/>*/}
+                <Route path='/profile' component={ProfileWithHooks}/>
+                <Route path='/users' component={UsersContainer}/>
+                {/*<Route path='/users' component={UsersHooks}/>*/}
                 <Route path="/news" component={News}/>
                 <Route path="/music" component={Music}/>
                 <Route path="/settings" component={Settings}/>
