@@ -1,4 +1,5 @@
 @import "../../styles/_styles_base.scss";
+
 .header {
   background-color: white;
   box-shadow: $header-shadow;
@@ -7,21 +8,27 @@
 .header__logo {
   display: flex;
   align-items: center;
-  /*grid-column: 1/2;*/
-  /*text-align: center;*/
-  //position: relative;
 }
+
 .header__logo span {
   font-family: $font-logo;
   font-weight: 400;
   color: $primary-blue;
-  //position: absolute;
   display: block;
-  //top: 75%;
-  //left: 50%;
-  //transform: translate(-50%, -50%);
-  //text-transform: uppercase;
   margin-left: 1rem;
   font-size: 3.5rem;
   width: 100%;
+}
+
+.header__body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login {
+  a {
+    color: $primary-blue;
+    font-size: 1.8rem;
+  }
 }

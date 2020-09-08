@@ -1,12 +1,27 @@
 import React from "react";
 import styles from "./Header.module.scss";
 import { ChatBubblesWithEllipsis } from "../../Icons";
+import {NavLink} from "react-router-dom";
 
-function Header() {
+type IHeaderPropsType={
+    isAuth:boolean
+    login:string|null
+    id: number|null
+}
+
+function Header(props:IHeaderPropsType) {
+    console.log(props)
+    let login=props.isAuth
+        ?<NavLink to={'/profile/'+props.id}>{props.login}</NavLink>
+        : <NavLink to={'/login'}>Login</NavLink>
+
   return (
     <header className={styles.header}>
-      <div className={"container"}>
+      <div className={"container "+styles.header__body}>
         <Logo />
+        <div className={styles.login}>
+            {login}
+        </div>
       </div>
     </header>
   );

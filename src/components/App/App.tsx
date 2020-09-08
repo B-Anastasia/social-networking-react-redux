@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.scss";
-import Header from "../Header";
 import Navbar from "../Navbar";
 import {Route} from "react-router-dom";
 import News from "../News";
@@ -12,6 +11,7 @@ import Friends from "../Friends";
 // import ProfileContainer from "../Profile/ProfileContainer";
 import UsersContainer from "../Users/UsersContainer";
 import ProfileWithHooks from "../Profile/ProfileWithHooks";
+import HeaderContainer from "../Header/HeaderContainer";
 // import ProfileContainer from "../Profile/ProfileContainer";
 
 /*type IAppPropsType = {
@@ -35,7 +35,7 @@ function App() {
     // const {sidebar} = state;
     return (
         <div className="app-wrapper">
-            <Header/>
+            <HeaderContainer />
             {/*<Route path="/profile" component={ProfileInfo}/>*/}
             <div className="app-wrapper__content container">
                 <Navbar/>
