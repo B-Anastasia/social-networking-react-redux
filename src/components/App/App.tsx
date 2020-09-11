@@ -7,8 +7,10 @@ import Music from "../Music";
 import Settings from "../Settings";
 import Friends from "../Friends";
 import UsersContainer from "../Users/UsersContainer";
-import ProfileWithHooks from "../Profile/ProfileWithHooks";
 import HeaderWithHooks from "../Header/HeaderWithHooks";
+import ProfileContainer from "../Profile/ProfileContainer";
+// import ProfileWithHooks from "../Profile/ProfileWithHooks";
+// import UsersHooks from "../Users/UsersHooks";
 
 /*type IAppPropsType = {
   /!*  store: Store<CombinedState<IStateType>, Actions>|null;
@@ -52,8 +54,8 @@ function App() {
                             />
                         )}
                     />*/}
-                {/*<Route path='/profile/:userId?' component={ProfileContainer}/>*/}
-                <Route path='/profile/:userId?' component={ProfileWithHooks}/>
+                <Route path='/profile/:userId?' component={ProfileContainer}/>
+                {/*<Route path='/profile/:userId?' component={ProfileWithHooks}/>*/}
                 <Route path='/users' component={UsersContainer}/>
                 {/*<Route path='/users' component={UsersHooks}/>*/}
                 <Route path="/news" component={News}/>

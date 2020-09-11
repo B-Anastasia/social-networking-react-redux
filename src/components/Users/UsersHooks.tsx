@@ -39,7 +39,13 @@ function UsersHooks() {
     useEffect(() => {
         console.log('useEffect ith sideEffect')
         dispatch(toggleIsFetching(true));
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
+            {
+                withCredentials: true,
+                headers: {
+                    'API-KEY': '1f62f832-199c-4198-bcf8-fa36b24e67ca'
+                }
+            })
             .then(response => {
                 dispatch(setUsers(response.data.items));
                 dispatch(setTotalCount(response.data.totalCount))
@@ -67,7 +73,13 @@ function UsersHooks() {
         dispatch(changeCurrentPage(currentPage));
         dispatch(toggleIsFetching(true));
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
+                {
+                    withCredentials: true,
+                    headers: {
+                        'API-KEY': '1f62f832-199c-4198-bcf8-fa36b24e67ca'
+                    }
+                })
             .then(response => {
                 dispatch(setUsers(response.data.items));
                 dispatch(toggleIsFetching(false));
@@ -94,8 +106,39 @@ function UsersHooks() {
                                 src={u.photos.small != null ? u.photos.small : userPhoto}
                                 alt={u.id}/></div>
                             {u.followed ?
-                                <button onClick={() => dispatch(unfollow(u.id))}>Unfollow</button> :
-                                <button onClick={() => dispatch(follow(u.id))}>Follow</button>}
+                                <button onClick={() =>{
+                                    axios
+                                        .delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                            {
+                                                withCredentials: true,
+                                                headers: {
+                                                    'API-KEY': '1f62f832-199c-4198-bcf8-fa36b24e67ca'
+                                                }
+                                            })
+                                        .then(response => {
+                                            if (response.data.resultCode === 0) {
+                                                console.log('follow')
+                                                dispatch(unfollow(u.id))
+                                            }
+                                        })
+                                }}>Unfollow</button> :
+                                <button onClick={() =>{
+                                    axios
+                                        .post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                            {},
+                                            {
+                                                withCredentials: true,
+                                                headers: {
+                                                    'API-KEY': '1f62f832-199c-4198-bcf8-fa36b24e67ca'
+                                                }
+                                            })
+                                        .then(response => {
+                                            if (response.data.resultCode === 0) {
+                                                console.log('follow')
+                                                dispatch(follow(u.id))
+                                            }
+                                        })
+                                } }>Follow</button>}
                         </div>
                         <div>
                             <div>{u.name}</div>
