@@ -5,20 +5,6 @@
   box-shadow: $header-shadow;
 }
 
-.header__logo {
-  display: flex;
-  align-items: center;
-}
-
-.header__logo span {
-  font-family: $font-logo;
-  font-weight: 400;
-  color: $primary-blue;
-  display: block;
-  margin-left: 1rem;
-  font-size: 3.5rem;
-  width: 100%;
-}
 
 .header__body {
   display: flex;

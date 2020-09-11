@@ -6,13 +6,9 @@ import News from "../News";
 import Music from "../Music";
 import Settings from "../Settings";
 import Friends from "../Friends";
-// import UsersContainer from "../Users/UsersContainer";
-// import UsersHooks from "../Users/UsersHooks";
-// import ProfileContainer from "../Profile/ProfileContainer";
 import UsersContainer from "../Users/UsersContainer";
 import ProfileWithHooks from "../Profile/ProfileWithHooks";
-import HeaderContainer from "../Header/HeaderContainer";
-// import ProfileContainer from "../Profile/ProfileContainer";
+import HeaderWithHooks from "../Header/HeaderWithHooks";
 
 /*type IAppPropsType = {
   /!*  store: Store<CombinedState<IStateType>, Actions>|null;
@@ -32,10 +28,10 @@ import HeaderContainer from "../Header/HeaderContainer";
 };*/
 
 function App() {
-    // const {sidebar} = state;
     return (
         <div className="app-wrapper">
-            <HeaderContainer />
+            {/*<HeaderContainer />*/}
+            <HeaderWithHooks/>
             {/*<Route path="/profile" component={ProfileInfo}/>*/}
             <div className="app-wrapper__content container">
                 <Navbar/>
