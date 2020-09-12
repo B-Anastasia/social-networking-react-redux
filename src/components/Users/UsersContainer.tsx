@@ -19,8 +19,8 @@ type IUsersContainerPropsType = {
     pageSize: number,
     totalCount: number,
     currentPage: number
-    follow: (userId: string) => void,
-    unfollow: (userId: string) => void,
+    follow: (userId: number) => void,
+    unfollow: (userId: number) => void,
     setUsers: (users: Array<IUserType>) => void
     changeCurrentPage: (currentPage: number) => void
     setTotalCount: (totalCount: number) => void

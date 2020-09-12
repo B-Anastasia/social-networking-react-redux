@@ -16,7 +16,7 @@ export type IPhotosUserType = {
 }
 
 export type IUserType = {
-    id: string,
+    id: number,
     name: string,
     photos: IPhotosUserType,
     followed: boolean,
@@ -34,11 +34,11 @@ export type IUsersType = {
 
 type IFollowActionType = {
     type: typeof FOLLOW,
-    userId: string
+    userId: number
 }
 type IUnfollowActionType = {
     type: typeof UNFOLLOW,
-    userId: string
+    userId: number
 }
 
 type ISetUsersActionType = {
@@ -109,8 +109,8 @@ export type IUsersACsType =
     | ISetCurrentPageActionType
     | ISetTotalCountActionType|IToggleIsFetchingActionType;
 //Action Creators
-export const follow = (userId: string): IFollowActionType => ({type: FOLLOW, userId});
-export const unfollow = (userId: string): IUnfollowActionType => ({type: UNFOLLOW, userId});
+export const follow = (userId: number): IFollowActionType => ({type: FOLLOW, userId});
+export const unfollow = (userId: number): IUnfollowActionType => ({type: UNFOLLOW, userId});
 export const setUsers = (items: Array<IUserType>): ISetUsersActionType => ({type: SET_USERS, items})
 export const changeCurrentPage = (currentPage: number): ISetCurrentPageActionType => ({
     type: SET_CURRENT_PAGE,

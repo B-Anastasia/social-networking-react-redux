@@ -9,7 +9,7 @@ import Friends from "../Friends";
 // import UsersContainer from "../Users/UsersContainer";
 import HeaderWithHooks from "../Header/HeaderWithHooks";
 import ProfileContainer from "../Profile/ProfileContainer";
-import UsersHooks from "../Users/UsersHooks";
+import UsersContainer from "../Users/UsersContainer";
 // import ProfileWithHooks from "../Profile/ProfileWithHooks";
 // import UsersHooks from "../Users/UsersHooks";
 
@@ -57,8 +57,8 @@ function App() {
                     />*/}
                 <Route path='/profile/:userId?' component={ProfileContainer}/>
                 {/*<Route path='/profile/:userId?' component={ProfileWithHooks}/>*/}
-                {/*<Route path='/users' component={UsersContainer}/>*/}
-                <Route path='/users' component={UsersHooks}/>
+                <Route path='/users' component={UsersContainer}/>
+                {/*<Route path='/users' component={UsersHooks}/>*/}
                 <Route path="/news" component={News}/>
                 <Route path="/music" component={Music}/>
                 <Route path="/settings" component={Settings}/>

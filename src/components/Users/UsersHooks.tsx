@@ -1,18 +1,19 @@
 import React, {useEffect} from "react";
 import {
-    changeCurrentPage, follow,
+    changeCurrentPage,
+    follow,
     IUserType,
     setTotalCount,
     setUsers,
-    toggleIsFetching, unfollow
+    toggleIsFetching,
+    unfollow
 } from "../../redux/users-reducer";
 import scss from './Users.module.scss';
-import axios from 'axios'
 import userPhoto from '../../assets/images/userPhoto.png'
 import {useDispatch, useSelector} from "react-redux";
 import {IStateType} from "../../redux/store";
 import Preloader from "../Preloader/Preloader";
-import {usersApi} from "../../api/api";
+import {followApi, usersApi} from "../../api/api";
 // import {v1} from "uuid";
 
 /*type IUsersPropsType = {
@@ -114,10 +115,15 @@ function UsersHooks() {
                         <div>
                             <div className={scss.avatar}><img
                                 src={u.photos.small != null ? u.photos.small : userPhoto}
-                                alt={u.id}/></div>
+                                alt={u.id.toString()}/></div>
                             {u.followed ?
                                 <button onClick={() =>{
-                                    axios
+                                    followApi.unfollow(u.id).then(resultCode=>{
+                                        if(resultCode===0) {
+                                            dispatch(unfollow(u.id))
+                                        }
+                                    })
+                                    /*axios
                                         .delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
                                             {
                                                 withCredentials: true,
@@ -130,10 +136,15 @@ function UsersHooks() {
                                                 console.log('follow')
                                                 dispatch(unfollow(u.id))
                                             }
-                                        })
+                                        })*/
                                 }}>Unfollow</button> :
                                 <button onClick={() =>{
-                                    axios
+                                    followApi.follow(u.id).then(resultCode=>{
+                                        if(resultCode===0) {
+                                            dispatch(follow(u.id))
+                                        }
+                                    })
+                                   /* axios
                                         .post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
                                             {},
                                             {
@@ -147,7 +158,7 @@ function UsersHooks() {
                                                 console.log('follow')
                                                 dispatch(follow(u.id))
                                             }
-                                        })
+                                        })*/
                                 } }>Follow</button>}
                         </div>
                         <div>
