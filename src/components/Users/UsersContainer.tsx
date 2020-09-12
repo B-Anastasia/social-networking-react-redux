@@ -9,13 +9,13 @@ import {
     unfollow
 } from "../../redux/users-reducer";
 import React from "react";
-import axios from "axios";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
 import {IRootStateType} from "../../redux/redux-store";
+import {usersApi} from "../../api/api";
 
 type IUsersContainerPropsType = {
-    users: Array<IUserType>
+    items: Array<IUserType>
     pageSize: number,
     totalCount: number,
     currentPage: number
@@ -24,8 +24,8 @@ type IUsersContainerPropsType = {
     setUsers: (users: Array<IUserType>) => void
     changeCurrentPage: (currentPage: number) => void
     setTotalCount: (totalCount: number) => void
-    isFetching:boolean
-    toggleIsFetching: (isFetching:boolean)=>void
+    isFetching: boolean
+    toggleIsFetching: (isFetching: boolean) => void
 }
 
 class UsersContainer extends React.Component<IUsersContainerPropsType> {
@@ -33,62 +33,44 @@ class UsersContainer extends React.Component<IUsersContainerPropsType> {
     componentDidMount(): void {
         this.props.toggleIsFetching(true)
         console.log('componentDidMount UsersContainer')
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-                {
-                    withCredentials: true,
-                    headers: {
-                        'API-KEY': '1f62f832-199c-4198-bcf8-fa36b24e67ca'
-                    }
-                })
-            .then(response => {
-                this.props.setUsers(response.data.items);
-                this.props.setTotalCount(response.data.totalCount);
-                this.props.toggleIsFetching(false);
-            })
-        ;
+        usersApi.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+            this.props.setUsers(data.items);
+            this.props.setTotalCount(data.totalCount);
+            this.props.toggleIsFetching(false);
+        })
     }
 
     downloadUsersPage = (currentPage: number) => {
         this.props.changeCurrentPage(currentPage);
         this.props.toggleIsFetching(true);
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`,
-                {
-                    withCredentials: true,
-                    headers: {
-                        'API-KEY': '1f62f832-199c-4198-bcf8-fa36b24e67ca'
-                    }
-                })
-            .then(response => {
-                this.props.setUsers(response.data.items);
-                this.props.toggleIsFetching(false)
-            })
-        ;
+        usersApi.getUsers(currentPage, this.props.pageSize).then(data => {
+            this.props.setUsers(data.items);
+            this.props.toggleIsFetching(false)
+        })
     }
 
 
     render() {
-        return<>
-            {this.props.isFetching? <Preloader/>:null}
+        return <>
+            {this.props.isFetching ? <Preloader/> : null}
             <Users totalCount={this.props.totalCount}
                    pageSize={this.props.pageSize}
                    currentPage={this.props.currentPage}
-                   users={this.props.users}
+                   items={this.props.items}
                    follow={this.props.follow}
                    unfollow={this.props.unfollow}
                    downloadUsersPage={this.downloadUsersPage}/>
-            </>
+        </>
     }
 }
 
 const mapStateToProps = (state: IRootStateType) => {
     return {
-        users: state.usersPage.users,
+        items: state.usersPage.items,
         totalCount: state.usersPage.totalCount,
         currentPage: state.usersPage.currentPage,
         pageSize: state.usersPage.pageSize,
-        isFetching:state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching
     }
 }
 /*const mapDispatchToProps = (dispatch: Dispatch<IUsersACsType>) => {
@@ -102,4 +84,11 @@ const mapStateToProps = (state: IRootStateType) => {
     }
 }*/
 
-export default connect(mapStateToProps, {follow,unfollow,setUsers,changeCurrentPage,setTotalCount,toggleIsFetching })(UsersContainer);
+export default connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    changeCurrentPage,
+    setTotalCount,
+    toggleIsFetching
+})(UsersContainer);

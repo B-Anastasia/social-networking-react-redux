@@ -25,7 +25,7 @@ export type IUserType = {
 }
 
 export type IUsersType = {
-    users: Array<IUserType>,
+    items: Array<IUserType>,
     pageSize: number,
     totalCount: number,
     currentPage: number
@@ -43,7 +43,7 @@ type IUnfollowActionType = {
 
 type ISetUsersActionType = {
     type: typeof SET_USERS,
-    users: Array<IUserType>
+    items: Array<IUserType>
 }
 type ISetCurrentPageActionType = {
     type: typeof SET_CURRENT_PAGE,
@@ -60,7 +60,7 @@ type IToggleIsFetchingActionType = {
 }
 
 let initialState: IUsersType = {
-    users: [],
+    items: [],
     pageSize: 5,
     totalCount: 0,
     currentPage: 1,
@@ -73,19 +73,20 @@ const usersReducer = (state: IUsersType = initialState, action: IUsersACsType) =
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map(u => u.id === action.userId ?
+                items: state.items.map(u => u.id === action.userId ?
                     {...u, followed: true}
                     : u)
             }
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map(u => (u.id === action.userId) ? {...u, followed: false} : u)
+                items: state.items.map(u => (u.id === action.userId) ? {...u, followed: false} : u)
             }
         case SET_USERS:
+
             return {
                 ...state,
-                users: [...action.users]
+                items: [...action.items]
             }
         case SET_CURRENT_PAGE: {
             return {...state, ...action.payload}
@@ -110,7 +111,7 @@ export type IUsersACsType =
 //Action Creators
 export const follow = (userId: string): IFollowActionType => ({type: FOLLOW, userId});
 export const unfollow = (userId: string): IUnfollowActionType => ({type: UNFOLLOW, userId});
-export const setUsers = (users: Array<IUserType>): ISetUsersActionType => ({type: SET_USERS, users})
+export const setUsers = (items: Array<IUserType>): ISetUsersActionType => ({type: SET_USERS, items})
 export const changeCurrentPage = (currentPage: number): ISetCurrentPageActionType => ({
     type: SET_CURRENT_PAGE,
     payload: {currentPage}

@@ -6,7 +6,7 @@ import {NavLink} from "react-router-dom";
 import axios from "axios";
 
 type IUsersPropsType = {
-    users: Array<IUserType>
+    items: Array<IUserType>
     pageSize: number
     totalCount: number
     currentPage: number
@@ -35,7 +35,7 @@ const Users = (props: IUsersPropsType) => {
                 })}
             </div>
             {
-                props.users.map(u => {
+                props.items.map(u => {
                     return (
                         <div key={u.id} className={scss.user}>
                             <div>

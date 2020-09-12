@@ -4,7 +4,7 @@ import axios from 'axios'
 import Users from "./Users";
 
 type IUsersClassPropsType = {
-    users: Array<IUserType>
+    items: Array<IUserType>
     pageSize: number,
     totalCount: number,
     currentPage: number
@@ -42,7 +42,7 @@ class UsersClass extends React.Component<IUsersClassPropsType> {
         return <Users totalCount={this.props.totalCount}
                       pageSize={this.props.pageSize}
                       currentPage={this.props.currentPage}
-                      users={this.props.users}
+                      items={this.props.items}
                       follow={this.props.follow}
                       unfollow={this.props.unfollow}
                       downloadUsersPage={this.downloadUsersPage}

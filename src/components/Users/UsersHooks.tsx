@@ -12,6 +12,7 @@ import userPhoto from '../../assets/images/userPhoto.png'
 import {useDispatch, useSelector} from "react-redux";
 import {IStateType} from "../../redux/store";
 import Preloader from "../Preloader/Preloader";
+import {usersApi} from "../../api/api";
 // import {v1} from "uuid";
 
 /*type IUsersPropsType = {
@@ -29,7 +30,7 @@ function UsersHooks() {
             ;
         }
     }*/
-    let users = useSelector<IStateType, Array<IUserType>>(state => state.usersPage.users);
+    let users = useSelector<IStateType, Array<IUserType>>(state => state.usersPage.items);
     let currentPage = useSelector<IStateType, number>(state => state.usersPage.currentPage)
     let pageSize = useSelector<IStateType, number>(state => state.usersPage.pageSize);
     let totalCount = useSelector<IStateType, number>(state => state.usersPage.totalCount);
@@ -39,7 +40,12 @@ function UsersHooks() {
     useEffect(() => {
         console.log('useEffect ith sideEffect')
         dispatch(toggleIsFetching(true));
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
+        usersApi.getUsers(currentPage,pageSize).then(data=>{
+            dispatch(setUsers(data.items));
+            dispatch(setTotalCount(data.totalCount))
+            dispatch(toggleIsFetching(false));
+        })
+       /* axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
             {
                 withCredentials: true,
                 headers: {
@@ -50,7 +56,7 @@ function UsersHooks() {
                 dispatch(setUsers(response.data.items));
                 dispatch(setTotalCount(response.data.totalCount))
                 dispatch(toggleIsFetching(false));
-            });
+            });*/
     }, [currentPage,dispatch,pageSize]);
 
     const pages = Math.ceil(totalCount / pageSize);
@@ -72,7 +78,11 @@ function UsersHooks() {
     const downloadUsersPage=(currentPage:number)=>{
         dispatch(changeCurrentPage(currentPage));
         dispatch(toggleIsFetching(true));
-        axios
+        usersApi.getUsers(currentPage,pageSize).then(data=>{
+            dispatch(setUsers(data.items));
+            dispatch(toggleIsFetching(false));
+        })
+        /*axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
                 {
                     withCredentials: true,
@@ -84,7 +94,7 @@ function UsersHooks() {
                 dispatch(setUsers(response.data.items));
                 dispatch(toggleIsFetching(false));
             })
-        ;
+        ;*/
     }
 
     return (
