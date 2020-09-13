@@ -4,6 +4,7 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 const TOGGLE_IS_FETCHING='TOGGLE_IS_FETCHING';
+const TOGGLE_FOLLOWING_USER='TOGGLE_FOLLOWING_USER';
 
 type ILocationType = {
     city: string,
@@ -29,7 +30,8 @@ export type IUsersType = {
     pageSize: number,
     totalCount: number,
     currentPage: number
-    isFetching: boolean
+    isFetching: boolean,
+    followingUsersInProcess:Array<number>
 }
 
 type IFollowActionType = {
@@ -58,13 +60,19 @@ type IToggleIsFetchingActionType = {
     type : typeof TOGGLE_IS_FETCHING
     payload:{ isFetching: boolean}
 }
+type IToggleFollowingUserActionType = {
+    type : typeof TOGGLE_FOLLOWING_USER
+    payload:{ userId:number,
+        isFollowing: boolean}
+}
 
 let initialState: IUsersType = {
     items: [],
     pageSize: 5,
     totalCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingUsersInProcess: []
 }
 
 
@@ -97,6 +105,14 @@ const usersReducer = (state: IUsersType = initialState, action: IUsersACsType) =
         case TOGGLE_IS_FETCHING: {
             return {...state, ...action.payload}
         }
+        case TOGGLE_FOLLOWING_USER:{
+            return {
+                ...state,
+                followingUsersInProcess: action.payload.isFollowing
+                    ? [...state.followingUsersInProcess, action.payload.userId]
+                    : state.followingUsersInProcess.filter((id)=>id!==action.payload.userId)
+            }
+        }
         default:
             return state;
     }
@@ -107,7 +123,9 @@ export type IUsersACsType =
     | IUnfollowActionType
     | ISetUsersActionType
     | ISetCurrentPageActionType
-    | ISetTotalCountActionType|IToggleIsFetchingActionType;
+    | ISetTotalCountActionType
+    |IToggleIsFetchingActionType
+    |IToggleFollowingUserActionType;
 //Action Creators
 export const follow = (userId: number): IFollowActionType => ({type: FOLLOW, userId});
 export const unfollow = (userId: number): IUnfollowActionType => ({type: UNFOLLOW, userId});
@@ -123,6 +141,10 @@ export const setTotalCount = (totalCount: number): ISetTotalCountActionType => (
 export const toggleIsFetching = (isFetching: boolean): IToggleIsFetchingActionType => ({
     type: TOGGLE_IS_FETCHING,
     payload: {isFetching}
+})
+export const toggleFollowingUser=(userId:number, isFollowing: boolean):IToggleFollowingUserActionType=>({
+    type: TOGGLE_FOLLOWING_USER,
+    payload:{userId,isFollowing}
 })
 
 

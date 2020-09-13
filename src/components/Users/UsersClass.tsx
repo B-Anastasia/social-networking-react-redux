@@ -13,6 +13,8 @@ type IUsersClassPropsType = {
     setUsers: (users: Array<IUserType>) => void
     changeCurrentPage:(currentPage:number)=>void
     setTotalCount:(totalCount:number)=>void
+    followingUsersInProcess: Array<number>
+    toggleFollowingUser: (userId: number, isFollowing: boolean) =>void
 }
 
 class UsersClass extends React.Component<IUsersClassPropsType> {
@@ -46,6 +48,8 @@ class UsersClass extends React.Component<IUsersClassPropsType> {
                       follow={this.props.follow}
                       unfollow={this.props.unfollow}
                       downloadUsersPage={this.downloadUsersPage}
+                      followingUsersInProcess={this.props.followingUsersInProcess}
+                      toggleFollowingUser={this.props.toggleFollowingUser}
         />
     }
 }
