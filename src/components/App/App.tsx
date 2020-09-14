@@ -10,23 +10,6 @@ import HeaderWithHooks from "../Header/HeaderWithHooks";
 import ProfileContainer from "../Profile/ProfileContainer";
 import UsersHooks from "../Users/UsersHooks";
 
-/*type IAppPropsType = {
-  /!*  store: Store<CombinedState<IStateType>, Actions>|null;
-    dispatch: Dispatch<Actions>;
-    state: IStateType;*!/
-    // dispatch: (action: IActionType) => void;
-    // store: IStoreType;
-    // store: Store<CombinedState<IStoreType>, Actions>;
-    /!*  addNewPost: () => void;
-    updateInputValue: (value: string) => void;
-    addNewMessage: (
-      text: string,
-      name: string,
-      imgUrl?: string,
-      img_name?: string
-    ) => void;*!/
-};*/
-
 function App() {
     return (
         <div className="app-wrapper">
@@ -36,25 +19,7 @@ function App() {
             <div className="app-wrapper__content container">
                 <Navbar/>
                 <Friends/>
-
-                {/*<Route path="/profile" render={() => (*/}
-                {/*    <ProfileContainer*/}
-                {/*        // store={store}*/}
-                {/*        /*dispatch={dispatch}*/}
-                {/*        profilePage={profilePage}*/}
-                {/*        newPostText={profilePage.newPostText}*/}
-                {/*    />)}/>*/}
-                {/*<Route
-                        path="/dialogs"
-                        render={() => (
-                            <DialogsPage
-                                // store={store}
-                            />
-                        )}
-                    />*/}
                 <Route path='/profile/:userId?' component={ProfileContainer}/>
-                {/*<Route path='/profile/:userId?' component={ProfileWithHooks}/>*/}
-                {/*<Route path='/users' component={UsersContainer}/>*/}
                 <Route path='/users' component={UsersHooks}/>
                 <Route path="/news" component={News}/>
                 <Route path="/music" component={Music}/>

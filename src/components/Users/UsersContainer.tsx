@@ -1,18 +1,9 @@
 import {connect} from "react-redux";
-import {
-    changeCurrentPage,
-    follow,
-    IUserType,
-    setTotalCount,
-    setUsers, toggleFollowingUser,
-    toggleIsFetching,
-    unfollow
-} from "../../redux/users-reducer";
+import {follow, getUsers, IUserType, toggleFollowingUser, toggleIsFetching, unfollow} from "../../redux/users-reducer";
 import React from "react";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
 import {IRootStateType} from "../../redux/redux-store";
-import {usersApi} from "../../api/api";
 
 type IUsersContainerPropsType = {
     items: Array<IUserType>
@@ -21,40 +12,31 @@ type IUsersContainerPropsType = {
     currentPage: number
     follow: (userId: number) => void,
     unfollow: (userId: number) => void,
-    setUsers: (users: Array<IUserType>) => void
-    changeCurrentPage: (currentPage: number) => void
-    setTotalCount: (totalCount: number) => void
     isFetching: boolean
-    toggleIsFetching: (isFetching: boolean) => void
     followingUsersInProcess: Array<number>
-    toggleFollowingUser: (userId: number, isFollowing: boolean) =>void
+    toggleFollowingUser: (userId: number, isFollowing: boolean) => void
+    getUsers: (currentPage: number, pageSize: number) => void
 }
+
 
 class UsersContainer extends React.Component<IUsersContainerPropsType> {
 
     componentDidMount(): void {
-        this.props.toggleIsFetching(true)
-        console.log('componentDidMount UsersContainer')
-        usersApi.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.setUsers(data.items);
-            this.props.setTotalCount(data.totalCount);
-            this.props.toggleIsFetching(false);
-        })
+        //used redux-thunk
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     downloadUsersPage = (currentPage: number) => {
-        this.props.changeCurrentPage(currentPage);
-        this.props.toggleIsFetching(true);
-        usersApi.getUsers(currentPage, this.props.pageSize).then(data => {
-            this.props.setUsers(data.items);
-            this.props.toggleIsFetching(false)
-        })
+        //used redux-thunk
+        this.props.getUsers(currentPage, this.props.pageSize)
     }
 
 
     render() {
         return <>
-            {this.props.isFetching ? <Preloader/> : null}
+            {this.props.isFetching
+                ? <Preloader/>
+                : null}
             <Users totalCount={this.props.totalCount}
                    pageSize={this.props.pageSize}
                    currentPage={this.props.currentPage}
@@ -92,9 +74,7 @@ const mapStateToProps = (state: IRootStateType) => {
 export default connect(mapStateToProps, {
     follow,
     unfollow,
-    setUsers,
-    changeCurrentPage,
-    setTotalCount,
     toggleIsFetching,
-    toggleFollowingUser
+    toggleFollowingUser,
+    getUsers
 })(UsersContainer);

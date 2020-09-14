@@ -1,10 +1,14 @@
+import {usersApi} from "../api/api";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {IRootStateType} from "./redux-store";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
-const TOGGLE_IS_FETCHING='TOGGLE_IS_FETCHING';
-const TOGGLE_FOLLOWING_USER='TOGGLE_FOLLOWING_USER';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+const TOGGLE_FOLLOWING_USER = 'TOGGLE_FOLLOWING_USER';
 
 type ILocationType = {
     city: string,
@@ -31,7 +35,7 @@ export type IUsersType = {
     totalCount: number,
     currentPage: number
     isFetching: boolean,
-    followingUsersInProcess:Array<number>
+    followingUsersInProcess: Array<number>
 }
 
 type IFollowActionType = {
@@ -57,13 +61,15 @@ type ISetTotalCountActionType = {
 }
 
 type IToggleIsFetchingActionType = {
-    type : typeof TOGGLE_IS_FETCHING
-    payload:{ isFetching: boolean}
+    type: typeof TOGGLE_IS_FETCHING
+    payload: { isFetching: boolean }
 }
 type IToggleFollowingUserActionType = {
-    type : typeof TOGGLE_FOLLOWING_USER
-    payload:{ userId:number,
-        isFollowing: boolean}
+    type: typeof TOGGLE_FOLLOWING_USER
+    payload: {
+        userId: number,
+        isFollowing: boolean
+    }
 }
 
 let initialState: IUsersType = {
@@ -105,12 +111,12 @@ const usersReducer = (state: IUsersType = initialState, action: IUsersACsType) =
         case TOGGLE_IS_FETCHING: {
             return {...state, ...action.payload}
         }
-        case TOGGLE_FOLLOWING_USER:{
+        case TOGGLE_FOLLOWING_USER: {
             return {
                 ...state,
                 followingUsersInProcess: action.payload.isFollowing
                     ? [...state.followingUsersInProcess, action.payload.userId]
-                    : state.followingUsersInProcess.filter((id)=>id!==action.payload.userId)
+                    : state.followingUsersInProcess.filter((id) => id !== action.payload.userId)
             }
         }
         default:
@@ -118,15 +124,18 @@ const usersReducer = (state: IUsersType = initialState, action: IUsersACsType) =
     }
 }
 
+//Action Creators
+
 export type IUsersACsType =
     IFollowActionType
     | IUnfollowActionType
     | ISetUsersActionType
     | ISetCurrentPageActionType
     | ISetTotalCountActionType
-    |IToggleIsFetchingActionType
-    |IToggleFollowingUserActionType;
-//Action Creators
+    | IToggleIsFetchingActionType
+    | IToggleFollowingUserActionType;
+
+
 export const follow = (userId: number): IFollowActionType => ({type: FOLLOW, userId});
 export const unfollow = (userId: number): IUnfollowActionType => ({type: UNFOLLOW, userId});
 export const setUsers = (items: Array<IUserType>): ISetUsersActionType => ({type: SET_USERS, items})
@@ -142,10 +151,34 @@ export const toggleIsFetching = (isFetching: boolean): IToggleIsFetchingActionTy
     type: TOGGLE_IS_FETCHING,
     payload: {isFetching}
 })
-export const toggleFollowingUser=(userId:number, isFollowing: boolean):IToggleFollowingUserActionType=>({
+export const toggleFollowingUser = (userId: number, isFollowing: boolean): IToggleFollowingUserActionType => ({
     type: TOGGLE_FOLLOWING_USER,
-    payload:{userId,isFollowing}
+    payload: {userId, isFollowing}
 })
 
+
+// reusable Thunk type
+
+export type IUsersThunkType<ReturnType = void> = ThunkAction<ReturnType,
+    IRootStateType,
+    unknown,
+    IUsersACsType>
+
+export type IThunkDispatchUsersType = ThunkDispatch<IRootStateType,
+    unknown,
+    IUsersACsType>
+
+//Thunk
+
+export const getUsers = (currentPage: number, pageSize: number): IUsersThunkType => {
+    return (dispatch: IThunkDispatchUsersType) => {
+        dispatch(toggleIsFetching(true))
+        usersApi.getUsers(currentPage, pageSize).then(data => {
+            dispatch(setUsers(data.items));
+            dispatch(setTotalCount(data.totalCount));
+            dispatch(toggleIsFetching(false));
+        })
+    }
+}
 
 export default usersReducer;
