@@ -3,7 +3,6 @@ import scss from "./Users.module.scss";
 import userPhoto from "../../assets/images/userPhoto.png";
 import {IUserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import {followApi} from "../../api/api";
 
 type IUsersPropsType = {
     items: Array<IUserType>
@@ -14,7 +13,7 @@ type IUsersPropsType = {
     unfollow: (userId: number) => void
     downloadUsersPage: (p: number) => void
     followingUsersInProcess: Array<number>
-    toggleFollowingUser: (userId: number, isFollowing: boolean) =>void
+    toggleFollowingUser: (userId: number, isFollowing: boolean) => void
 }
 
 const Users = (props: IUsersPropsType) => {
@@ -49,28 +48,10 @@ const Users = (props: IUsersPropsType) => {
                                     </NavLink>
                                 </div>
                                 {u.followed ?
-                                    <button disabled={props.followingUsersInProcess.some(id=>id===u.id)}
-                                            onClick={() => {
-                                                props.toggleFollowingUser(u.id, true);
-                                        followApi.unfollow(u.id)
-                                            .then(resultCode => {
-                                                if (resultCode === 0) {
-                                                    props.unfollow(u.id)
-                                                }
-                                                props.toggleFollowingUser(u.id, false);
-                                            })
-                                    }}>Unfollow</button>
-                                    : <button disabled={props.followingUsersInProcess.some(id=>id===u.id)}
-                                        onClick={() => {
-                                            props.toggleFollowingUser(u.id, true);
-                                        followApi.follow(u.id)
-                                            .then(resultCode => {
-                                                if (resultCode === 0) {
-                                                    props.follow(u.id)
-                                                }
-                                                props.toggleFollowingUser(u.id, false);
-                                            })
-                                    }}>Follow</button>
+                                    <button disabled={props.followingUsersInProcess.some(id => id === u.id)}
+                                            onClick={() => props.unfollow(u.id)}>Unfollow</button>
+                                    : <button disabled={props.followingUsersInProcess.some(id => id === u.id)}
+                                              onClick={() => props.follow(u.id)}>Follow</button>
                                 }
                             </div>
                             <div>
