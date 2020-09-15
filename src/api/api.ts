@@ -1,5 +1,6 @@
 import axios, {AxiosInstance} from 'axios';
 import {IUsersType} from "../redux/users-reducer";
+import {IAuthDataType, IProfileInfoType} from "../types/types";
 
 const instance: AxiosInstance = axios.create({
     withCredentials: true,
@@ -18,14 +19,30 @@ export const usersApi = {
 }
 
 export const followApi = {
-    follow(userId:number):Promise<number>{
+    followUser(userId:number):Promise<number>{
         return instance
             .post(`follow/${userId}`)
             .then(response=>response.data.resultCode)
     },
-    unfollow(userId:number):Promise<number>{
+    unfollowUser(userId:number):Promise<number>{
         return instance
             .delete(`follow/${userId}`)
             .then(response=>response.data.resultCode)
+    }
+}
+
+export const profileApi = {
+    getProfile(userId:number):Promise<IProfileInfoType>{
+        return instance
+            .get(`profile/${userId}`)
+            .then(response=>response.data)
+    }
+}
+
+export const authApi = {
+    getAuthData():Promise<IAuthDataType>{
+        return instance
+            .get(`auth/me`)
+            .then(response=>response.data)
     }
 }

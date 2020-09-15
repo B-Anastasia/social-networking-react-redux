@@ -1,6 +1,9 @@
 import {Actions, IPostType} from "./store";
 import {v1} from "uuid";
 import {IProfileInfoType} from "../types/types";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {IRootStateType} from "./redux-store";
+import {profileApi} from "../api/api";
 
 const SET_PROFILE = 'SET_PROFILE';
 
@@ -118,5 +121,25 @@ export const setProfile = (payload: IProfileInfoType): ISetProfileType => ({type
 //All ACreators union type
 export type IProfileActions = IAddNewPostType | IUpdInputValueType | ISetProfileType;
 //---------------------------
+
+//Thunks
+
+// reusable Thunk type
+
+export type IProfileThunkType<ReturnType = void> = ThunkAction<ReturnType,
+    IRootStateType,
+    unknown,
+    IProfileActions>
+
+export type IThunkDispatchProfileType = ThunkDispatch<IRootStateType,
+    unknown,
+    IProfileActions>
+
+export const setUserProfile = (userId:number):IProfileThunkType=>(dispatch:IThunkDispatchProfileType)=>{
+
+    profileApi
+        .getProfile(userId)
+        .then(response => dispatch(setProfile(response)))
+}
 
 export default profileReducer;

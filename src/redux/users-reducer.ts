@@ -1,4 +1,4 @@
-import {usersApi} from "../api/api";
+import {followApi, usersApi} from "../api/api";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {IRootStateType} from "./redux-store";
 
@@ -136,8 +136,8 @@ export type IUsersACsType =
     | IToggleFollowingUserActionType;
 
 
-export const follow = (userId: number): IFollowActionType => ({type: FOLLOW, userId});
-export const unfollow = (userId: number): IUnfollowActionType => ({type: UNFOLLOW, userId});
+export const followSuccess = (userId: number): IFollowActionType => ({type: FOLLOW, userId});
+export const unfollowSuccess = (userId: number): IUnfollowActionType => ({type: UNFOLLOW, userId});
 export const setUsers = (items: Array<IUserType>): ISetUsersActionType => ({type: SET_USERS, items})
 export const changeCurrentPage = (currentPage: number): ISetCurrentPageActionType => ({
     type: SET_CURRENT_PAGE,
@@ -177,6 +177,29 @@ export const getUsers = (currentPage: number, pageSize: number): IUsersThunkType
             dispatch(setUsers(data.items));
             dispatch(setTotalCount(data.totalCount));
             dispatch(toggleIsFetching(false));
+        })
+    }
+}
+
+export const unfollow = (userId:number):IUsersThunkType=>{
+    return (dispatch:IThunkDispatchUsersType)=> {
+        dispatch(toggleFollowingUser(userId, true));
+        followApi.unfollowUser(userId).then(resultCode => {
+            if (resultCode === 0) {
+                dispatch(unfollowSuccess(userId))
+            }
+            dispatch(toggleFollowingUser(userId, false))
+        })
+    }
+}
+export const follow = (userId:number):IUsersThunkType=>{
+    return (dispatch:IThunkDispatchUsersType)=> {
+        dispatch(toggleFollowingUser(userId, true));
+        followApi.followUser(userId).then(resultCode => {
+            if (resultCode === 0) {
+                dispatch(followSuccess(userId))
+            }
+            dispatch(toggleFollowingUser(userId, false))
         })
     }
 }

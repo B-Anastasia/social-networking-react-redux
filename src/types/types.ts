@@ -30,3 +30,9 @@ export type IAuthType = {
     login: string | null
     isAuth: boolean
 }
+
+export type IAuthDataType={
+    data: IAuthType
+    resultCode: number
+    messages:Array<string>
+}

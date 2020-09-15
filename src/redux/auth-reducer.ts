@@ -1,4 +1,7 @@
 import {IAuthType} from "../types/types";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {IRootStateType} from "./redux-store";
+import {authApi} from "../api/api";
 
 const SET_AUTH_DATA='SET_AUTH_DATA';
 
@@ -39,3 +42,26 @@ export const setAuthData= (payload:IUserAuthType):ISetAuthDataAC=>({
     type: SET_AUTH_DATA,
     payload
 })
+
+// reusable Thunk type
+
+export type IAuthThunkType<ReturnType = void> = ThunkAction<ReturnType,
+    IRootStateType,
+    unknown,
+    ICommonACType>
+
+export type IThunkDispatchAuthType = ThunkDispatch<IRootStateType,
+    unknown,
+    ICommonACType>
+
+export const setAuth = ():IAuthThunkType=>(dispatch:IThunkDispatchAuthType)=>{
+
+    authApi.getAuthData()
+        .then(response => {
+            console.log(response);
+            if (response.resultCode=== 0) {
+                const {id, email, login} = response.data;
+                dispatch(setAuthData({id, email, login}))
+            }
+        })
+}
