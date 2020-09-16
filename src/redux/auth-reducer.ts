@@ -54,11 +54,10 @@ export type IThunkDispatchAuthType = ThunkDispatch<IRootStateType,
     unknown,
     ICommonACType>
 
-export const setAuth = ():IAuthThunkType=>(dispatch:IThunkDispatchAuthType)=>{
+export const getAuth = ():IAuthThunkType=>(dispatch:IThunkDispatchAuthType)=>{
 
     authApi.getAuthData()
         .then(response => {
-            console.log(response);
             if (response.resultCode=== 0) {
                 const {id, email, login} = response.data;
                 dispatch(setAuthData({id, email, login}))

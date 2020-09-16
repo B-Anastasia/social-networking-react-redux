@@ -135,7 +135,7 @@ export type IThunkDispatchProfileType = ThunkDispatch<IRootStateType,
     unknown,
     IProfileActions>
 
-export const setUserProfile = (userId:number):IProfileThunkType=>(dispatch:IThunkDispatchProfileType)=>{
+export const getUserProfile = (userId:number):IProfileThunkType=>(dispatch:IThunkDispatchProfileType)=>{
 
     profileApi
         .getProfile(userId)

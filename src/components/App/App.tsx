@@ -7,8 +7,9 @@ import Music from "../Music";
 import Settings from "../Settings";
 import Friends from "../Friends";
 import UsersHooks from "../Users/UsersHooks";
-import ProfileWithHooks from "../Profile/ProfileWithHooks";
 import HeaderContainer from "../Header/HeaderContainer";
+import Login from "../Login/Login";
+import ProfileContainer from "../Profile/ProfileContainer";
 
 // import UsersContainer from "../Users/UsersContainer";
 
@@ -21,9 +22,10 @@ function App() {
             <div className="app-wrapper__content container">
                 <Navbar/>
                 <Friends/>
-                {/*<Route path='/profile/:userId?' component={ProfileContainer}/>*/}
-                <Route path='/profile/:userId?' component={ProfileWithHooks}/>
+                <Route path='/profile/:userId?' component={ProfileContainer}/>
+                {/*<Route path='/profile/:userId?' component={ProfileWithHooks}/>*/}
                 <Route path='/users' component={UsersHooks}/>
+                <Route path='/login' component={Login}/>
                 {/*<Route path='/users' component={UsersContainer}/>*/}
                 <Route path="/news" component={News}/>
                 <Route path="/music" component={Music}/>

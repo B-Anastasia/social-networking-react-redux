@@ -1,8 +1,8 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {setAuth} from "../../redux/auth-reducer";
 import {IRootStateType} from "../../redux/redux-store";
+import {getAuth} from "../../redux/auth-reducer";
 
 type IMapStateType={
     isAuth:boolean
@@ -10,7 +10,7 @@ type IMapStateType={
     id: number|null
 }
 type IMapDispatchType={
-    setAuth:()=>void
+    getAuth:()=>void
 }
 
 type ICommonPropsType= IMapStateType & IMapDispatchType;
@@ -18,7 +18,7 @@ type ICommonPropsType= IMapStateType & IMapDispatchType;
 class HeaderContainer extends React.Component<ICommonPropsType>{
 
     componentDidMount() {
-        this.props.setAuth();
+        this.props.getAuth();
     }
 
     render() {
@@ -33,6 +33,6 @@ let mapStateToProps=(state:IRootStateType)=>{
 }
 
 
-export  default connect<IMapStateType,IMapDispatchType,{},IRootStateType>(mapStateToProps,{setAuth})(HeaderContainer);
+export  default connect<IMapStateType,IMapDispatchType,{},IRootStateType>(mapStateToProps,{ getAuth})(HeaderContainer);
 
 

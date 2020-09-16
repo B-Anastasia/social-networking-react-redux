@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {IRootStateType} from "../../redux/redux-store";
 import {IAuthType} from "../../types/types";
-import {setAuth} from "../../redux/auth-reducer";
+import {getAuth} from "../../redux/auth-reducer";
 
 export default function HeaderWithHooks() {
 
@@ -14,7 +14,7 @@ export default function HeaderWithHooks() {
 
     useEffect(() => {
         //thunk
-        dispatch(setAuth());
+        dispatch(getAuth());
     }, [dispatch]);
 
     let login = auth.isAuth
