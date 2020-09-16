@@ -1,5 +1,5 @@
 import React from "react";
-import scss from "../Pages/Pages.module.scss";
+import scss from "../others/Pages/Pages.module.scss";
 import MyPostsContainer from "../Posts/MyPostsContainer";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import {IProfileInfoType} from "../../types/types";

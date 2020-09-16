@@ -1,15 +1,10 @@
 import React, {ChangeEvent} from "react";
-import {
-    INewMessageType,
-} from "../../../redux/store";
+import {INewMessageType,} from "../../redux/store";
 
 type INewMessagePropsType = {
     newMessageText: string
     onClickAddNewMessage: (newMessage: INewMessageType) => void
     onChangeInputValue: (newValue: string) => void
-    // store: IStoreType;
-    // dialogsPage: IDialogsPageType;
-    // dispatch: Dispatch<Actions>;
 };
 
 function NewMessage({newMessageText, onClickAddNewMessage, onChangeInputValue}: INewMessagePropsType) {

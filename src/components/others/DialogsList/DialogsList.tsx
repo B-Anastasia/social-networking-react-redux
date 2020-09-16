@@ -1,7 +1,7 @@
 import React from "react";
 import scss from "./DialogsList.module.scss";
-import DialogItem from "./DialogItem/DialogItem";
-import { IDialogType } from "../../redux/store";
+import DialogItem from "../../DialogItem/DialogItem";
+import { IDialogType } from "../../../redux/store";
 
 type IDialogsListPropsType = {
   dialogs: Array<IDialogType>;

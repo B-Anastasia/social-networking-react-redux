@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import scss from "../Pages/Pages.module.scss";
+import scss from "../others/Pages/Pages.module.scss";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import MyPostsContainer from "../Posts/MyPostsContainer";
 import {useDispatch, useSelector} from "react-redux";

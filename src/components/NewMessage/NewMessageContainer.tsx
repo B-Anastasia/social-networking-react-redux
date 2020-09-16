@@ -1,13 +1,28 @@
 import {Dispatch} from "react";
-import {
-    INewMessageType, IStateType,
-} from "../../../redux/store";
-import {
-    addNewMessageAC, IDialogsActions,
-     updateInputNewMessageAC,
-} from "../../../redux/dialogs-reducer";
+import {INewMessageType,} from "../../redux/store";
+import {addNewMessageAC, IDialogsActions, updateInputNewMessageAC,} from "../../redux/dialogs-reducer";
 import NewMessage from "./NewMessage";
 import {connect} from "react-redux";
+import {IRootStateType} from "../../redux/redux-store";
+
+let mapStateToProps = (state: IRootStateType) => ({
+    newMessageText: state.dialogsPage.newMessageText
+})
+
+let mapDispatchToProps = (dispatch: Dispatch<IDialogsActions>) => {
+    return {
+        onClickAddNewMessage: (newMessage: INewMessageType) => {
+            dispatch(addNewMessageAC(newMessage))
+        },
+        onChangeInputValue: (newValue: string) => {
+            dispatch(updateInputNewMessageAC(newValue));
+        }
+    }
+}
+
+const NewMessageContainer = connect(mapStateToProps, mapDispatchToProps)(NewMessage);
+
+export default NewMessageContainer;
 
 /*type PropsType = {
     // store: Store<CombinedState<IStateType>, Actions>;
@@ -40,22 +55,3 @@ import {connect} from "react-redux";
     )
 
 }*/
-
-let mapStateToProps=(state:IStateType)=>{
-    return{
-    newMessageText: state.dialogsPage.newMessageText
-    }
-}
-
-let mapDispatchToProps=(dispatch:Dispatch<IDialogsActions>)=>{
-    return{
-        onClickAddNewMessage: (newMessage: INewMessageType)=> {dispatch(addNewMessageAC(newMessage))},
-        onChangeInputValue:(newValue: string) => {
-            dispatch(updateInputNewMessageAC(newValue));
-        }
-    }
-}
-
-const NewMessageContainer=connect(mapStateToProps,mapDispatchToProps)(NewMessage);
-
-export default NewMessageContainer;

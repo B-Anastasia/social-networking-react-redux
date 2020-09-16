@@ -1,9 +1,9 @@
 import React from "react";
 import "./Chatbox.scss";
-import Message from "./Message";
-import NewMessageContainer from "./NewMessage/NewMessageContainer";
-import StoreContext from "../../StoreContext";
-import {IMessageType} from "../../redux/store";
+import Message from "../../Message";
+import NewMessageContainer from "../../NewMessage/NewMessageContainer";
+import StoreContext from "../../../StoreContext";
+import {IMessageType} from "../../../redux/store";
 
 type ChatboxPropsType = {
     // store: Store<CombinedState<IStateType>, Actions>;
