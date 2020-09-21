@@ -10,6 +10,7 @@ import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 import {IPathParamsType} from "./ProfileContainer";
 import {withAuth} from "../../hoc/withAuth";
+import {compose} from "redux";
 
 const ProfileWithHooks = (props: RouteComponentProps<IPathParamsType>) => {
 
@@ -18,8 +19,8 @@ const ProfileWithHooks = (props: RouteComponentProps<IPathParamsType>) => {
 
     useEffect(() => {
         let userId = props.match.params.userId;
-        if(!userId){
-            userId='2';
+        if (!userId) {
+            userId = '2';
         }
         dispatch(getUserProfile(+userId))
     }, [dispatch, props.match.params.userId])
@@ -32,4 +33,5 @@ const ProfileWithHooks = (props: RouteComponentProps<IPathParamsType>) => {
     )
 }
 
-export default withAuth(withRouter(ProfileWithHooks));
+
+export default compose<React.ComponentType>(withRouter, withAuth)(ProfileWithHooks);

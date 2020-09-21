@@ -7,7 +7,7 @@ import Preloader from "../Preloader/Preloader";
 import scss from './Users.module.scss';
 import {NavLink} from "react-router-dom";
 
-export default function UsersHooks() {
+ function UsersHooks() {
 
     let users = useSelector<IStateType, Array<IUserType>>(state => state.usersPage.items);
     let currentPage = useSelector<IStateType, number>(state => state.usersPage.currentPage)
@@ -76,3 +76,5 @@ export default function UsersHooks() {
         </div>
     )
 }
+
+export default UsersHooks;

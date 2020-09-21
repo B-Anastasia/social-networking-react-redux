@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./User.module.css";
 import {IProfileInfoType} from "../../../types/types";
 import {NavLink} from "react-router-dom";
+import ProfileStatus from "../../ProfileStatus/ProfileStatus";
 
 type IUserPropsType={
     profile:  IProfileInfoType|null
@@ -21,6 +22,7 @@ function User(props:IUserPropsType) {
         />
           </NavLink>
       </div>
+        <ProfileStatus status={'Hello friends!'}/>
       <span className={styles.user__name}>{props.profile.fullName}</span>
       <span className={styles.user__about}>{props.profile.aboutMe}</span>
       <span className={styles.user__name}>{props.profile.lookingForAJob? 'Ищу работу':'Не ищу работу'}</span>

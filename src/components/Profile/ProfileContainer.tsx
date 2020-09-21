@@ -7,6 +7,7 @@ import {IProfileInfoType} from "../../types/types";
 import {IRootStateType} from "../../redux/redux-store";
 import {withRouter} from "react-router-dom";
 import {withAuth} from "../../hoc/withAuth";
+import {compose} from "redux";
 
 type IMapStatePropsType = {
     profile: null | IProfileInfoType
@@ -45,6 +46,7 @@ let mapStateToProps = (state: IRootStateType) => ({
     profile: state.profilePage.profile,
 })
 
-const ProfileContainerWithRouter = withRouter(ProfileContainer);
-
-export default withAuth(connect<IMapStatePropsType, IMapDispatchPropsType, IPropsType, IRootStateType>(mapStateToProps, {getUserProfile})(ProfileContainerWithRouter));
+export default compose<React.ComponentType>(
+    withRouter,
+    connect<IMapStatePropsType, IMapDispatchPropsType, IPropsType, IRootStateType>(mapStateToProps, {getUserProfile}),
+    withAuth)(ProfileContainer)

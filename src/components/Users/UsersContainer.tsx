@@ -4,6 +4,7 @@ import React from "react";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
 import {IRootStateType} from "../../redux/redux-store";
+import {compose} from "redux";
 
 type IUsersContainerPropsType = {
     items: Array<IUserType>
@@ -71,10 +72,10 @@ const mapStateToProps = (state: IRootStateType) => {
     }
 }*/
 
-export default connect(mapStateToProps, {
+export default compose<React.ComponentType>(connect(mapStateToProps, {
     follow,
     unfollow,
     toggleIsFetching,
     toggleFollowingUser,
     getUsers
-})(UsersContainer);
+}))(UsersContainer);
