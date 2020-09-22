@@ -10,7 +10,7 @@ import UsersHooks from "../Users/UsersHooks";
 import HeaderContainer from "../Header/HeaderContainer";
 import Login from "../Login/Login";
 import DialogsContainer from "../Dialogs/DialogsContainer";
-import ProfileContainer from "../Profile/ProfileContainer";
+import ProfileWithHooks from "../Profile/ProfileWithHooks";
 
 // import UsersContainer from "../Users/UsersContainer";
 
@@ -23,8 +23,8 @@ function App() {
             <div className="app-wrapper__content container">
                 <Navbar/>
                 <Friends/>
-                <Route path='/profile/:userId?' component={ProfileContainer}/>
-                {/*<Route path='/profile/:userId?' component={ProfileWithHooks}/>*/}
+                {/*<Route path='/profile/:userId?' component={ProfileContainer}/>*/}
+                <Route path='/profile/:userId?' component={ProfileWithHooks}/>
                 <Route path='/users' component={UsersHooks}/>
                 <Route path='/login' component={Login}/>
                 <Route path='/dialogs' component={DialogsContainer}/>
