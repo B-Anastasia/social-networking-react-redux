@@ -5,7 +5,7 @@ import MyPostsContainer from "../Posts/MyPostsContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {IRootStateType} from "../../redux/redux-store";
 import {IProfileInfoType} from "../../types/types";
-import {getUserProfile} from "../../redux/profile-reducer";
+import {getUserProfile, updateStatus} from "../../redux/profile-reducer";
 import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 import {IPathParamsType} from "./ProfileContainer";
@@ -15,6 +15,7 @@ import {compose} from "redux";
 const ProfileWithHooks = (props: RouteComponentProps<IPathParamsType>) => {
 
     const profile = useSelector<IRootStateType, IProfileInfoType | null>((state: IRootStateType) => (state.profilePage.profile))
+    const status = useSelector<IRootStateType, string>(state => state.profilePage.status)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -27,7 +28,10 @@ const ProfileWithHooks = (props: RouteComponentProps<IPathParamsType>) => {
 
     return (
         <div className={scss.profile}>
-            <ProfileInfo profile={profile}/>
+            <ProfileInfo profile={profile}
+                         status={status}
+                         updateStatus={updateStatus}
+            />
             <MyPostsContainer/>
         </div>
     )

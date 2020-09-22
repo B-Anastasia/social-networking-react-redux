@@ -24,6 +24,8 @@ export type IProfileInfoType = {
     photos: IPhotosType
 }
 
+
+
 export type IAuthType = {
     id: number | null
     email: string | null
@@ -31,8 +33,9 @@ export type IAuthType = {
     isAuth: boolean
 }
 
-export type IAuthDataType={
-    data: IAuthType
+export type IDataType<P={}>={
+    data: P
     resultCode: number
     messages:Array<string>
 }
+

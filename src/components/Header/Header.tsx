@@ -10,7 +10,6 @@ type IHeaderPropsType={
 }
 
 function Header(props:IHeaderPropsType) {
-    console.log(props)
     let login=props.isAuth
         ?<NavLink to={'/profile/'+props.id}>{props.login}</NavLink>
         : <NavLink to={'/login'}>Login</NavLink>

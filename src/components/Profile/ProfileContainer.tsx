@@ -2,7 +2,7 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {RouteComponentProps} from "react-router";
-import {getUserProfile} from "../../redux/profile-reducer";
+import {getUserProfile, updateStatus} from "../../redux/profile-reducer";
 import {IProfileInfoType} from "../../types/types";
 import {IRootStateType} from "../../redux/redux-store";
 import {withRouter} from "react-router-dom";
@@ -11,9 +11,11 @@ import {compose} from "redux";
 
 type IMapStatePropsType = {
     profile: null | IProfileInfoType
+    status:string
 }
 type IMapDispatchPropsType = {
     getUserProfile: (userId: number) => void
+    updateStatus:(status:string)=>void
 }
 
 //type for properties that we receive from withRouter
@@ -27,26 +29,29 @@ type IPropsType = RouteComponentProps<IPathParamsType> & ICommonPropsType
 class ProfileContainer extends React.Component<IPropsType> {
 
     componentDidMount(): void {
-        console.log('componentDidMount ProfileContainer')
-        console.dir(this.props)
+        console.log('Component mounted' +this.props.status)
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = '2';
+            userId = '10913';
         }
         //thunk
         this.props.getUserProfile(+userId)
     }
 
     render(): React.ReactNode {
-        return <Profile {...this.props} profile={this.props.profile}/>;
+        return <Profile profile={this.props.profile}
+                        status={this.props.status}
+                        updateStatus={this.props.updateStatus}
+        />;
     }
 }
 
 let mapStateToProps = (state: IRootStateType) => ({
     profile: state.profilePage.profile,
+    status:state.profilePage.status,
 })
 
 export default compose<React.ComponentType>(
     withRouter,
-    connect<IMapStatePropsType, IMapDispatchPropsType, IPropsType, IRootStateType>(mapStateToProps, {getUserProfile}),
+    connect<IMapStatePropsType, IMapDispatchPropsType, IPropsType, IRootStateType>(mapStateToProps, {getUserProfile,updateStatus}),
     withAuth)(ProfileContainer)

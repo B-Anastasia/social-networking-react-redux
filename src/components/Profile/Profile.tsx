@@ -11,14 +11,18 @@ import {IProfileInfoType} from "../../types/types";
     dispatch: Dispatch<Actions>;*!/
 };*/
 type IProfilePropsType = {
-    profile: IProfileInfoType | null
+    profile: IProfileInfoType | null,
+    status:string,
+    updateStatus:(status:string)=>void
 }
 
 
 function Profile(props: IProfilePropsType) {
     return (
         <div className={scss.profile}>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile}
+                         status={props.status}
+                         updateStatus={props.updateStatus}/>
             <MyPostsContainer/>
         </div>
     );

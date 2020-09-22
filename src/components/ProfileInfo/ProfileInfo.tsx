@@ -6,7 +6,9 @@ import {IProfileInfoType} from "../../types/types";
 import Preloader from "../Preloader/Preloader";
 
 type IProfileInfoPropsType = {
-    profile: IProfileInfoType | null
+    profile: IProfileInfoType | null,
+    status:string,
+    updateStatus:(status:string)=>void
 }
 
 function ProfileInfo(props: IProfileInfoPropsType) {
@@ -18,7 +20,9 @@ function ProfileInfo(props: IProfileInfoPropsType) {
             <CoverImage/>
             <div className={""}>
                 <div className={"container"}>
-                    <User profile={props.profile}/>
+                    <User profile={props.profile}
+                          status={props.status}
+                          updateStatus={props.updateStatus}/>
                 </div>
             </div>
         </div>

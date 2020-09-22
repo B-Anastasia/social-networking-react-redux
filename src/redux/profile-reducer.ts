@@ -6,11 +6,13 @@ import {IRootStateType} from "./redux-store";
 import {profileApi} from "../api/api";
 
 const SET_PROFILE = 'SET_PROFILE';
+const SET_STATUS = 'SET_STATUS';
 
 export type IProfileInfoPageType = {
     posts: Array<IPostType>;
     profile: IProfileInfoType | null;
     newPostText: string;
+    status: string
 };
 
 let initialState: IProfileInfoPageType = {
@@ -66,6 +68,7 @@ let initialState: IProfileInfoPageType = {
         },
     ],
     newPostText: "value1",
+    status: ''
 };
 
 const profileReducer = (
@@ -91,6 +94,11 @@ const profileReducer = (
                 posts: [newPost, ...state.posts],
                 newPostText: ''
             }
+        case SET_STATUS:
+            return {
+                ...state,
+                status: action.payload
+            }
         default:
             return state;
     }
@@ -111,6 +119,10 @@ type ISetProfileType = {
     type: typeof SET_PROFILE;
     payload: IProfileInfoType;
 };
+type ISetStatusType = {
+    type: typeof SET_STATUS;
+    payload: string;
+};
 //Action creators
 export const addNewPostAC = (): IAddNewPostType => ({type: ADD_NEW_POST});
 export const updateInputValueAC = (text: string): IUpdInputValueType => ({
@@ -118,8 +130,9 @@ export const updateInputValueAC = (text: string): IUpdInputValueType => ({
     payload: text,
 });
 export const setProfile = (payload: IProfileInfoType): ISetProfileType => ({type: SET_PROFILE, payload})
+export const setStatus = (status: string): ISetStatusType => ({type: SET_STATUS, payload: status})
 //All ACreators union type
-export type IProfileActions = IAddNewPostType | IUpdInputValueType | ISetProfileType;
+export type IProfileActions = IAddNewPostType | IUpdInputValueType | ISetProfileType | ISetStatusType;
 //---------------------------
 
 //Thunks
@@ -135,11 +148,27 @@ export type IThunkDispatchProfileType = ThunkDispatch<IRootStateType,
     unknown,
     IProfileActions>
 
-export const getUserProfile = (userId:number):IProfileThunkType=>(dispatch:IThunkDispatchProfileType)=>{
+export const getUserProfile = (userId: number): IProfileThunkType => (dispatch: IThunkDispatchProfileType) => {
 
     profileApi
         .getProfile(userId)
         .then(response => dispatch(setProfile(response)))
+}
+
+export const getStatus = (userId: number): IProfileThunkType => (dispatch: IThunkDispatchProfileType) => {
+    profileApi
+        .getStatus(userId)
+        .then(response => dispatch(setStatus(response)))
+}
+
+export const updateStatus = (status: string): IProfileThunkType => (dispatch: IThunkDispatchProfileType) => {
+    profileApi
+        .updateStatus(status)
+        .then(response => {
+            if (response.resultCode === 0) {
+                dispatch(setStatus(status))
+            }
+        })
 }
 
 export default profileReducer;

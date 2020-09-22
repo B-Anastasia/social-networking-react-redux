@@ -1,6 +1,6 @@
 import axios, {AxiosInstance} from 'axios';
 import {IUsersType} from "../redux/users-reducer";
-import {IAuthDataType, IProfileInfoType} from "../types/types";
+import {IAuthType, IDataType, IProfileInfoType} from "../types/types";
 
 const instance: AxiosInstance = axios.create({
     withCredentials: true,
@@ -36,11 +36,21 @@ export const profileApi = {
         return instance
             .get(`profile/${userId}`)
             .then(response=>response.data)
+    },
+    getStatus(userId:number):Promise<string>{
+        return instance
+            .get(`profile/status/${userId}`)
+            .then(response=>response.data)
+    },
+    updateStatus(status:string):Promise<IDataType>{
+        return instance
+            .put(`profile/status`,{status})
+            .then(response=>response.data)
     }
 }
 
 export const authApi = {
-    getAuthData():Promise<IAuthDataType>{
+    getAuthData():Promise<IDataType<IAuthType>>{
         return instance
             .get(`auth/me`)
             .then(response=>response.data)
