@@ -11,6 +11,7 @@ import {RouteComponentProps} from "react-router";
 import {IPathParamsType} from "./ProfileContainer";
 import {withAuth} from "../../hoc/withAuth";
 import {compose} from "redux";
+import Preloader from "../Preloader/Preloader";
 
 const ProfileWithHooks = (props: RouteComponentProps<IPathParamsType>) => {
 
@@ -25,11 +26,14 @@ const ProfileWithHooks = (props: RouteComponentProps<IPathParamsType>) => {
         }
         dispatch(getUserProfile(+userId));
         dispatch(getStatus(+userId));
-    }, [dispatch, props.match.params.userId])
+    }, [dispatch, props.match.params.userId]);
 
     const update=useCallback((status:string)=>dispatch(updateStatus(status)),[dispatch])
-
+    if(!profile){
+        return <Preloader/>
+    }
     return (
+
         <div className={scss.profile}>
             <ProfileInfo profile={profile}
                          status={status}

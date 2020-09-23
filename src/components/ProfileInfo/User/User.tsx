@@ -5,25 +5,25 @@ import {NavLink} from "react-router-dom";
 import ProfileStatus from "../../ProfileStatus/ProfileStatus";
 
 type IUserPropsType = {
-    profile: IProfileInfoType | null,
+    profile: IProfileInfoType,
     status: string,
     updateStatus: (status: string) => void
 }
 
 function User(props: IUserPropsType) {
-    if (!props.profile) {
-        return null
-    }
+    // if (!props.profile) {
+    //     return null
+    // }
     return (
         <div className={styles.user}>
-            <div className={styles.user__img}>
+            {/*<div className={styles.user__img}>*/}
                 <NavLink to={'/profile/' + props.profile.userId}>
-                    <img
-                        src={props.profile.photos.large || props.profile.photos.small || "https://www.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg"}
-                        alt="user"
-                    />
+                    {/*<img*/}
+                    {/*    src={props.profile.photos.large || props.profile.photos.small || "https://www.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg"}*/}
+                    {/*    alt="user"*/}
+                    {/*/>*/}
                 </NavLink>
-            </div>
+            {/*</div>*/}
             <ProfileStatus status={props.status}
                            updateStatus={props.updateStatus}/>
             {/*<ProfileStatusContainer/>*/}

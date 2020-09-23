@@ -7,15 +7,15 @@ interface IWithAuthProps {
     isAuth: boolean;
 }
 
-
-
-const mapStateToProps = (state: IRootStateType):IWithAuthProps => ({isAuth: state.auth.isAuth});
+const mapStateToProps = (state: IRootStateType):IWithAuthProps => {
+   return {isAuth: state.auth.isAuth}
+}
 
 export function withAuth <T>(Component:React.ComponentType<T>) {
     class WithAuth extends React.Component<IWithAuthProps>{
         render() {
-            const { isAuth, ...props } = this.props;
-             return isAuth? <Component {...props as T}/> : <Redirect to={'/login'}/>;
+            const { isAuth, ...children } = this.props;
+             return isAuth? <Component {...children as T}/> : <Redirect to={'/login'}/>;
         }
     }
 

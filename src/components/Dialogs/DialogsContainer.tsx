@@ -14,16 +14,18 @@ type IMapDispatchDialogsPropsType = {}
 
 export type IDialogsContainerType = IMapDispatchDialogsPropsType & IMapStateDialogsPropsType
 
-class DialogsContainer extends React.Component<IDialogsContainerType> {
-
-    render() {
-        return <Dialogs {...this.props}/>
-    }
-}
+// class DialogsContainer extends React.Component<IDialogsContainerType> {
+//
+//     render() {
+//         debugger
+//         return <Dialogs {...this.props}/>
+//     }
+// }
 
 const mapStateToProps = (state: IRootStateType) => ({
     dialogs: state.dialogsPage.dialogs,
     messages: state.dialogsPage.messages,
 })
 
-export default compose<React.ComponentType>(connect<IMapStateDialogsPropsType, IMapDispatchDialogsPropsType, IDialogsContainerType, IRootStateType>(mapStateToProps, {}), withAuth)(DialogsContainer)
+export default compose<React.ComponentType>(withAuth,
+    connect<IMapStateDialogsPropsType, IMapDispatchDialogsPropsType, IDialogsContainerType, IRootStateType>(mapStateToProps, {}))(Dialogs)

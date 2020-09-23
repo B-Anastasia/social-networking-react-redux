@@ -19,14 +19,22 @@ class ProfileStatus extends React.Component<IProfileStatusPropsType, IProfileSta
         };
     }
 
+    componentDidUpdate(prevProps: Readonly<IProfileStatusPropsType>, prevState: Readonly<IProfileStatusType>, snapshot?: any) {
+        // console.log(prevProps,prevState,this.props,this.state);
+        if(prevProps.status!==this.props.status){
+            this.setState({
+                status: this.props.status
+            })
+        }
+    }
+
     activeEditMode = () => {
         this.setState({
             editMode: true
         })
     }
 
-    deactivateEditMode=()=> {
-        debugger
+    deactivateEditMode = () => {
         this.setState({
             editMode: false
         })
@@ -40,7 +48,6 @@ class ProfileStatus extends React.Component<IProfileStatusPropsType, IProfileSta
     }
 
     render() {
-        console.log(this.props)
         return !this.state.editMode
             ? <span onDoubleClick={this.activeEditMode}>{this.props.status || '----------'}</span>
             : <input autoFocus onChange={this.onChangeStatus} onBlur={this.deactivateEditMode}

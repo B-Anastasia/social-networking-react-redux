@@ -26,11 +26,11 @@ class HeaderContainer extends React.Component<ICommonPropsType>{
     }
 }
 
-let mapStateToProps=(state:IRootStateType)=>{
-    return {id: state.auth.id,
+let mapStateToProps=(state:IRootStateType)=>({
+    id: state.auth.id,
     isAuth: state.auth.isAuth,
-    login:state.auth.login}
-}
+    login:state.auth.login,
+})
 
 
 export  default connect<IMapStateType,IMapDispatchType,{},IRootStateType>(mapStateToProps,{ getAuth})(HeaderContainer);

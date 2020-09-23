@@ -3,6 +3,7 @@ import scss from "../others/Pages/Pages.module.scss";
 import MyPostsContainer from "../Posts/MyPostsContainer";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import {IProfileInfoType} from "../../types/types";
+import Preloader from "../Preloader/Preloader";
 
 /*type IProfilePagePropsType = {
   // store: Store<CombinedState<IStateType>, Actions>;
@@ -18,6 +19,9 @@ type IProfilePropsType = {
 
 
 function Profile(props: IProfilePropsType) {
+    if(!props.profile){
+        return <Preloader/>
+    }
     return (
         <div className={scss.profile}>
             <ProfileInfo profile={props.profile}
