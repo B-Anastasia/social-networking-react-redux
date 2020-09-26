@@ -1,10 +1,9 @@
-import {Actions, IDialogType, IMessageType, INewMessageType} from "./store";
+import {Actions, IDialogType, IMessageType} from "./store";
 import {v1} from "uuid";
 
 export type IDialogsPageType = {
     dialogs: Array<IDialogType>;
     messages: Array<IMessageType>;
-    newMessageText: string;
 };
 
 let initialState: IDialogsPageType = {
@@ -110,7 +109,6 @@ let initialState: IDialogsPageType = {
             time: "11:00",
         },
     ],
-    newMessageText: "",
 };
 
 const dialogsReducer = (
@@ -118,21 +116,13 @@ const dialogsReducer = (
     action: Actions
 ): IDialogsPageType => {
     switch (action.type) {
-        case "UPDATE_INPUT_NEW_MESSAGE":
-            return {...state,newMessageText:action.payload};
         case "ADD_NEW_MESSAGE":
-            const {
-                text,
-                name,
-                imgUrl = "https://image.freepik.com/free-vector/woman-girl-female-cartoon-avatar-icon_25030-13349.jpg",
-                img_name = "Avatar",
-            } = action.payload;
             const newMessage = {
                 id: v1(),
-                text,
-                name,
-                img: imgUrl,
-                img_name,
+                text:action.payload,
+                name:'Alisa',
+                img: "https://image.freepik.com/free-vector/woman-girl-female-cartoon-avatar-icon_25030-13349.jpg",
+                img_name:"Avatar",
                 time: `${new Date().getHours()}:${new Date().getMinutes()}`,
             };
             return {...state, messages:[...state.messages,newMessage]};
@@ -141,32 +131,20 @@ const dialogsReducer = (
     }
 };
 
-const UPDATE_INPUT_NEW_MESSAGE = "UPDATE_INPUT_NEW_MESSAGE";
 const ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE";
 
 //Actions Types
 type IAddNewMessageType = {
     type: typeof ADD_NEW_MESSAGE;
-    payload: INewMessageType;
-};
-type IUpdInputMessage = {
-    type: typeof UPDATE_INPUT_NEW_MESSAGE;
     payload: string;
 };
 //Action creators
 export const addNewMessageAC = (
-    newMessage: INewMessageType
-): IAddNewMessageType => ({type: ADD_NEW_MESSAGE, payload: newMessage});
-
-export const updateInputNewMessageAC = (text: string): IUpdInputMessage =>{
-    return {
-        type: UPDATE_INPUT_NEW_MESSAGE,
-        payload: text,
-    }
-};
+    newMessageBody: string
+): IAddNewMessageType => ({type: ADD_NEW_MESSAGE, payload: newMessageBody});
 
 //All ACreators union type
-export type IDialogsActions = IAddNewMessageType | IUpdInputMessage;
+export type IDialogsActions = IAddNewMessageType;
 //---------------------------
 
 export default dialogsReducer;
