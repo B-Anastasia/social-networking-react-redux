@@ -20,4 +20,29 @@ display: grid;
     grid-row: 2/3;
 }
 
+.user_sm {
+}
+
+.user {
+    padding-top: 10px;
+    max-width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 2;
+}
+.user__img {
+    height: 50px;
+    width: 50px;
+}
+.user__img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+}
+
+.user__name {
+}
+
 

@@ -1,12 +1,8 @@
 import {Dispatch} from "react";
-import {
-    addNewPostAC,
-    IProfileActions,
-    updateInputValueAC
-} from "../../redux/profile-reducer";
+import {addNewPostAC, IProfileActions, updateInputValueAC} from "../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {IStateType} from "../../redux/store";
+import {IRootStateType} from "../../redux/redux-store";
 
 /*type PropsTypes = {
     // store: Store<CombinedState<IStateType>, Actions>;
@@ -42,7 +38,9 @@ function MyPostsContainer() {
         </StoreContext.Consumer>
     )
 }*/
-const mapStateToProps=(state:IStateType)=>({profilePage:state.profilePage, newPostText:state.profilePage.newPostText});
+const mapStateToProps=(state:IRootStateType)=>({profilePage:state.profilePage,
+    status:state.profilePage.status,
+    newPostText:state.profilePage.newPostText});
 const mapDispatchToProps=(dispatch:Dispatch<IProfileActions>)=>{
     return {
         onChangeInputValue:(newValue:string)=>dispatch(updateInputValueAC(newValue)),

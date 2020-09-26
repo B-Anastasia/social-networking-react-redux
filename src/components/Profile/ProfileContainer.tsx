@@ -2,7 +2,7 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {RouteComponentProps} from "react-router";
-import {getStatus, getUserProfile, updateStatus} from "../../redux/profile-reducer";
+import {getStatus, getUserProfile, IProfileInfoPageType, updateStatus} from "../../redux/profile-reducer";
 import {IProfileInfoType} from "../../types/types";
 import {IRootStateType} from "../../redux/redux-store";
 import {withRouter} from "react-router-dom";
@@ -12,6 +12,7 @@ import {compose} from "redux";
 type IMapStatePropsType = {
     profile: null | IProfileInfoType
     status: string
+    profilePage: IProfileInfoPageType|null
 }
 type IMapDispatchPropsType = {
     getUserProfile: (userId: number) => void
@@ -40,7 +41,8 @@ class ProfileContainer extends React.Component<IPropsType> {
     }
 
     render(): React.ReactNode {
-        return <Profile profile={this.props.profile}
+        return <Profile profilePage={this.props.profilePage}
+            profile={this.props.profile}
                         status={this.props.status}
                         updateStatus={this.props.updateStatus}
         />;
@@ -49,6 +51,7 @@ class ProfileContainer extends React.Component<IPropsType> {
 
 let mapStateToProps = (state: IRootStateType) => ({
     profile: state.profilePage.profile,
+    profilePage: state.profilePage,
     status: state.profilePage.status,
 })
 

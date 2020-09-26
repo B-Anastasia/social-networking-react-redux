@@ -15,13 +15,13 @@ export type IPhotosType = {
 }
 
 export type IProfileInfoType = {
-    aboutMe: string
+    aboutMe?: string
     userId: number | string
-    lookingForAJob: boolean
-    lookingForAJobDescription: string | null
+    lookingForAJob?: boolean
+    lookingForAJobDescription?: string | null
     fullName: string | null
-    contacts: IContactsType
-    photos: IPhotosType
+    contacts?: IContactsType
+    photos?: IPhotosType
 }
 
 

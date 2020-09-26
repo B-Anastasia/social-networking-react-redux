@@ -234,7 +234,7 @@ export type IStateType = {
 export type IFriendType = {
   id: string;
   name: string;
-  src: string;
+  src?: string;
 };
 
 export type ISidebarType = {
