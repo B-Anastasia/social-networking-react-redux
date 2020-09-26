@@ -5,12 +5,16 @@ import Dialogs from "./Dialogs";
 import {IDialogType, IMessageType} from "../../redux/store";
 import {withAuth} from "../../hoc/withAuth";
 import {compose} from "redux";
+import {addNewMessageAC} from "../../redux/dialogs-reducer";
 
 type IMapStateDialogsPropsType = {
     dialogs: Array<IDialogType>;
     messages: Array<IMessageType>;
 }
-type IMapDispatchDialogsPropsType = {}
+type IMapDispatchDialogsPropsType = {
+    addNewMessageAC: (newMessage: string) => void
+}
+
 
 export type IDialogsContainerType = IMapDispatchDialogsPropsType & IMapStateDialogsPropsType
 
@@ -28,4 +32,4 @@ const mapStateToProps = (state: IRootStateType) => ({
 })
 
 export default compose<React.ComponentType>(withAuth,
-    connect<IMapStateDialogsPropsType, IMapDispatchDialogsPropsType, IDialogsContainerType, IRootStateType>(mapStateToProps, {}))(Dialogs)
+    connect<IMapStateDialogsPropsType, IMapDispatchDialogsPropsType, IDialogsContainerType, IRootStateType>(mapStateToProps, {addNewMessageAC}))(Dialogs)

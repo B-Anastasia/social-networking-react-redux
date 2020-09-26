@@ -1,6 +1,5 @@
 import React from "react";
 import scss from "./Pages.module.scss";
-import Chatbox from "../Chatbox";
 import StoreContext from "../../../StoreContext";
 import DialogsList from "../DialogsList";
 
@@ -19,7 +18,6 @@ function DialogsPage() {
                         <div className={scss.dialogs__list}>
                             <DialogsList dialogs={store.getState().dialogsPage.dialogs}/>
                         </div>
-                        <Chatbox/>
                     </div>
                 );
             }}

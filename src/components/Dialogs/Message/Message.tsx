@@ -1,7 +1,7 @@
 import React from "react";
 import "./Message.scss";
-import Avatar from "../Avatar";
-import { IMessageType } from "../../redux/store";
+import Avatar from "../../Avatar";
+import { IMessageType } from "../../../redux/store";
 
 interface MessagePropsType {
   message: IMessageType;
