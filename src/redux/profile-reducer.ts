@@ -4,6 +4,7 @@ import {IProfileInfoType} from "../types/types";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {IRootStateType} from "./redux-store";
 import {profileApi} from "../api/api";
+import {IFieldsPostType} from "../components/Posts/MyPosts";
 
 const SET_PROFILE = 'SET_PROFILE';
 const SET_STATUS = 'SET_STATUS';
@@ -11,7 +12,7 @@ const SET_STATUS = 'SET_STATUS';
 export type IProfileInfoPageType = {
     posts: Array<IPostType>;
     profile: IProfileInfoType | null;
-    newPostText: string;
+    // newPostText: string;
     status: string
 };
 
@@ -67,7 +68,7 @@ let initialState: IProfileInfoPageType = {
             count: 20,
         },
     ],
-    newPostText: "value1",
+    // newPostText: "value1",
     status: ''
 };
 
@@ -76,8 +77,8 @@ const profileReducer = (
     action: Actions
 ): IProfileInfoPageType => {
     switch (action.type) {
-        case "UPDATE_INPUT_VALUE":
-            return {...state, newPostText: action.payload};
+        // case "UPDATE_INPUT_VALUE":
+        //     return {...state, newPostText: action.payload};
         case "SET_PROFILE":
             return {
                 ...state,
@@ -86,13 +87,12 @@ const profileReducer = (
         case "ADD_NEW_POST":
             const newPost: IPostType = {
                 id: v1(),
-                text: state.newPostText,
+                text: action.payload.newPostText,
                 count: 0,
             };
             return {
                 ...state,
                 posts: [newPost, ...state.posts],
-                newPostText: ''
             }
         case SET_STATUS:
             return {
@@ -109,7 +109,8 @@ const UPDATE_INPUT_VALUE = "UPDATE_INPUT_VALUE";
 
 //Actions Types
 type IAddNewPostType = {
-    type: typeof ADD_NEW_POST;
+    type: typeof ADD_NEW_POST
+    payload:IFieldsPostType
 };
 type IUpdInputValueType = {
     type: typeof UPDATE_INPUT_VALUE;
@@ -124,7 +125,7 @@ type ISetStatusType = {
     payload: string;
 };
 //Action creators
-export const addNewPostAC = (): IAddNewPostType => ({type: ADD_NEW_POST});
+export const addNewPostAC = (payload:IFieldsPostType): IAddNewPostType => ({type: ADD_NEW_POST,payload});
 export const updateInputValueAC = (text: string): IUpdInputValueType => ({
     type: UPDATE_INPUT_VALUE,
     payload: text,

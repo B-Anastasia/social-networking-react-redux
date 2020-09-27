@@ -13,14 +13,14 @@ const LoginForm:React.FC<InjectedFormProps<IFieldsType> & IOwnProps>= (props) =>
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={'input'} type="text" placeholder={'Login'} name={'loginName'}/>
+                <Field component={'input'} placeholder={'Login'} name={'loginName'}/>
             </div>
             <div>
-                <Field component={'input'} type="text" placeholder={'Password'} name={'password'}/>
+                <Field component={'input'} placeholder={'Password'} name={'password'}/>
             </div>
             <div>
                 <label>
-                    <Field component={'input'} type='checkbox' name={'remember'}/>
+                    <Field component={'checkbox'} name={'remember'}/>
                     remember me
                 </label>
             </div>

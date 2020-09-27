@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect} from "react";
 import scss from "../others/Pages/Pages.module.scss";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
-import MyPostsContainer from "../Posts/MyPostsContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {IRootStateType} from "../../redux/redux-store";
 import {IProfileInfoType} from "../../types/types";
@@ -39,7 +38,7 @@ const ProfileWithHooks = (props: RouteComponentProps<IPathParamsType>) => {
                          status={status}
                          updateStatus={update}
             />
-            <MyPostsContainer/>
+            {/*<MyPostsContainer/>*/}
         </div>
     )
 }

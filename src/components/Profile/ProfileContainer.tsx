@@ -2,12 +2,13 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {RouteComponentProps} from "react-router";
-import {getStatus, getUserProfile, IProfileInfoPageType, updateStatus} from "../../redux/profile-reducer";
+import {addNewPostAC, getStatus, getUserProfile, IProfileInfoPageType, updateStatus} from "../../redux/profile-reducer";
 import {IProfileInfoType} from "../../types/types";
 import {IRootStateType} from "../../redux/redux-store";
 import {withRouter} from "react-router-dom";
 // import {withAuth} from "../../hoc/withAuth";
 import {compose} from "redux";
+import {IFieldsPostType} from "../Posts/MyPosts";
 
 type IMapStatePropsType = {
     profile: null | IProfileInfoType
@@ -18,6 +19,7 @@ type IMapDispatchPropsType = {
     getUserProfile: (userId: number) => void
     updateStatus: (status: string) => void
     getStatus: (status: number) => void
+    addNewPostAC: (dataForm:IFieldsPostType)=>void
 }
 
 //type for properties that we receive from withRouter
@@ -45,6 +47,7 @@ class ProfileContainer extends React.Component<IPropsType> {
             profile={this.props.profile}
                         status={this.props.status}
                         updateStatus={this.props.updateStatus}
+                        addNewPostAC={this.props.addNewPostAC}
         />;
     }
 }
@@ -58,7 +61,8 @@ let mapStateToProps = (state: IRootStateType) => ({
 export default compose<React.ComponentType>(connect<IMapStatePropsType, IMapDispatchPropsType, IPropsType, IRootStateType>(mapStateToProps, {
         getUserProfile,
         updateStatus,
-        getStatus
+        getStatus,
+        addNewPostAC
     }),
     withRouter,
     )(ProfileContainer)

@@ -3,55 +3,58 @@ import {IPostType} from "../../redux/store";
 import styles from "./MyPosts.module.scss";
 import Post from "./Post";
 import {IProfileInfoPageType} from "../../redux/profile-reducer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 type PropsTypes = {
-  profilePage: IProfileInfoPageType|null;
-  // newPostText: string;
-  // onClickAddPost: () => void;
-  // onChangeInputValue: (newValue: string) => void;
-  // store: Store<CombinedState<IStateType>, Actions>;
+    profilePage: IProfileInfoPageType | null;
+    addNewPostAC: (dataForm:IFieldsPostType)=>void
 };
 
 function MyPosts(props: PropsTypes) {
-  const {
-    profilePage,
-    // onChangeInputValue,
-    // newPostText,
-    // onClickAddPost,
-  } = props;
+    const {
+        profilePage,
+    } = props;
 
-  const postsList =profilePage!==null && profilePage.posts!==null && profilePage.posts.map((p: IPostType) => (
-    <Post key={p.id} message={p.text} count={p.count} profile={profilePage.profile} />
-  ));
+    const postsList = profilePage !== null
+        && profilePage.posts !== null
+        && profilePage.posts.map((p: IPostType) => (
+            <Post key={p.id} message={p.text} count={p.count} profile={profilePage.profile}/>
+        ));
 
-  let newPost = React.createRef<HTMLTextAreaElement>();
+    const onSubmitPost = (dataForm: IFieldsPostType) => {
+        props.addNewPostAC(dataForm)
+    }
 
-  const onClickAddPostHandler = () => {
-    // onClickAddPost();
-    // onChangeInputValue('');
-  };
-
-  const onChangeInputValueHandler = () => {
-    // if (newPost.current) {
-    //   let newValue = newPost.current.value;
-    //   onChangeInputValue(newValue);
-    // }
-  };
-
-  return (
-    <div>
-      <div className={"header"}>My posts</div>
-      <div className={styles.post}>
-        <textarea
-          ref={newPost}
-          onChange={onChangeInputValueHandler}
-          placeholder={"New"}
-        />
-        <button onClick={onClickAddPostHandler}>Add</button>
-      </div>
-      <div className={styles.posts}>{postsList}</div>
-    </div>
-  );
+    return (
+        <div>
+            <div className={"header"}>My posts</div>
+            <div className={styles.post}>
+                <PostReduxForm onSubmit={onSubmitPost}/>
+            </div>
+            <div className={styles.posts}>{postsList}</div>
+        </div>
+    );
 }
 
 export default MyPosts;
+
+
+export type IFieldsPostType = {
+    newPostText: string
+}
+type IOwnProps = {}
+
+const PostForm: React.FC<InjectedFormProps<IFieldsPostType> & IOwnProps> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field component={'textarea'} placeholder={'Post'} name={'newPostText'}/>
+            <button>Send post</button>
+        </form>
+    )
+}
+
+
+const PostReduxForm = reduxForm<IFieldsPostType, IOwnProps>({
+    form: 'post'
+})(PostForm)
+
