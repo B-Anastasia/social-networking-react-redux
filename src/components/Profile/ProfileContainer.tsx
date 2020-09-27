@@ -13,13 +13,13 @@ import {IFieldsPostType} from "../Posts/MyPosts";
 type IMapStatePropsType = {
     profile: null | IProfileInfoType
     status: string
-    profilePage: IProfileInfoPageType|null
+    profilePage: IProfileInfoPageType | null
 }
 type IMapDispatchPropsType = {
     getUserProfile: (userId: number) => void
     updateStatus: (status: string) => void
     getStatus: (status: number) => void
-    addNewPostAC: (dataForm:IFieldsPostType)=>void
+    addNewPostAC: (dataForm: IFieldsPostType) => void
 }
 
 //type for properties that we receive from withRouter
@@ -44,7 +44,7 @@ class ProfileContainer extends React.Component<IPropsType> {
 
     render(): React.ReactNode {
         return <Profile profilePage={this.props.profilePage}
-            profile={this.props.profile}
+                        profile={this.props.profile}
                         status={this.props.status}
                         updateStatus={this.props.updateStatus}
                         addNewPostAC={this.props.addNewPostAC}
@@ -65,4 +65,4 @@ export default compose<React.ComponentType>(connect<IMapStatePropsType, IMapDisp
         addNewPostAC
     }),
     withRouter,
-    )(ProfileContainer)
+)(ProfileContainer)

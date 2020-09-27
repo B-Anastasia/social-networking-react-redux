@@ -12,34 +12,23 @@ type IProfilePropsType = {
     status: string,
     updateStatus: (status: string) => void
     profilePage: IProfileInfoPageType | null
-    addNewPostAC: (dataForm:IFieldsPostType)=>void
+    addNewPostAC: (dataForm: IFieldsPostType) => void
 }
 
 
 function Profile(props: IProfilePropsType) {
-    const {profile, profilePage, status, updateStatus,addNewPostAC}=props
+    const {profile, profilePage, status, updateStatus, addNewPostAC} = props
+
     if (!profile) {
         return <Preloader/>
     }
-    // const postsList = profilePage && profilePage.posts !== null && profilePage.posts.map((p: IPostType) => (
-    //     // <Post key={p.id} message={p.text} count={p.count} profile={props.profile}/>
-    // <div className={styles.post}>
-    //     <div className={styles.post__user}>
-    //         {profilePage.profile!==null && <UserPost profile={profilePage.profile} />}
-    //     </div>
-    //     <div className={`${styles.post__content} block`}>{p.text}</div>
-    //     <div className={styles.post__like}>
-    //         <span>Like {p.count}</span>
-    //     </div>
-    // </div>
-    // ));
+
     return (
         <div className={scss.profile}>
             <ProfileInfo profile={profile}
                          status={status}
                          updateStatus={updateStatus}/>
             <MyPosts profilePage={profilePage} addNewPostAC={addNewPostAC}/>
-            {/*<MyPostsContainer/>*/}
         </div>
     );
 }

@@ -1,5 +1,7 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Textarea} from "../common/forms/Forms";
+import {maxLength, required} from "../../utils/validator";
 
 type INewMessagePropsType = {
     onClickAddNewMessage: (newMessageBody: string) => void
@@ -8,6 +10,8 @@ type IFieldsType = {
     newMessageBody: string
 }
 type IOwnProps = {}
+
+const lengthMax=maxLength(25);
 
 function NewMessage(props: INewMessagePropsType) {
     const {onClickAddNewMessage} = props;
@@ -26,7 +30,11 @@ function NewMessage(props: INewMessagePropsType) {
 const AddMessageForm: React.FC<InjectedFormProps<IFieldsType> & IOwnProps> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field component={'textarea'} name={'newMessageBody'} placeholder={"New message text"}/>
+            <Field component={Textarea}
+                   name={'newMessageBody'}
+                   placeholder={"New message text"}
+                   validate={[required,lengthMax]}
+            />
             <button>Send</button>
         </form>
     )

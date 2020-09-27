@@ -4,11 +4,15 @@ import styles from "./MyPosts.module.scss";
 import Post from "./Post";
 import {IProfileInfoPageType} from "../../redux/profile-reducer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLength, required} from "../../utils/validator";
+import {Textarea} from "../common/forms/Forms";
 
 type PropsTypes = {
     profilePage: IProfileInfoPageType | null;
     addNewPostAC: (dataForm:IFieldsPostType)=>void
 };
+
+const lengthMax=maxLength(10);
 
 function MyPosts(props: PropsTypes) {
     const {
@@ -47,7 +51,11 @@ type IOwnProps = {}
 const PostForm: React.FC<InjectedFormProps<IFieldsPostType> & IOwnProps> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field component={'textarea'} placeholder={'Post'} name={'newPostText'}/>
+            <Field component={Textarea}
+                   placeholder={'Post'}
+                   name={'newPostText'}
+                   validate={[required,lengthMax]}
+            />
             <button>Send post</button>
         </form>
     )
